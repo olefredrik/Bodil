@@ -1,0 +1,28 @@
+# Sensitive stamdata og innsendingsfiler holdes utenfor git.
+# Regelen speiler Wenche: fødselsnummer og nøkler skal aldri i historikken.
+
+# Stamdata med fødselsnummer
+selskap.yaml
+
+# Wenche-input med fødselsnummer
+*/config.yaml
+
+# Nøkler og hemmeligheter
+*.pem
+.env
+
+# Bilag (kvitteringer, avtaler, verdioversikter) oppbevares lokalt, ikke i git
+*/bilag/*
+!*/bilag/.gitkeep
+
+# Bankeksport ignoreres som standard av personvernhensyn.
+# Vil du ha full kilde-i-git (reproduserbarhet), fjern linjen under.
+*/bankeksport.csv
+
+# Internt overleveringsnotat, ikke del av repoet
+STATUS.md
+
+# Eksempelfiler skal alltid med
+!*.example.yaml
+!*.example.csv
+!bankeksport.example.csv

@@ -1,0 +1,40 @@
+# Stamdata for selskapet. Kopier denne til selskap.yaml og fyll inn.
+# selskap.yaml skal IKKE i git (inneholder fødselsnummer), se .gitignore.
+#
+# Dette er opplysninger som er like fra år til år. Tallene for det enkelte
+# regnskapsåret kommer fra bankeksporten og havner i <år>/regnskap.md.
+
+selskap:
+  navn: "Eksempel Holding AS"
+  org_nummer: "123456789"            # 9 siffer uten mellomrom
+  daglig_leder: "Kari Nordmann"
+  styreleder: "Kari Nordmann"        # Kan være samme person
+  forretningsadresse: "Eksempelgata 1, 0001 Oslo"
+  stiftelsesaar: 2022
+  aksjekapital: 30000                # NOK, fra stiftelsesdokumentene
+
+# Aksjonærer per 31.12. Fødselsnummer brukes av Skatteetaten til å
+# forhåndsutfylle aksjonærenes skattemelding.
+aksjonaerer:
+  - navn: "Kari Nordmann"
+    fodselsnummer: "01010112345"     # 11 siffer
+    antall_aksjer: 1000
+    aksjeklasse: "ordinære"
+    innbetalt_kapital_per_aksje: 30  # aksjekapital / antall aksjer = 30000 / 1000
+
+# Åpningsbalanse: utgående balanse fra forrige år. For det aller første
+# regnskapsåret er dette stiftelsesbalansen (typisk bare aksjekapital som
+# bankinnskudd). Fra år to leses dette automatisk fra fjorårets regnskap.md.
+aapningsbalanse:
+  bankinnskudd: 30000                # Saldo 01.01
+  annen_egenkapital: 0               # Akkumulert resultat fra tidligere år (negativ = underskudd)
+  laan_fra_aksjonaer: 50000          # Utestående lån fra eier ved årets start
+                                     # (her: brukt til å finansiere eierposten under)
+
+# Eierposter i andre selskap, ført til kostpris (finansielle anleggsmidler).
+# Endres bare når du kjøper eller selger.
+eierposter:
+  - selskap: "Fjordheim Teknologi AS"
+    org_nummer: "987654321"
+    eierandel_prosent: 25
+    kostpris: 50000
