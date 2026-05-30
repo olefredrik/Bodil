@@ -1,6 +1,6 @@
 ---
 name: release
-description: Publiser en ny versjon av Bodil-verktøyet. Verifiserer at vi er på main med siste endringer, at Wenche-kompatibilitetslinjen i CHANGELOG matcher den pinnede versjonen i CI, oppdaterer CHANGELOG, og presenterer kommandoene for å tagge og lage en GitHub Release. Ingen PyPI. Bruk etter at en PR er merget til main.
+description: Publiser en ny versjon av Bodil-verktøyet. Verifiserer kompatibilitet mot Wenche, henter release-noten automatisk fra CHANGELOG, og tagger + oppretter GitHub Release etter én bekreftelse. Håndterer CHANGELOG-bump via PR når rulesettet krever det. Ingen PyPI. Bruk etter at en PR er merget til main.
 ---
 
 # /release — Publiser ny versjon av Bodil
@@ -9,70 +9,89 @@ Bodil distribueres ikke som en pakke; en release er en **git-tag + GitHub Releas
 som markerer en verifisert tilstand av verktøyet (skills + kompatibilitet med en
 gitt Wenche-versjon). Taggen *er* versjonen, det finnes ingen versjonsfil.
 
-Følg stegene i rekkefølge. Du **tagger ikke selv** og lager ikke release-en
-automatisk; du presenterer kommandoene brukeren kjører.
+Du **utfører** tagging og release selv (via `git` og `gh`), men tag + release er
+utadrettet på et offentlig repo, så du gjør det først **etter én eksplisitt
+bekreftelse** der du viser hva som publiseres. Aldri uten den bekreftelsen.
 
 ## 1. Forutsetninger
 
-- Kjør `git branch --show-current`. Release skjer fra `main`. Står du på en
-  feature-branch: stopp og be brukeren merge PR-en først.
-- Kjør `git fetch && git status`. Bekreft at main er à jour med `origin/main`
-  og at arbeidstreet er rent. Er det umergede endringer: stopp og avklar.
+- `git branch --show-current`. Release skjer fra `main`. Bytt til main og
+  `git pull` hvis du står på en feature-branch (PR-en skal være merget først).
+- `git fetch && git status`. Bekreft at main er à jour med `origin/main` og at
+  arbeidstreet er rent. Er det umergede endringer: stopp og avklar.
 
 ## 2. Bestem versjonsnummeret
 
-Les `## [Ikke utgitt]` i `CHANGELOG.md` og avgjør bump etter SemVer slik den er
-definert øverst i CHANGELOG:
+Dette er det eneste steget som alltid krever brukeren: versjonsnummeret er en
+skjønnsvurdering. Les `## [Ikke utgitt]` i `CHANGELOG.md`, foreslå bump og
+begrunn kort. La brukeren bekrefte før du går videre.
 
 - **MAJOR** — den låste bokføringsmodellen endret seg, eller Wenche-kompatibilitet brytes
 - **MINOR** — ny skill, ny håndtert hendelse, eller støtte for en ny Wenche-versjon
 - **PATCH** — ordlyd, dokumentasjon, feilretting
 
-Foreslå versjonsnummeret og begrunn bumpen kort. La brukeren bekrefte før du går videre.
-
 > Mens avviket om rentebærende aksjonærlån er uavklart, hold deg på `0.x`.
 
 ## 3. Verifiser Wenche-kompatibilitet
 
-Dette er kjernen i en Bodil-release. Sjekk at påstanden om kompatibilitet faktisk stemmer:
+Kjernen i en Bodil-release. En release uten grønn kompatibilitetstest er ikke gyldig.
 
-- Les `env.WENCHE_PINNET` i `.github/workflows/wenche-kompatibilitet.yml`.
-- Les «Testet mot Wenche ≥ …»-linjen i `CHANGELOG.md`.
-- **De to må matche.** Gjør de ikke det, stopp og avklar hvilken som er riktig før release.
-- Kjør kompatibilitetstesten lokalt hvis Wenche er installert:
-  `wenche valider-aarsregnskap --config tests/fixtures/config.golden.yaml` og
-  `python tests/check_field_names.py`. Begge må gi exit 0.
+- Les `env.WENCHE_PINNET` i `.github/workflows/wenche-kompatibilitet.yml` og
+  «Testet mot Wenche ≥ …»-linjen i `CHANGELOG.md`. **De må matche**, ellers stopp.
+- Kjør lokalt hvis Wenche er installert; begge må gi exit 0:
+  - `wenche valider-aarsregnskap --config tests/fixtures/config.golden.yaml`
+  - `python tests/check_field_names.py`
 
-## 4. Oppdater CHANGELOG
+## 4. Sørg for at CHANGELOG navngir versjonen
 
-- Gi `## [Ikke utgitt]`-seksjonen det nye versjonsnummeret og legg til en ny, tom
-  `## [Ikke utgitt]` over.
-- Oppdater lenkene nederst (`compare`-lenken og en ny `releases/tag`-lenke).
-- Bekreft at versjonsseksjonen oppgir hvilken Wenche-versjon den er testet mot.
-- Commit dette med Conventional Commits, f.eks. `docs: klargjør CHANGELOG for vX.Y.Z`,
-  og push til main (eller via PR hvis ruleset krever det).
+Release-noten hentes automatisk fra CHANGELOG-seksjonen for versjonen, så den må
+finnes som `## [X.Y.Z]` før du tagger.
 
-## 5. Presenter tag- og release-kommandoene
+- **Navngir CHANGELOG allerede `## [X.Y.Z]`** (intet uutgitt innhold igjen):
+  ingenting å gjøre, gå videre.
+- **Ligger innholdet fortsatt under `## [Ikke utgitt]`:** det må navngis i en
+  PR, fordi rulesettet krever PR til main. Lag en release-prep-PR:
+  1. Ny branch, f.eks. `release/vX.Y.Z`.
+  2. Gi `## [Ikke utgitt]` versjonsnummeret, legg til en ny tom `## [Ikke utgitt]`
+     over, oppdater `compare`-lenken og legg til en `releases/tag`-lenke nederst.
+  3. Bekreft at seksjonen har «Testet mot Wenche ≥ …»-linjen.
+  4. Commit (`docs: klargjør CHANGELOG for vX.Y.Z`), push, og **stopp her** med
+     PR-tittel/beskrivelse til brukeren. Be brukeren merge og kjøre `/release`
+     på nytt. Du kan ikke tagge før navngivingen er på main.
 
-Gi brukeren kommandoene å kjøre selv. Inkluder alltid checkout og pull først, så
-taggen settes på riktig commit:
+## 5. Bekreft og publiser
+
+Når CHANGELOG navngir versjonen på main, hent noten og vis et sammendrag:
+
+```bash
+# Hent release-noten for X.Y.Z fra CHANGELOG (stopper ved neste seksjon/lenkeblokk)
+awk '/^## \[X\.Y\.Z\]/{f=1; next} f&&(/^## \[/||/^\[.*\]:/){exit} f{print}' CHANGELOG.md
+```
+
+Vis brukeren: versjonsnummer, hvilken commit taggen settes på (`git log -1 --oneline`),
+noten over, og at release-en blir **offentlig**. Spør om å gå videre.
+
+Etter ja:
 
 ```bash
 git checkout main && git pull
-git tag vX.Y.Z && git push origin vX.Y.Z
-gh release create vX.Y.Z --title "vX.Y.Z" --notes-file <(sed -n '/## \[X.Y.Z\]/,/## \[/p' CHANGELOG.md)
+git tag -a vX.Y.Z -m "vX.Y.Z" && git push origin vX.Y.Z
+gh release create vX.Y.Z --title "vX.Y.Z" \
+  --notes-file <(awk '/^## \[X\.Y\.Z\]/{f=1; next} f&&(/^## \[/||/^\[.*\]:/){exit} f{print}' CHANGELOG.md)
 ```
 
-Tilpass `vX.Y.Z`. Release-noten hentes fra CHANGELOG-seksjonen for versjonen.
-Alternativt kan brukeren lime inn noten manuelt i GitHubs release-grensesnitt.
+Bekreft at taggen er på remote (`git ls-remote --tags origin vX.Y.Z`) og at
+release-en ble opprettet (lenken `gh` returnerer).
 
 ## 6. Oppdater minnet
 
-Noter den nye versjonen og hvilken Wenche-versjon den er kompatibel med i
-prosjektminnet, så det er lett å finne neste gang.
+Oppdater `bodil-versjon`-minnet med ny utgitt versjon og hvilken Wenche-versjon
+den er testet mot.
 
 ## Viktige prinsipper
 
-- **Ikke** push tagger eller opprett release-en automatisk uten brukerens godkjenning.
-- En release uten en grønn kompatibilitetstest er ikke gyldig. Stopp hvis testen feiler.
-- Ingen PyPI, ingen build. Bodil er et template-repo; taggen markerer en verifisert tilstand.
+- **Aldri** tagg eller opprett release uten brukerens bekreftelse i steg 5.
+- En release uten grønn kompatibilitetstest er ikke gyldig. Stopp hvis testen feiler.
+- CHANGELOG-navngiving går alltid via PR (rulesettet beskytter main). Tag og
+  release gjør du direkte, siden tagger ikke beskyttes av branch-rulesettet.
+- Ingen PyPI, ingen build. Taggen markerer en verifisert tilstand.
