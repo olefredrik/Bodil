@@ -1,8 +1,10 @@
-# Wenche-regnskap
+# Bodil
+
+**Regnskap for holdingselskap, følgeverktøy til [Wenche](https://github.com/olefredrik/Wenche).**
 
 Bokføring «i git» for et **passivt holdingselskap**, drevet av Claude Code. Repoet gjør om en bankeksport (CSV) til et lesbart regnskap, en generalforsamlingsprotokoll, og en ferdig `config.yaml` som [Wenche](https://github.com/olefredrik/Wenche) sender inn til myndighetene.
 
-Navnet følger søsterprosjektet [Wenche](https://github.com/olefredrik/Wenche): Wenche sender inn, Wenche-regnskap fører bøkene.
+Bodil og Wenche er to verktøy med hver sin jobb: Bodil fører bøkene, Wenche sender inn og rapporterer til myndighetene. Wenche kan brukes alene hvis du allerede har tallene; trenger du å føre regnskapet først, kobler du på Bodil.
 
 Tanken er enkel: et hvilende holdingselskap har likevel plikt til å føre og levere årsregnskap, men et fullt regnskapssystem gir liten verdi når det knapt er aktivitet. Dette repoet dekker bokføringen, Wenche dekker innsendingen, og sammen blir det en komplett, nesten gratis tjeneste.
 

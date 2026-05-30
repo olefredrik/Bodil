@@ -1,4 +1,4 @@
-# Wenche-regnskap: driftsregler for Claude
+# Bodil: driftsregler for Claude
 
 Dette repoet fører regnskap «i git» for et **passivt holdingselskap** og produserer det Wenche trenger for å sende inn til myndighetene. Du (Claude) gjør bokføringen via de tre skillene i `.claude/skills/`. Du sender **ingenting** selv, det gjør Wenche.
 
@@ -35,8 +35,8 @@ Ingen andre kontoer. Ingen inntekter utover utbytte fra datterselskap. Resultate
 
 ## Arbeidsdeling mot Wenche
 
-- Wenche eier innsending og datamodellen. Companion produserer `config.yaml` mot Wenches feltnavn og selv-verifiserer med `wenche valider-aarsregnskap`.
-- Wenche genererer de fire pålagte notene selv. Companion lager dem **ikke**. Note-input (antall ansatte = 0, lån til nærstående) fylles i Wenches Dokumenter-fane, ikke her.
+- Wenche eier innsending og datamodellen. Bodil produserer `config.yaml` mot Wenches feltnavn og selv-verifiserer med `wenche valider-aarsregnskap`.
+- Wenche genererer de fire pålagte notene selv. Bodil lager dem **ikke**. Note-input (antall ansatte = 0, lån til nærstående) fylles i Wenches Dokumenter-fane, ikke her.
 - `formuesverdi_aksjer` (RF-1088S post 209) kan ikke utledes fra bankeksporten. wenche-config flagger dette som manuelt input.
 
 ## Ansvar

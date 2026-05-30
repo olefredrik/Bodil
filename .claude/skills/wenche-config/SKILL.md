@@ -92,7 +92,7 @@ Skriv ut en kort sjekkliste over det du IKKE kunne utlede fra bankeksporten og s
 - [ ] `formuesverdi_aksjer` hentet fra aksjeoppgaven RF-1088S (post 209). Kan ikke utledes fra bankeksporten.
 - [ ] `underskudd_til_fremfoering` hentet fra fjorårets skattemelding.
 - [ ] `eierandel_datterselskap` riktig (avgjør om utbytte er fullt skattefritt eller 3 %-beskattet).
-- [ ] Noter fylles i Wenches **Dokumenter-fane**: antall ansatte (normalt 0) og eventuelt lån fra aksjonær som lån til/fra nærstående. Wenche genererer selve notene, companion gjør det ikke.
+- [ ] Noter fylles i Wenches **Dokumenter-fane**: antall ansatte (normalt 0) og eventuelt lån fra aksjonær som lån til/fra nærstående. Wenche genererer selve notene, Bodil gjør det ikke.
 - [ ] Balansen går opp (bekreftes også av valideringen under).
 - [ ] Skatteberegningen sett over av regnskapsfører år 1.
 
