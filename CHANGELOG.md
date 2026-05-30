@@ -14,6 +14,10 @@ Bodil er testet mot. Den versjonen er også pinnet i CI
 
 ## [Ikke utgitt]
 
+- CI feiler nå hvis `WENCHE_PINNET` ikke matcher «Testet mot Wenche ≥ …» i
+  CHANGELOG, så de to kan ikke drifte fra hverandre.
+- CLAUDE.md-regel: hver oppførselsendrende PR oppdaterer `[Ikke utgitt]`.
+
 ## [0.1.0]
 
 Første versjonerte utgave.

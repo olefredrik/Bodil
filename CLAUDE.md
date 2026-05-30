@@ -39,6 +39,12 @@ Ingen andre kontoer. Ingen inntekter utover utbytte fra datterselskap. Resultate
 - Wenche genererer de fire pålagte notene selv. Bodil lager dem **ikke**. Note-input (antall ansatte = 0, lån til nærstående) fylles i Wenches Dokumenter-fane, ikke her.
 - `formuesverdi_aksjer` (RF-1088S post 209) kan ikke utledes fra bankeksporten. wenche-config flagger dette som manuelt input.
 
+## Versjonering og CHANGELOG
+
+- **Hver PR som endrer oppførsel** (skills, workflow, bokføringsmodell, feltmapping) skal samtidig legge til en kort entry under `## [Ikke utgitt]` i `CHANGELOG.md`. Ren docs/whitespace uten oppførselsendring trenger det ikke. Gjør dette uoppfordret når du forbereder PR-en, så er release-noten alltid klar.
+- **Wenche-versjon ett sted:** når en nyere Wenche adopteres, oppdater `WENCHE_PINNET` i `.github/workflows/wenche-kompatibilitet.yml` og «Testet mot Wenche ≥ …»-linjen i `CHANGELOG.md` i samme PR. CI feiler hvis de to ikke matcher.
+- Selve utgivelsen (tag + GitHub Release) gjøres med `/release`. Taggen er versjonen; ingen versjonsfil.
+
 ## Ansvar
 
 Dette er et hjelpeverktøy, ikke en regnskapsfører. Genererte dokumenter må kontrolleres før innsending. Få en regnskapsfører til å se over år 1, særlig skatteberegningen, så har du en verifisert mal for resten.

@@ -28,6 +28,15 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
+      - name: Sjekk at pinnet versjon matcher CHANGELOG
+        run: |
+          changelog_versjon=$(grep -E '^\*\*Testet mot Wenche' CHANGELOG.md | head -1 | grep -oE '[0-9]+\.[0-9]+\.[0-9]+')
+          if [ "$changelog_versjon" != "$WENCHE_PINNET" ]; then
+            echo "WENCHE_PINNET ($WENCHE_PINNET) matcher ikke CHANGELOG ($changelog_versjon)."
+            echo "Oppdater begge til samme Wenche-versjon i samme PR."
+            exit 1
+          fi
+          echo "Pinnet versjon og CHANGELOG matcher: $WENCHE_PINNET"
       - uses: actions/setup-python@v5
         with:
           python-version: "3.12"
