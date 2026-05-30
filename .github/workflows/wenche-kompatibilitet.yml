@@ -51,7 +51,12 @@ jobs:
     name: Nyeste Wenche (varsel)
     if: github.event_name == 'schedule' || github.event_name == 'workflow_dispatch'
     runs-on: ubuntu-latest
+    # continue-on-error: bruddet skal ikke feile workflowen (ingen e-post-spam);
+    # i stedet opprettes en issue i steget under. Issuen er varselet.
     continue-on-error: true
+    permissions:
+      contents: read
+      issues: write
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-python@v5
@@ -63,3 +68,20 @@ jobs:
         run: wenche valider-aarsregnskap --config tests/fixtures/config.golden.yaml
       - name: Feltnavn-lint
         run: python tests/check_field_names.py
+      - name: Opprett issue ved brudd
+        if: failure()
+        env:
+          GH_TOKEN: ${{ github.token }}
+          RUN_URL: ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}
+        run: |
+          tittel="Nyeste Wenche bryter Bodil-kompatibilitet"
+          eksisterende=$(gh issue list --state open --search "$tittel in:title" --json number --jq '.[0].number // empty')
+          if [ -n "$eksisterende" ]; then
+            echo "Åpen issue finnes allerede (#$eksisterende), kommenterer i stedet."
+            gh issue comment "$eksisterende" --body "Bruddet vedvarer i den ukentlige kjøringen: $RUN_URL"
+            exit 0
+          fi
+          linje1="Den ukentlige kompatibilitetskjøringen mot nyeste Wenche feilet. En nyere Wenche-versjon har sannsynligvis endret feltnavn eller valideringsregler."
+          linje2="Kjøring med logg: $RUN_URL"
+          linje3="For å fikse: oppdater wenche-config-skillen og tests/fixtures/config.golden.yaml til de nye navnene, og bump WENCHE_PINNET + Testet-mot-Wenche-linjen i CHANGELOG i samme PR."
+          gh issue create --title "$tittel" --body "$linje1"$'\n\n'"$linje2"$'\n\n'"$linje3"
