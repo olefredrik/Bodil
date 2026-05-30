@@ -14,6 +14,11 @@ Bodil er testet mot. Den versjonen er også pinnet i CI
 
 ## [Ikke utgitt]
 
+- Kompatibilitets-gaten kjører nå også på push til main, så Actions-badgen i
+  README reflekterer mains faktiske Wenche-kompatibilitet.
+- README: badges (release, lisens, status, CI, Claude Code) og tydeliggjort at
+  Bodil forutsetter tilgang til Claude (den eneste kostnaden; verktøyene er gratis).
+
 ## [0.2.0]
 
 - `/release` automatiserer nå tagging og release notes: henter noten fra

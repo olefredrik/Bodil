@@ -1,12 +1,18 @@
 # Bodil
 
+[![Release](https://img.shields.io/github/v/release/olefredrik/Bodil?label=release)](https://github.com/olefredrik/Bodil/releases)
+[![Lisens: MIT](https://img.shields.io/github/license/olefredrik/Bodil?label=lisens)](LICENSE)
+[![Status: aktiv](https://www.repostatus.org/badges/latest/active.svg)](https://www.repostatus.org/#active)
+[![Wenche-kompatibilitet](https://github.com/olefredrik/Bodil/actions/workflows/wenche-kompatibilitet.yml/badge.svg)](https://github.com/olefredrik/Bodil/actions/workflows/wenche-kompatibilitet.yml)
+[![Drevet av Claude Code](https://img.shields.io/badge/drevet%20av-Claude%20Code-d97757)](https://claude.com/claude-code)
+
 **Regnskap for holdingselskap, følgeverktøy til [Wenche](https://github.com/olefredrik/Wenche).**
 
 Bokføring «i git» for et **passivt holdingselskap**, drevet av Claude Code. Repoet gjør om en bankeksport (CSV) til et lesbart regnskap, en generalforsamlingsprotokoll, og en ferdig `config.yaml` som [Wenche](https://github.com/olefredrik/Wenche) sender inn til myndighetene.
 
 Bodil og Wenche er to verktøy med hver sin jobb: Bodil fører bøkene, Wenche sender inn og rapporterer til myndighetene. Wenche kan brukes alene hvis du allerede har tallene; trenger du å føre regnskapet først, kobler du på Bodil.
 
-Tanken er enkel: et hvilende holdingselskap har likevel plikt til å føre og levere årsregnskap, men et fullt regnskapssystem gir liten verdi når det knapt er aktivitet. Dette repoet dekker bokføringen, Wenche dekker innsendingen, og sammen blir det en komplett, nesten gratis tjeneste.
+Tanken er enkel: et hvilende holdingselskap har likevel plikt til å føre og levere årsregnskap, men et fullt regnskapssystem gir liten verdi når det knapt er aktivitet. Dette repoet dekker bokføringen, Wenche dekker innsendingen, og sammen dekker de hele løpet fra bankeksport til innsendt årsregnskap. Begge verktøyene er gratis og åpen kildekode. Den eneste kostnaden er at Bodil kjøres av Claude Code og derfor forutsetter at du har tilgang til Claude (et abonnement eller API-tilgang).
 
 ## Hva dette er, og ikke er
 
@@ -35,7 +41,7 @@ Dette gjør du bare én gang:
 
 1. **Lag din egen private kopi.** Dette offentlige repoet er malen og inneholder kun verktøyet, aldri regnskapsdata. Bruk «Use this template» på GitHub (eller klon repoet) til et **privat** repo. Det er der tallene dine havner.
 2. **Installer Wenche** (kreves for validering og innsending): `pipx install wenche` (krever Python ≥ 3.11). Sett opp Maskinporten som beskrevet i [Wenche-dokumentasjonen](https://github.com/olefredrik/Wenche).
-3. **Åpne ditt private repo i Claude Code.** De tre skillene i `.claude/skills/` oppdages automatisk.
+3. **Åpne ditt private repo i [Claude Code](https://claude.com/claude-code).** De tre skillene i `.claude/skills/` oppdages automatisk. Bodil drives av Claude Code, så dette forutsetter at du har tilgang til Claude (et abonnement eller API-tilgang). Det er den eneste kostnaden ved oppsettet; selve verktøyene er gratis.
 4. **Fyll inn stamdata:** kopier `selskap.example.yaml` til `selskap.yaml` og fyll inn selskapet ditt. (`selskap.yaml` holdes utenfor git fordi den inneholder fødselsnummer.)
 
 Deretter fører du regnskapet ett år av gangen. Les «Slik kjører du skillene» under, og følg «Årshjul».
