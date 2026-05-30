@@ -3,12 +3,12 @@ name: Wenche-kompatibilitet
 # Bekrefter at Bodils output (golden-fixturet) fortsatt aksepteres av Wenche.
 #
 # To jobber:
-#   pinnet  - kjorer mot den Wenche-versjonen Bodil erklaerer kompatibilitet med
-#             (se CHANGELOG.md). Dette er gaten: gjor den til en required status
-#             check i GitHubs branch-ruleset, sa blokkeres merge til main hvis
-#             Bodil-output slutter a validere.
-#   siste   - kjorer ukentlig mot nyeste Wenche. Far feile (continue-on-error):
-#             en rod kjoring varsler at en kommende Wenche-versjon krever en
+#   pinnet  - kjører mot den Wenche-versjonen Bodil erklærer kompatibilitet med
+#             (se CHANGELOG.md). Dette er gaten: gjør den til en required status
+#             check i GitHubs branch-ruleset, så blokkeres merge til main hvis
+#             Bodil-output slutter å validere.
+#   siste   - kjører ukentlig mot nyeste Wenche. Får feile (continue-on-error):
+#             en rød kjøring varsler at en kommende Wenche-versjon krever en
 #             oppdatering av wenche-config-skillen og en ny kompatibilitetslinje.
 
 on:
@@ -19,7 +19,7 @@ on:
   workflow_dispatch:
 
 env:
-  WENCHE_PINNET: "0.24.0"   # ma matche kompatibilitetslinjen i CHANGELOG.md
+  WENCHE_PINNET: "0.24.0"   # må matche kompatibilitetslinjen i CHANGELOG.md
 
 jobs:
   pinnet:
