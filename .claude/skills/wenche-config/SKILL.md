@@ -72,7 +72,7 @@ foregaaende_aar:                       # fjorårets tall fra regnskap.md (sammen
 skattemelding:
   underskudd_til_fremfoering: <fra fjorårets skattemelding, RF-1028>
   anvend_fritaksmetoden: true          # holdingselskap som eier aksjer
-  eierandel_datterselskap: <prosent>   # ≥ 90 % gir fullt skattefritt utbytte; < 90 % gir 3 % sjablonbeskatning
+  eierandel_for_fritaksmetoden: <prosent>   # ≥ 90 % gir fullt skattefritt utbytte; < 90 % gir 3 % sjablonbeskatning
   boersnotert: false
   formuesverdi_aksjer: <RF-1088S post 209, MÅ fylles inn manuelt>
 
@@ -91,7 +91,7 @@ Skriv ut en kort sjekkliste over det du IKKE kunne utlede fra bankeksporten og s
 
 - [ ] `formuesverdi_aksjer` hentet fra aksjeoppgaven RF-1088S (post 209). Kan ikke utledes fra bankeksporten.
 - [ ] `underskudd_til_fremfoering` hentet fra fjorårets skattemelding.
-- [ ] `eierandel_datterselskap` riktig (avgjør om utbytte er fullt skattefritt eller 3 %-beskattet).
+- [ ] `eierandel_for_fritaksmetoden` riktig (avgjør om utbytte er fullt skattefritt eller 3 %-beskattet).
 - [ ] Noter fylles i Wenches **Dokumenter-fane**: antall ansatte (normalt 0) og eventuelt lån fra aksjonær som lån til/fra nærstående. Wenche genererer selve notene, Bodil gjør det ikke.
 - [ ] Balansen går opp (bekreftes også av valideringen under).
 - [ ] Skatteberegningen sett over av regnskapsfører år 1.
