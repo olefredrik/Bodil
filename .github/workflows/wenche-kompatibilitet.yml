@@ -1,0 +1,56 @@
+name: Wenche-kompatibilitet
+
+# Bekrefter at Bodils output (golden-fixturet) fortsatt aksepteres av Wenche.
+#
+# To jobber:
+#   pinnet  - kjorer mot den Wenche-versjonen Bodil erklaerer kompatibilitet med
+#             (se CHANGELOG.md). Dette er gaten: gjor den til en required status
+#             check i GitHubs branch-ruleset, sa blokkeres merge til main hvis
+#             Bodil-output slutter a validere.
+#   siste   - kjorer ukentlig mot nyeste Wenche. Far feile (continue-on-error):
+#             en rod kjoring varsler at en kommende Wenche-versjon krever en
+#             oppdatering av wenche-config-skillen og en ny kompatibilitetslinje.
+
+on:
+  pull_request:
+    branches: [main]
+  schedule:
+    - cron: "0 6 * * 1"   # mandag 06:00 UTC
+  workflow_dispatch:
+
+env:
+  WENCHE_PINNET: "0.24.0"   # ma matche kompatibilitetslinjen i CHANGELOG.md
+
+jobs:
+  pinnet:
+    name: Pinnet Wenche (gate)
+    if: github.event_name == 'pull_request' || github.event_name == 'workflow_dispatch'
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - name: Installer pinnet Wenche
+        run: pip install "wenche==${WENCHE_PINNET}"
+      - name: Valider golden-fixturet mot Wenche
+        run: wenche valider-aarsregnskap --config tests/fixtures/config.golden.yaml
+      - name: Feltnavn-lint
+        run: python tests/check_field_names.py
+
+  siste:
+    name: Nyeste Wenche (varsel)
+    if: github.event_name == 'schedule' || github.event_name == 'workflow_dispatch'
+    runs-on: ubuntu-latest
+    continue-on-error: true
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - name: Installer nyeste Wenche
+        run: pip install --upgrade wenche
+      - name: Valider golden-fixturet mot Wenche
+        run: wenche valider-aarsregnskap --config tests/fixtures/config.golden.yaml
+      - name: Feltnavn-lint
+        run: python tests/check_field_names.py

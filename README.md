@@ -78,6 +78,12 @@ I web-grensesnittet går du gjennom fanene, fyller inn noter i **Dokumenter**-fa
 
 > **Merk om nøkler:** Maskinporten-nøkkelen og `.env` ligger i `~/.wenche/`, altså utenfor dette repoet. De følger Wenche, ikke regnskapet, og berøres ikke av flyten over.
 
+### Wenche-kompatibilitet
+
+`config.yaml`-fila er broen mellom verktøyene, så Bodil må holde tritt med Wenches feltnavn. Denne Bodil-versjonen er testet mot **Wenche ≥ 0.24.0**. Hvilken Wenche-versjon hver Bodil-versjon er verifisert mot står i [CHANGELOG.md](CHANGELOG.md).
+
+Kompatibiliteten håndheves automatisk: en GitHub Action ([wenche-kompatibilitet.yml](.github/workflows/wenche-kompatibilitet.yml)) validerer et golden-fixture mot den pinnede Wenche-versjonen på hver PR, og kjører ukentlig mot nyeste Wenche for å varsle om kommende endringer. Bruker du en eldre Bodil-kopi mot en mye nyere Wenche, sjekk CHANGELOG-en.
+
 ## Mappestruktur
 
 ```
