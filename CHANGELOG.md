@@ -17,6 +17,8 @@ Bodil er testet mot. Den versjonen er også pinnet i CI
 - CI feiler nå hvis `WENCHE_PINNET` ikke matcher «Testet mot Wenche ≥ …» i
   CHANGELOG, så de to kan ikke drifte fra hverandre.
 - CLAUDE.md-regel: hver oppførselsendrende PR oppdaterer `[Ikke utgitt]`.
+- Den ukentlige kjøringen mot nyeste Wenche oppretter nå en GitHub-issue ved
+  brudd (med duplikat-vern), i stedet for bare en passiv annotering.
 
 ## [0.1.0]
 
