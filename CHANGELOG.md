@@ -14,10 +14,16 @@ Bodil er testet mot. Den versjonen er også pinnet i CI
 
 ## [Ikke utgitt]
 
+- Verifisert kompatibilitet med Wenche 0.31.2 og bumpet pinnet versjon fra 0.24.0.
+  Feltnavnene i `config.yaml` og kommandoen `wenche valider-aarsregnskap` er
+  uendret i 0.31.2; golden-fixturet validerer fortsatt grønt, så ingen
+  skill-endring var nødvendig.
 - Kompatibilitets-gaten kjører nå også på push til main, så Actions-badgen i
   README reflekterer mains faktiske Wenche-kompatibilitet.
 - README: badges (release, lisens, status, CI, Claude Code) og tydeliggjort at
   Bodil forutsetter tilgang til Claude (den eneste kostnaden; verktøyene er gratis).
+
+**Testet mot Wenche ≥ 0.31.2.**
 
 ## [0.2.0]
 
