@@ -18,6 +18,15 @@ Bodil er testet mot. Den versjonen er også pinnet i CI
   Feltnavnene i `config.yaml` og kommandoen `wenche valider-aarsregnskap` er
   uendret i 0.31.2; golden-fixturet validerer fortsatt grønt, så ingen
   skill-endring var nødvendig.
+- Ny valgfri skill `folio-import`: henter et regnskapsårs transaksjoner fra
+  Folio (api.folio.no/v2, lese-only) og skriver `<år>/bankeksport.csv`. Erstatter
+  kun det manuelle CSV-nedlastingssteget; alt nedstrøms er uendret. Kun stdlib,
+  kun GET-kall, aldri `/payments`, API-nøkkel fra `.env`.
+- `scripts/sync-from-bodil`: synker verktøy-allowlisten (ikke data) til en privat
+  kopi av malen, pinnet til en Bodil-tag, med en deny-list som nekter å røre
+  `selskap.yaml`, `*/config.yaml`, `*/bankeksport.csv` og `*/bilag/`.
+- Folio-importørens rene logikk dekkes av `tests/test_folio_import.py`, som kjører
+  i CI-gaten sammen med Wenche-valideringen og feltnavn-linten.
 - Kompatibilitets-gaten kjører nå også på push til main, så Actions-badgen i
   README reflekterer mains faktiske Wenche-kompatibilitet.
 - README: badges (release, lisens, status, CI, Claude Code) og tydeliggjort at
