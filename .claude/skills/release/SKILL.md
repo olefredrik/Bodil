@@ -55,7 +55,10 @@ finnes som `## [X.Y.Z]` før du tagger.
   2. Gi `## [Ikke utgitt]` versjonsnummeret, legg til en ny tom `## [Ikke utgitt]`
      over, oppdater `compare`-lenken og legg til en `releases/tag`-lenke nederst.
   3. Bekreft at seksjonen har «Testet mot Wenche ≥ …»-linjen.
-  4. Commit (`docs: klargjør CHANGELOG for vX.Y.Z`), push, og **stopp her** med
+  4. Bump release-badgen i `README.md` til `vX.Y.Z` (den er statisk:
+     `img.shields.io/badge/release-vX.Y.Z-blue`), så den holder seg i synk med
+     den utgitte versjonen.
+  5. Commit (`docs: klargjør CHANGELOG for vX.Y.Z`), push, og **stopp her** med
      PR-tittel/beskrivelse til brukeren. Be brukeren merge og kjøre `/release`
      på nytt. Du kan ikke tagge før navngivingen er på main.
 

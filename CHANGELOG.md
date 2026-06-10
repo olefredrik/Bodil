@@ -14,6 +14,10 @@ Bodil er testet mot. Den versjonen er også pinnet i CI
 
 ## [Ikke utgitt]
 
+- Release-badgen i README er nå statisk (`badge/release-vX.Y.Z`) i stedet for
+  `github/v/release`, som intermitterende feilet med «Unable to select next
+  GitHub token from pool» fra shields.io. `/release`-skillet bumper badgen som
+  del av release-prep-PR-en, så den holdes i synk med utgitt versjon.
 - Hostet Wenche ([wenche.cloud](https://wenche.cloud)) er nå den anbefalte
   innsendingsveien i dokumentasjon og skills: brukeren laster opp `config.yaml`
   via **Tall → Hent tall fra Bodil**, uten å installere noe. Self-hosted lokalt
