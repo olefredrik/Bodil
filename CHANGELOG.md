@@ -14,6 +14,8 @@ Bodil er testet mot. Den versjonen er også pinnet i CI
 
 ## [Ikke utgitt]
 
+## [0.3.0]
+
 - Verifisert kompatibilitet med Wenche 0.31.2 og bumpet pinnet versjon fra 0.24.0.
   Feltnavnene i `config.yaml` og kommandoen `wenche valider-aarsregnskap` er
   uendret i 0.31.2; golden-fixturet validerer fortsatt grønt, så ingen
@@ -60,6 +62,7 @@ Første versjonerte utgave.
 
 **Testet mot Wenche ≥ 0.24.0.**
 
-[Ikke utgitt]: https://github.com/olefredrik/Bodil/compare/v0.2.0...HEAD
+[Ikke utgitt]: https://github.com/olefredrik/Bodil/compare/v0.3.0...HEAD
+[0.3.0]: https://github.com/olefredrik/Bodil/compare/v0.2.0...v0.3.0
 [0.2.0]: https://github.com/olefredrik/Bodil/compare/v0.1.0...v0.2.0
 [0.1.0]: https://github.com/olefredrik/Bodil/releases/tag/v0.1.0
