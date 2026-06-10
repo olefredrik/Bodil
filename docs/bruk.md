@@ -31,11 +31,9 @@ Bruker selskapet Folio som bank, kan du la [Folio-integrasjonen](folio.md) hente
 
 ## Overfør til Wenche og send inn
 
-Start Wenche fra årsmappen, slik at den finner riktig `config.yaml`:
+`config.yaml` er broen til Wenche. Du sender inn på én av to måter:
 
-```bash
-cd 2026
-wenche
-```
+- **Hostet ([wenche.cloud](https://wenche.cloud), anbefalt):** gå til wenche.cloud, koble selskapet til Altinn, og under **Tall** klikk **Hent tall fra Bodil** og last opp `<år>/config.yaml`. Ingen installasjon nødvendig.
+- **Self-hosted (lokalt):** `cd <år> && wenche`, som laster `config.yaml` fra mappen.
 
-Gå gjennom fanene i web-grensesnittet, fyll inn noter i **Dokumenter**-fanen, kontroller tallene, og send inn. Detaljene står i [Bodil og Wenche](bodil-og-wenche.md).
+Begge veier: gå gjennom fanene, fyll inn noter i **Dokumenter**-fanen, kontroller tallene, og send inn. Detaljer og personvern (fødselsnummer i `config.yaml`) står i [Bodil og Wenche](bodil-og-wenche.md).

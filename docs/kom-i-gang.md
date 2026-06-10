@@ -9,21 +9,11 @@ Det offentlige Bodil-repoet er **malen**, og inneholder kun verktøyet, aldri re
 !!! warning "Repoet må være privat"
     Velg **Private** når du oppretter ditt eget repo. Selv uten fødselsnummer er regnskapstall private. Se [Lokalt eller privat repo?](#lokalt-eller-privat-repo) under.
 
-## 2. Installer Wenche
-
-Wenche kreves for validering og innsending:
-
-```bash
-pipx install wenche      # krever Python ≥ 3.11
-```
-
-Sett opp Maskinporten som beskrevet i [Wenche-dokumentasjonen](https://olefredrik.github.io/Wenche/).
-
-## 3. Åpne repoet i Claude Code
+## 2. Åpne repoet i Claude Code
 
 Åpne ditt private repo i [Claude Code](https://claude.com/claude-code). Skillene i `.claude/skills/` oppdages automatisk. Bodil drives av Claude Code, så dette forutsetter at du har tilgang til Claude (et abonnement eller API-tilgang). Det er den eneste kostnaden; selve verktøyene er gratis.
 
-## 4. Fyll inn stamdata
+## 3. Fyll inn stamdata
 
 Kopier `selskap.example.yaml` til `selskap.yaml` og fyll inn selskapet ditt: navn, org.nr., aksjekapital, aksjonærer, åpningsbalanse og eierposter.
 
@@ -32,6 +22,15 @@ cp selskap.example.yaml selskap.yaml
 ```
 
 `selskap.yaml` holdes utenfor git fordi den inneholder fødselsnummer.
+
+## 4. Velg hvordan du sender inn
+
+Bodil fører regnskapet; **Wenche** sender det inn. Du trenger ikke bestemme deg nå, men det er greit å vite at det finnes to veier:
+
+- **Hostet ([wenche.cloud](https://wenche.cloud), anbefalt):** ingenting å installere. Når regnskapet er klart, laster du opp `config.yaml` i nettleseren. Den enkleste veien for de fleste.
+- **Self-hosted (lokalt):** vil du kjøre alt på egen maskin, installer Wenche med `pipx install wenche` (krever Python ≥ 3.11) og sett opp Maskinporten, se [Wenche-dokumentasjonen](https://olefredrik.github.io/Wenche/).
+
+Se [Bodil og Wenche](bodil-og-wenche.md) for forskjellen, inkludert personvern.
 
 ---
 
