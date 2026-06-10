@@ -48,6 +48,8 @@ jobs:
         run: wenche valider-aarsregnskap --config tests/fixtures/config.golden.yaml
       - name: Feltnavn-lint
         run: python tests/check_field_names.py
+      - name: Folio-import-tester
+        run: python tests/test_folio_import.py
 
   siste:
     name: Nyeste Wenche (varsel)

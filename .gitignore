@@ -22,6 +22,10 @@ selskap.yaml
 # Internt overleveringsnotat, ikke del av repoet
 STATUS.md
 
+# Python-artefakter fra tooling-skriptene
+__pycache__/
+*.pyc
+
 # Eksempelfiler skal alltid med
 !*.example.yaml
 !*.example.csv
