@@ -26,6 +26,9 @@ STATUS.md
 __pycache__/
 *.pyc
 
+# MkDocs build-output
+site/
+
 # Eksempelfiler skal alltid med
 !*.example.yaml
 !*.example.csv
