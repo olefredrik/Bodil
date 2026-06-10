@@ -12,6 +12,16 @@ Hver oppføring som rører grensesnittet mot Wenche oppgir hvilken Wenche-versjo
 Bodil er testet mot. Den versjonen er også pinnet i CI
 ([wenche-kompatibilitet.yml](.github/workflows/wenche-kompatibilitet.yml)).
 
+## [0.4.1]
+
+- Tydeligere veiledning for Folio-integrasjonen: `folio-import`-skillen og docs
+  forklarer nå steg for steg hvordan API-nøkkelen lages (Lesetilgang på
+  app.folio.no/til/api-tilgang) og legges i en `.env`-fil, og feilmeldingen ved
+  manglende nøkkel er gjort handlingsrettet.
+- Språk: «lese-only» erstattet med «kun lesing» i skill, skript og docs.
+
+**Testet mot Wenche ≥ 0.31.2.**
+
 ## [0.4.0]
 
 - Hostet Wenche ([wenche.cloud](https://wenche.cloud)) er nå den anbefalte
@@ -80,6 +90,7 @@ Første versjonerte utgave.
 
 **Testet mot Wenche ≥ 0.24.0.**
 
+[0.4.1]: https://github.com/olefredrik/Bodil/compare/v0.4.0...v0.4.1
 [0.4.0]: https://github.com/olefredrik/Bodil/compare/v0.3.0...v0.4.0
 [0.3.0]: https://github.com/olefredrik/Bodil/compare/v0.2.0...v0.3.0
 [0.2.0]: https://github.com/olefredrik/Bodil/compare/v0.1.0...v0.2.0
