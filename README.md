@@ -25,6 +25,7 @@ Full dokumentasjon: **[olefredrik.github.io/Bodil](https://olefredrik.github.io/
 - [Bruk (samtale eller skills) og årshjul](https://olefredrik.github.io/Bodil/bruk/)
 - [Den låste modellen](https://olefredrik.github.io/Bodil/modellen/)
 - [Folio-integrasjon](https://olefredrik.github.io/Bodil/folio/)
+- [Oppdatere en eksisterende kopi](https://olefredrik.github.io/Bodil/oppdatere/)
 
 ## Kom i gang
 

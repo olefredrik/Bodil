@@ -37,6 +37,9 @@ cp selskap.example.yaml selskap.yaml
 
 Deretter fører du regnskapet ett år av gangen. Les [Bruk](bruk.md) og følg årshjulet.
 
+!!! tip "Allerede en kopi fra før?"
+    Har du laget kopien din tidligere og vil hente inn nyere verktøy (som Folio-integrasjonen), se [Oppdatere Bodil](oppdatere.md).
+
 ## Personvern
 
 Fødselsnummer og nøkler skal aldri i git. `selskap.yaml`, `<år>/config.yaml`, `*.pem` og bilag er gitignored fra start. Bankeksporten ignoreres også som standard; fjern linjen i `.gitignore` hvis du heller vil ha full kilde-i-git.
