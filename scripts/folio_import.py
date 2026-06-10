@@ -2,7 +2,7 @@
 """Folio-import: henter et regnskapsårs banktransaksjoner fra Folio og skriver
 dem som `<år>/bankeksport.csv` med nøyaktig kolonnene `dato,beskrivelse,belop`.
 
-Dette er en valgfri, lese-only importør. Den erstatter kun det manuelle steget
+Dette er en valgfri importør som kun leser. Den erstatter kun det manuelle steget
 «last ned CSV fra banken». Alt nedstrøms (bokforing -> regnskap.md ->
 wenche-config -> config.yaml) er uendret og vet ikke at filen kom fra Folio.
 
@@ -60,9 +60,12 @@ def les_api_nokkel(env_sti: Path) -> str:
                 return verdi.strip().strip('"').strip("'")
 
     sys.exit(
-        f"Fant ingen {NOKKEL_NAVN}. Lag en API-nøkkel på "
-        f"https://app.folio.no/til/api-tilgang og legg den i .env som "
-        f"{NOKKEL_NAVN}=... (.env er gitignored)."
+        f"Fant ingen {NOKKEL_NAVN}. Slik fikser du det:\n"
+        f"  1. Lag en API-nøkkel med Lesetilgang på "
+        f"https://app.folio.no/til/api-tilgang\n"
+        f"  2. Opprett en .env-fil i repo-roten (hvis den ikke finnes) med linjen:\n"
+        f"       {NOKKEL_NAVN}=din-nøkkel\n"
+        f"     (uten anførselstegn eller mellomrom rundt =, .env er gitignored)"
     )
 
 
@@ -70,11 +73,11 @@ def hent(path: str, nokkel: str, params: dict | None = None) -> object:
     """Ett GET-kall mot Folio. Reiser ved alt annet enn 2xx.
 
     Sikkerhetsvakt: nekter å treffe noe som ser ut som en pengeflytt-ressurs.
-    Skriptet skal være rent lese-only.
+    Skriptet skal kun lese.
     """
     if re.search(r"payment|transfer", path, re.IGNORECASE):
         raise ValueError(f"Nektet: {path} ser ut som en pengeflytt-ressurs. "
-                         "Folio-import er lese-only.")
+                         "Folio-import skal kun lese.")
 
     url = f"{BASIS_URL}{path}"
     if params:
@@ -177,7 +180,7 @@ def hent_saldo(konto_nr: str, dato: str, nokkel: str, felt: str) -> float | None
 def main() -> int:
     p = argparse.ArgumentParser(
         description="Hent et regnskapsårs Folio-transaksjoner til "
-                    "<år>/bankeksport.csv (lese-only).")
+                    "<år>/bankeksport.csv (kun lesing).")
     p.add_argument("aar", type=int, help="Regnskapsåret, f.eks. 2025")
     p.add_argument("--konto", help="accountNumber eller navn hvis du har flere kontoer")
     p.add_argument("--env", default=".env", help="Sti til .env (standard: .env)")

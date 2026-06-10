@@ -1,6 +1,6 @@
 ---
 name: folio-import
-description: Valgfri, lese-only importør som henter et regnskapsårs banktransaksjoner fra Folio (api.folio.no/v2) og skriver dem som <år>/bankeksport.csv med kolonnene dato,beskrivelse,belop. Erstatter kun det manuelle «last ned CSV fra banken»-steget før bokforing. Bruk når selskapets bank er Folio og brukeren vil slippe å laste ned CSV manuelt.
+description: Valgfri importør som kun leser, henter et regnskapsårs banktransaksjoner fra Folio (api.folio.no/v2) og skriver dem som <år>/bankeksport.csv med kolonnene dato,beskrivelse,belop. Erstatter kun det manuelle «last ned CSV fra banken»-steget før bokforing. Bruk når selskapets bank er Folio og brukeren vil slippe å laste ned CSV manuelt.
 ---
 
 # Skill: folio-import
@@ -15,7 +15,7 @@ ned CSV-en selv, hopper du rett til **bokforing** som før.
 
 ## Sikkerhet (les dette)
 
-- **Lese-only.** Skriptet gjør kun GET-kall. Det rører aldri `/payments` eller
+- **Kun lesing.** Skriptet gjør kun GET-kall. Det rører aldri `/payments` eller
   noe som flytter penger. En innebygd vakt nekter å treffe ruter med «payment»
   eller «transfer» i stien.
 - **Skriver kun til `<år>/bankeksport.csv`**, som allerede er gitignored. En
@@ -25,16 +25,23 @@ ned CSV-en selv, hopper du rett til **bokforing** som før.
 
 ## Forutsetninger
 
-- Selskapets bank er Folio, og brukeren har laget en API-nøkkel på
-  `https://app.folio.no/til/api-tilgang`. Dette er en dyplenke som ofte ikke
-  ligger i den vanlige bankmenyen, gå rett til URL-en mens du er innlogget.
-  Krever trolig admin-/eierrolle på bedriftskontoen.
-- Nøkkelen ligger i `.env` i repo-roten:
-  ```
-  FOLIO_API_NOKKEL=...
-  ```
-  Mangler `.env` eller nøkkelen, be brukeren legge den inn først.
-- Python 3 (skriptet bruker kun stdlib, ingen `pip install`).
+Selskapets bank må være Folio, og det må finnes en API-nøkkel i en `.env`-fil.
+Er nøkkelen ikke på plass, veiled brukeren slik (ikke gjett deg forbi dette):
+
+1. **Lag nøkkelen.** Gå til `https://app.folio.no/til/api-tilgang` mens du er
+   innlogget i Folio. Dette er en dyplenke som ofte ikke ligger i den vanlige
+   bankmenyen, og krever trolig admin-/eierrolle på bedriftskontoen. Velg
+   **Lesetilgang** (det smaleste som dekker behovet, og matcher at importøren kun
+   leser), gi nøkkelen et navn, og kopier verdien med en gang, den vises gjerne
+   bare én gang.
+2. **Legg nøkkelen i `.env`.** Opprett en `.env`-fil i repo-roten hvis den ikke
+   finnes, og legg til linjen:
+   ```
+   FOLIO_API_NOKKEL=din-nøkkel
+   ```
+   Uten anførselstegn eller mellomrom rundt `=`. `.env` er gitignored, så
+   nøkkelen havner aldri i git.
+3. **Python 3** (skriptet bruker kun stdlib, ingen `pip install`).
 
 ## Slik kjører du
 

@@ -9,11 +9,12 @@ Integrasjonen er **valgfri**. Bruker du en annen bank, eller vil laste ned CSV-e
 
 ## Forutsetninger
 
-1. **API-nøkkel fra Folio.** Lag en på [app.folio.no/til/api-tilgang](https://app.folio.no/til/api-tilgang). Dette er en dyplenke som ofte ikke ligger i den vanlige bankmenyen; gå rett til URL-en mens du er innlogget (krever trolig admin-/eierrolle). Velg **Lesetilgang**, det smaleste som dekker behovet.
-2. **Legg nøkkelen i `.env`** i repo-roten (`.env` er gitignored):
+1. **Lag en API-nøkkel hos Folio.** Gå til [app.folio.no/til/api-tilgang](https://app.folio.no/til/api-tilgang) mens du er innlogget. Dette er en dyplenke som ofte ikke ligger i den vanlige bankmenyen, gå rett til URL-en (krever trolig admin-/eierrolle). Velg **Lesetilgang** (det smaleste som dekker behovet), gi nøkkelen et navn, og kopier verdien med en gang, den vises gjerne bare én gang.
+2. **Legg nøkkelen i en `.env`-fil.** Opprett `.env` i repo-roten hvis den ikke finnes fra før, og legg til linjen:
    ```
-   FOLIO_API_NOKKEL=...
+   FOLIO_API_NOKKEL=din-nøkkel
    ```
+   Uten anførselstegn eller mellomrom rundt `=`. `.env` er gitignored, så nøkkelen havner aldri i git.
 3. **Python 3** (skriptet bruker kun standardbiblioteket, ingen `pip install`).
 
 ## Slik kjører du
