@@ -41,9 +41,10 @@ Ingen andre kontoer. Ingen inntekter utover utbytte fra datterselskap. Resultate
 
 ## Versjonering og CHANGELOG
 
-- **Hver PR som endrer oppførsel** (skills, workflow, bokføringsmodell, feltmapping) skal samtidig legge til en kort entry under `## [Ikke utgitt]` i `CHANGELOG.md`. Ren docs/whitespace uten oppførselsendring trenger det ikke. Gjør dette uoppfordret når du forbereder PR-en, så er release-noten alltid klar.
-- **Wenche-versjon ett sted:** når en nyere Wenche adopteres, oppdater `WENCHE_PINNET` i `.github/workflows/wenche-kompatibilitet.yml` og «Testet mot Wenche ≥ …»-linjen i `CHANGELOG.md` i samme PR. CI feiler hvis de to ikke matcher.
-- Selve utgivelsen (tag + GitHub Release) gjøres med `/release`. Taggen er versjonen; ingen versjonsfil.
+- **Hver PR som endrer oppførsel** (skills, workflow, bokføringsmodell, feltmapping) navngir versjonen den utgir: skriv entryen under en `## [X.Y.Z]`-overskrift i `CHANGELOG.md`, ikke under en unavngitt «Ikke utgitt». Velg X.Y.Z etter SemVer-reglene øverst i CHANGELOG. Ren docs/whitespace uten oppførselsendring trenger ingen entry. Gjør dette uoppfordret når du forbereder PR-en.
+- **Er du først ute for den versjonen** (overskriften finnes ikke fra før): opprett `## [X.Y.Z]`, legg «Testet mot Wenche ≥ …»-linjen i seksjonen, legg til `[X.Y.Z]: …/compare/vFORRIGE...vX.Y.Z` i lenkeblokken nederst, og bump release-badgen i README til `vX.Y.Z` (den er statisk: `img.shields.io/badge/release-vX.Y.Z-blue`). Senere PR-er mot samme versjon føyer bare til en linje under overskriften.
+- **Wenche-versjon ett sted:** når en nyere Wenche adopteres, oppdater `WENCHE_PINNET` i `.github/workflows/wenche-kompatibilitet.yml` og «Testet mot Wenche ≥ …»-linjen i samme PR. CI feiler hvis de to ikke matcher.
+- Fordi CHANGELOG og badge navngis i PR-ene, er **`/release` bare en tag**: den verifiserer at main er ren og gaten grønn, og kjører `git tag` + GitHub Release med noten fra den navngitte seksjonen. Ingen egen versjons-bump-PR. Taggen er versjonen; ingen versjonsfil.
 
 ## Ansvar
 

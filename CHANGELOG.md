@@ -12,12 +12,8 @@ Hver oppføring som rører grensesnittet mot Wenche oppgir hvilken Wenche-versjo
 Bodil er testet mot. Den versjonen er også pinnet i CI
 ([wenche-kompatibilitet.yml](.github/workflows/wenche-kompatibilitet.yml)).
 
-## [Ikke utgitt]
+## [0.4.0]
 
-- Release-badgen i README er nå statisk (`badge/release-vX.Y.Z`) i stedet for
-  `github/v/release`, som intermitterende feilet med «Unable to select next
-  GitHub token from pool» fra shields.io. `/release`-skillet bumper badgen som
-  del av release-prep-PR-en, så den holdes i synk med utgitt versjon.
 - Hostet Wenche ([wenche.cloud](https://wenche.cloud)) er nå den anbefalte
   innsendingsveien i dokumentasjon og skills: brukeren laster opp `config.yaml`
   via **Tall → Hent tall fra Bodil**, uten å installere noe. Self-hosted lokalt
@@ -27,6 +23,14 @@ Bodil er testet mot. Den versjonen er også pinnet i CI
   valideringen ved opplasting på wenche.cloud. Senker terskelen for web-brukere.
 - Personvern-note: `config.yaml` inneholder fødselsnummer, som forlater maskinen
   ved opplasting til wenche.cloud (behandles kun i økten, ikke lagret).
+- Release-badgen i README er nå statisk (`badge/release-vX.Y.Z`) i stedet for
+  `github/v/release`, som intermitterende feilet med «Unable to select next
+  GitHub token from pool» fra shields.io.
+- Forenklet release-prosess: versjon og badge navngis nå i selve feature-PR-ene
+  (entry under `## [X.Y.Z]`), så `/release` er bare en tag + GitHub Release,
+  ingen egen versjons-bump-PR.
+
+**Testet mot Wenche ≥ 0.31.2.**
 
 ## [0.3.0]
 
@@ -76,7 +80,7 @@ Første versjonerte utgave.
 
 **Testet mot Wenche ≥ 0.24.0.**
 
-[Ikke utgitt]: https://github.com/olefredrik/Bodil/compare/v0.3.0...HEAD
+[0.4.0]: https://github.com/olefredrik/Bodil/compare/v0.3.0...v0.4.0
 [0.3.0]: https://github.com/olefredrik/Bodil/compare/v0.2.0...v0.3.0
 [0.2.0]: https://github.com/olefredrik/Bodil/compare/v0.1.0...v0.2.0
 [0.1.0]: https://github.com/olefredrik/Bodil/releases/tag/v0.1.0

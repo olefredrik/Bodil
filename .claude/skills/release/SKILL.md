@@ -1,6 +1,6 @@
 ---
 name: release
-description: Publiser en ny versjon av Bodil-verktøyet. Verifiserer kompatibilitet mot Wenche, henter release-noten automatisk fra CHANGELOG, og tagger + oppretter GitHub Release etter én bekreftelse. Håndterer CHANGELOG-bump via PR når rulesettet krever det. Ingen PyPI. Bruk etter at en PR er merget til main.
+description: Publiser en ny versjon av Bodil-verktøyet. Verifiserer kompatibilitet mot Wenche, henter release-noten automatisk fra CHANGELOG-seksjonen som allerede er navngitt i PR-ene, og tagger + oppretter GitHub Release etter én bekreftelse. Ingen PyPI. Bruk etter at en PR er merget til main.
 ---
 
 # /release — Publiser ny versjon av Bodil
@@ -8,6 +8,13 @@ description: Publiser en ny versjon av Bodil-verktøyet. Verifiserer kompatibili
 Bodil distribueres ikke som en pakke; en release er en **git-tag + GitHub Release**
 som markerer en verifisert tilstand av verktøyet (skills + kompatibilitet med en
 gitt Wenche-versjon). Taggen *er* versjonen, det finnes ingen versjonsfil.
+
+Versjonen navngis i selve feature-PR-ene (se «Versjonering og CHANGELOG» i
+`CLAUDE.md`): hver oppførsels-PR skriver entryen sin under en `## [X.Y.Z]`-
+overskrift, og PR-en som oppretter overskriften legger til «Testet mot Wenche»-
+linjen, compare/tag-lenkene og bumper release-badgen i README. **Derfor er
+release bare en tag:** når du kommer hit er CHANGELOG og badge allerede klare på
+main, og det eneste som gjenstår er å tagge og publisere. Ingen egen prep-PR.
 
 Du **utfører** tagging og release selv (via `git` og `gh`), men tag + release er
 utadrettet på et offentlig repo, så du gjør det først **etter én eksplisitt
@@ -20,11 +27,13 @@ bekreftelse** der du viser hva som publiseres. Aldri uten den bekreftelsen.
 - `git fetch && git status`. Bekreft at main er à jour med `origin/main` og at
   arbeidstreet er rent. Er det umergede endringer: stopp og avklar.
 
-## 2. Bestem versjonsnummeret
+## 2. Les versjonen CHANGELOG navngir
 
-Dette er det eneste steget som alltid krever brukeren: versjonsnummeret er en
-skjønnsvurdering. Les `## [Ikke utgitt]` i `CHANGELOG.md`, foreslå bump og
-begrunn kort. La brukeren bekrefte før du går videre.
+Den øverste `## [X.Y.Z]`-seksjonen i `CHANGELOG.md` som ennå ikke er tagget, er
+versjonen du skal slippe. Den ble valgt og navngitt i feature-PR-ene. Les den,
+og la brukeren bekrefte at det er denne som skal ut.
+
+Til kontroll av at nivået er riktig (SemVer, tilpasset template-prosjektet):
 
 - **MAJOR** — den låste bokføringsmodellen endret seg, eller Wenche-kompatibilitet brytes
 - **MINOR** — ny skill, ny håndtert hendelse, eller støtte for en ny Wenche-versjon
@@ -37,34 +46,27 @@ begrunn kort. La brukeren bekrefte før du går videre.
 Kjernen i en Bodil-release. En release uten grønn kompatibilitetstest er ikke gyldig.
 
 - Les `env.WENCHE_PINNET` i `.github/workflows/wenche-kompatibilitet.yml` og
-  «Testet mot Wenche ≥ …»-linjen i `CHANGELOG.md`. **De må matche**, ellers stopp.
-- Kjør lokalt hvis Wenche er installert; begge må gi exit 0:
+  «Testet mot Wenche ≥ …»-linjen i `[X.Y.Z]`-seksjonen. **De må matche**, ellers stopp.
+- Bekreft at gaten er grønn på main HEAD (`gh run list --branch main --workflow wenche-kompatibilitet.yml --limit 1`).
+- Kjør gjerne lokalt hvis Wenche er installert; begge må gi exit 0:
   - `wenche valider-aarsregnskap --config tests/fixtures/config.golden.yaml`
   - `python tests/check_field_names.py`
 
-## 4. Sørg for at CHANGELOG navngir versjonen
+## 4. Bekreft at alt er klart for tag
 
-Release-noten hentes automatisk fra CHANGELOG-seksjonen for versjonen, så den må
-finnes som `## [X.Y.Z]` før du tagger.
+Siden navngivingen skjer i PR-ene, skal dette allerede stemme på main. Sjekk:
 
-- **Navngir CHANGELOG allerede `## [X.Y.Z]`** (intet uutgitt innhold igjen):
-  ingenting å gjøre, gå videre.
-- **Ligger innholdet fortsatt under `## [Ikke utgitt]`:** det må navngis i en
-  PR, fordi rulesettet krever PR til main. Lag en release-prep-PR:
-  1. Ny branch, f.eks. `release/vX.Y.Z`.
-  2. Gi `## [Ikke utgitt]` versjonsnummeret, legg til en ny tom `## [Ikke utgitt]`
-     over, oppdater `compare`-lenken og legg til en `releases/tag`-lenke nederst.
-  3. Bekreft at seksjonen har «Testet mot Wenche ≥ …»-linjen.
-  4. Bump release-badgen i `README.md` til `vX.Y.Z` (den er statisk:
-     `img.shields.io/badge/release-vX.Y.Z-blue`), så den holder seg i synk med
-     den utgitte versjonen.
-  5. Commit (`docs: klargjør CHANGELOG for vX.Y.Z`), push, og **stopp her** med
-     PR-tittel/beskrivelse til brukeren. Be brukeren merge og kjøre `/release`
-     på nytt. Du kan ikke tagge før navngivingen er på main.
+- CHANGELOG har en `## [X.Y.Z]`-seksjon med innhold og «Testet mot Wenche»-linjen.
+- Release-badgen i `README.md` er `img.shields.io/badge/release-vX.Y.Z-blue`.
+- Lenkeblokken nederst i CHANGELOG har `[X.Y.Z]: …/compare/vFORRIGE...vX.Y.Z`.
+
+**Faller noe ut** (en PR glemte å navngi versjonen eller bumpe badgen): rett det
+i en liten PR først (`docs: klargjør vX.Y.Z`), siden rulesettet krever PR til
+main. Merg den, og fortsett. Dette er unntaket, ikke regelen.
 
 ## 5. Bekreft og publiser
 
-Når CHANGELOG navngir versjonen på main, hent noten og vis et sammendrag:
+Hent noten og vis et sammendrag:
 
 ```bash
 # Hent release-noten for X.Y.Z fra CHANGELOG (stopper ved neste seksjon/lenkeblokk)
@@ -95,6 +97,6 @@ den er testet mot.
 
 - **Aldri** tagg eller opprett release uten brukerens bekreftelse i steg 5.
 - En release uten grønn kompatibilitetstest er ikke gyldig. Stopp hvis testen feiler.
-- CHANGELOG-navngiving går alltid via PR (rulesettet beskytter main). Tag og
-  release gjør du direkte, siden tagger ikke beskyttes av branch-rulesettet.
+- Navngiving (CHANGELOG + badge) skjer i feature-PR-ene, ikke her. Release er en
+  ren tag. Tagger er ikke beskyttet av branch-rulesettet, så de settes direkte.
 - Ingen PyPI, ingen build. Taggen markerer en verifisert tilstand.
