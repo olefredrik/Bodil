@@ -1,0 +1,53 @@
+site_name: Bodil
+site_description: Bokføring «i git» for passive holdingselskaper, drevet av Claude Code. Følgeverktøy til Wenche.
+site_url: https://olefredrik.github.io/Bodil/
+repo_url: https://github.com/olefredrik/Bodil
+repo_name: olefredrik/Bodil
+
+theme:
+  name: material
+  language: nb
+  palette:
+    - scheme: default
+      primary: teal
+      accent: teal
+      toggle:
+        icon: material/brightness-7
+        name: Bytt til mørk modus
+    - scheme: slate
+      primary: teal
+      accent: teal
+      toggle:
+        icon: material/brightness-4
+        name: Bytt til lys modus
+  features:
+    - navigation.instant
+    - navigation.sections
+    - navigation.top
+    - content.code.copy
+    - toc.integrate
+
+nav:
+  - Hjem: index.md
+  - Bodil og Wenche: bodil-og-wenche.md
+  - Kom i gang: kom-i-gang.md
+  - Bruk: bruk.md
+  - Den låste modellen: modellen.md
+  - Folio-integrasjon: folio.md
+  - Oppdatere Bodil: oppdatere.md
+  - Ansvar: ansvar.md
+
+markdown_extensions:
+  - admonition
+  - pymdownx.details
+  - pymdownx.superfences
+  - pymdownx.highlight:
+      anchor_linenums: true
+  - pymdownx.inlinehilite
+  - pymdownx.tabbed:
+      alternate_style: true
+  - attr_list
+  - md_in_html
+  - tables
+  - toc:
+      permalink: true
