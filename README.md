@@ -1,7 +1,7 @@
 # Bodil
 
 [![Release](https://img.shields.io/github/v/release/olefredrik/Bodil?label=release)](https://github.com/olefredrik/Bodil/releases)
-[![Lisens: MIT](https://img.shields.io/github/license/olefredrik/Bodil?label=lisens)](LICENSE)
+[![Lisens: MIT](https://img.shields.io/badge/lisens-MIT-blue)](LICENSE)
 [![Status: aktiv](https://www.repostatus.org/badges/latest/active.svg)](https://www.repostatus.org/#active)
 [![Wenche-kompatibilitet](https://github.com/olefredrik/Bodil/actions/workflows/wenche-kompatibilitet.yml/badge.svg)](https://github.com/olefredrik/Bodil/actions/workflows/wenche-kompatibilitet.yml)
 [![Drevet av Claude Code](https://img.shields.io/badge/drevet%20av-Claude%20Code-d97757)](https://claude.com/claude-code)
