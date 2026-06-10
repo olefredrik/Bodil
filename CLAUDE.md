@@ -30,12 +30,12 @@ Ingen andre kontoer. Ingen inntekter utover utbytte fra datterselskap. Resultate
 1. **bokforing** → `<år>/regnskap.md` (resultat + balanse + transaksjonslogg)
 2. Avgjør utbytte (kun ved dekning i fri egenkapital) → oppdater balansen
 3. **protokoll** → `<år>/protokoll.md` (godkjenner regnskapet, vedtar utbytte)
-4. **wenche-config** → `<år>/config.yaml` + sjekkliste, og kjør `wenche valider-aarsregnskap --config <år>/config.yaml`
-5. Brukeren åpner Wenche (`wenche`), laster `config.yaml`, fyller noter i Dokumenter-fanen, og sender
+4. **wenche-config** → `<år>/config.yaml` + sjekkliste. Valgfri lokal validering med `wenche valider-aarsregnskap` hvis Wenche er installert (ikke påkrevd for web-brukere)
+5. Brukeren sender inn, på én av to måter: **hostet** (wenche.cloud → Tall → «Hent tall fra Bodil», last opp `config.yaml`, anbefalt) eller **self-hosted** (`cd <år> && wenche`). Fyller noter i Dokumenter-fanen og sender
 
 ## Arbeidsdeling mot Wenche
 
-- Wenche eier innsending og datamodellen. Bodil produserer `config.yaml` mot Wenches feltnavn og selv-verifiserer med `wenche valider-aarsregnskap`.
+- Wenche eier innsending og datamodellen. Bodil produserer `config.yaml` mot Wenches feltnavn og selv-verifiserer med `wenche valider-aarsregnskap` når Wenche er installert lokalt (validering er valgfri; web-brukere på wenche.cloud trenger ikke installere Wenche).
 - Wenche genererer de fire pålagte notene selv. Bodil lager dem **ikke**. Note-input (antall ansatte = 0, lån til nærstående) fylles i Wenches Dokumenter-fane, ikke her.
 - `formuesverdi_aksjer` (RF-1088S post 209) kan ikke utledes fra bankeksporten. wenche-config flagger dette som manuelt input.
 

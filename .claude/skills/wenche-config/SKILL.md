@@ -96,9 +96,9 @@ Skriv ut en kort sjekkliste over det du IKKE kunne utlede fra bankeksporten og s
 - [ ] Balansen går opp (bekreftes også av valideringen under).
 - [ ] Skatteberegningen sett over av regnskapsfører år 1.
 
-## Output 3: kjør Wenches validering
+## Output 3: valider (valgfritt)
 
-Kjør, og rapporter exit-kode og output til brukeren:
+Validering er valgfri. Er `wenche`-kommandoen tilgjengelig lokalt, kjør den og rapporter exit-kode og output til brukeren:
 
 ```
 wenche valider-aarsregnskap --config <år>/config.yaml
@@ -107,8 +107,13 @@ wenche valider-aarsregnskap --config <år>/config.yaml
 - Exit 0 = ingen blokkerende feil. Eventuelle `ADVARSEL`-linjer (f.eks. utbytte uten dekning) skal leses og avklares, men stopper ikke innsending.
 - Exit 1 = blokkerende feil (typisk balanse som ikke går opp, eller ugyldig org.nr.). Rett i `regnskap.md`/`config.yaml` og kjør på nytt.
 
-Krever at Wenche (≥ 0.23.0) er installert. Mangler kommandoen, be brukeren installere/oppdatere Wenche (`pipx install wenche` eller `pipx upgrade wenche`).
+Er ikke `wenche` installert, **ikke be brukeren installere det kun for dette**. Si at `config.yaml` er klar, og at valideringen skjer ved opplasting på wenche.cloud (se «Neste steg»). Vil brukeren likevel validere lokalt først, kan validatoren installeres alene med `pipx install wenche` (krever ikke Maskinporten-oppsett).
 
 ## Neste steg
 
-Når valideringen er grønn: brukeren åpner Wenche (`wenche`), laster `<år>/config.yaml`, fyller noter i Dokumenter-fanen, kontrollerer, og sender inn.
+Brukeren sender inn på én av to måter, avhengig av hvilken Wenche de bruker:
+
+- **Hostet ([wenche.cloud](https://wenche.cloud), anbefalt):** brukeren kobler selskapet til Altinn, og under **Tall** klikker **Hent tall fra Bodil** og laster opp `<år>/config.yaml`. Skjemaet forhåndsfylles; brukeren ser over, fyller noter i Dokumenter-fanen, og sender inn.
+- **Self-hosted (lokalt):** brukeren kjører `cd <år> && wenche`, som laster `config.yaml` fra mappen, og sender inn derfra.
+
+**Personvern:** `config.yaml` inneholder fødselsnummer. Lokalt forlater det aldri maskinen; ved opplasting til wenche.cloud sendes det dit (behandles kun i økten, ikke lagret i database). Nevn dette hvis brukeren er usikker på hvilken vei de skal velge.

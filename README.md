@@ -32,11 +32,10 @@ Full dokumentasjon: **[olefredrik.github.io/Bodil](https://olefredrik.github.io/
 Engangsoppsett (detaljer i [dokumentasjonen](https://olefredrik.github.io/Bodil/kom-i-gang/)):
 
 1. **Lag din egen private kopi.** Dette offentlige repoet er malen og inneholder kun verktøyet, aldri regnskapsdata. Bruk «Use this template» på GitHub til et **privat** repo.
-2. **Installer Wenche:** `pipx install wenche` (krever Python ≥ 3.11).
-3. **Åpne ditt private repo i [Claude Code](https://claude.com/claude-code).** Skillene i `.claude/skills/` oppdages automatisk.
-4. **Fyll inn stamdata:** `cp selskap.example.yaml selskap.yaml` og fyll inn selskapet ditt (`selskap.yaml` er gitignored, den inneholder fødselsnummer).
+2. **Åpne ditt private repo i [Claude Code](https://claude.com/claude-code).** Skillene i `.claude/skills/` oppdages automatisk.
+3. **Fyll inn stamdata:** `cp selskap.example.yaml selskap.yaml` og fyll inn selskapet ditt (`selskap.yaml` er gitignored, den inneholder fødselsnummer).
 
-Deretter fører du regnskapet ett år av gangen: `/bokforing` → avgjør utbytte → `/protokoll` → `/wenche-config`, og sender inn via Wenche. Se [Bruk](https://olefredrik.github.io/Bodil/bruk/).
+Deretter fører du regnskapet ett år av gangen: `/bokforing` → avgjør utbytte → `/protokoll` → `/wenche-config`. Innsending skjer i **Wenche**, enklest på hostet [wenche.cloud](https://wenche.cloud) (last opp `config.yaml`, ingenting å installere), eller self-hosted lokalt. Se [Bruk](https://olefredrik.github.io/Bodil/bruk/) og [Bodil og Wenche](https://olefredrik.github.io/Bodil/bodil-og-wenche/).
 
 ## Personvern
 

@@ -14,6 +14,16 @@ Bodil er testet mot. Den versjonen er også pinnet i CI
 
 ## [Ikke utgitt]
 
+- Hostet Wenche ([wenche.cloud](https://wenche.cloud)) er nå den anbefalte
+  innsendingsveien i dokumentasjon og skills: brukeren laster opp `config.yaml`
+  via **Tall → Hent tall fra Bodil**, uten å installere noe. Self-hosted lokalt
+  er fortsatt et likeverdig alternativ.
+- `wenche-config` krever ikke lenger at Wenche er installert. Lokal validering
+  (`wenche valider-aarsregnskap`) kjøres hvis kommandoen finnes, ellers skjer
+  valideringen ved opplasting på wenche.cloud. Senker terskelen for web-brukere.
+- Personvern-note: `config.yaml` inneholder fødselsnummer, som forlater maskinen
+  ved opplasting til wenche.cloud (behandles kun i økten, ikke lagret).
+
 ## [0.3.0]
 
 - Verifisert kompatibilitet med Wenche 0.31.2 og bumpet pinnet versjon fra 0.24.0.
