@@ -23,6 +23,8 @@ concurrency:
 
 jobs:
   deploy:
+    # Kjør kun i Bodils eget repo, ikke i template-kopier som har hentet inn .github/.
+    if: github.repository == 'olefredrik/Bodil'
     environment:
       name: github-pages
       url: ${{ steps.deployment.outputs.page_url }}

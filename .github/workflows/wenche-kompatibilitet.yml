@@ -26,7 +26,8 @@ env:
 jobs:
   pinnet:
     name: Pinnet Wenche (gate)
-    if: github.event_name == 'push' || github.event_name == 'pull_request' || github.event_name == 'workflow_dispatch'
+    # Kjør kun i Bodils eget repo, ikke i template-kopier som har hentet inn .github/.
+    if: github.repository == 'olefredrik/Bodil' && (github.event_name == 'push' || github.event_name == 'pull_request' || github.event_name == 'workflow_dispatch')
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
@@ -53,7 +54,7 @@ jobs:
 
   siste:
     name: Nyeste Wenche (varsel)
-    if: github.event_name == 'schedule' || github.event_name == 'workflow_dispatch'
+    if: github.repository == 'olefredrik/Bodil' && (github.event_name == 'schedule' || github.event_name == 'workflow_dispatch')
     runs-on: ubuntu-latest
     # continue-on-error: bruddet skal ikke feile workflowen (ingen e-post-spam);
     # i stedet opprettes en issue i steget under. Issuen er varselet.

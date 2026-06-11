@@ -1,6 +1,6 @@
 # Bodil
 
-[![Release](https://img.shields.io/badge/release-v0.4.1-blue)](https://github.com/olefredrik/Bodil/releases)
+[![Release](https://img.shields.io/badge/release-v0.4.2-blue)](https://github.com/olefredrik/Bodil/releases)
 [![Lisens: MIT](https://img.shields.io/badge/lisens-MIT-blue)](LICENSE)
 [![Status: aktiv](https://www.repostatus.org/badges/latest/active.svg)](https://www.repostatus.org/#active)
 [![Wenche-kompatibilitet](https://github.com/olefredrik/Bodil/actions/workflows/wenche-kompatibilitet.yml/badge.svg)](https://github.com/olefredrik/Bodil/actions/workflows/wenche-kompatibilitet.yml)
