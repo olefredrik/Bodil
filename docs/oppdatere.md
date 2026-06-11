@@ -20,15 +20,18 @@ Pinn til en utgitt versjon (se [utgivelsene](https://github.com/olefredrik/Bodil
 ```bash
 git fetch bodil --tags
 
-git checkout v0.3.0 -- \
-  .claude scripts tests .github \
+git checkout v0.4.2 -- \
+  .claude scripts tests \
   CLAUDE.md .gitignore selskap.example.yaml bankeksport.example.csv
 
 git status                       # bekreft at kun verktøy er endret, ingen data
-git commit -m "chore: oppdater Bodil-verktøy til v0.3.0"
+git commit -m "chore: oppdater Bodil-verktøy til v0.4.2"
 ```
 
 `git checkout <tag> -- <stier>` kopierer akkurat de stiene fra Bodil-versjonen inn i kopien din og legger dem klar til commit. Stier som ikke står i listen (som `selskap.yaml` og årsmappene) berøres ikke.
+
+!!! warning "Ikke hent inn `.github/`"
+    Mappen `.github/` inneholder Bodils egne CI-workflows (dokumentasjonsbygg og Wenche-kompatibilitet). De er laget for å **utvikle** Bodil, ikke for å **bruke** det, og vil feile i regnskapskopien din (mangler `mkdocs.yml`, GitHub Pages osv.) — med feil-e-post ved hver push. Derfor står `.github` bevisst ikke i listen over. Hentet du den inn i en tidligere oppdatering? Slett `.github/workflows/` og commit det. (Fra v0.4.2 er workflowene dessuten guardet til kun å kjøre i Bodils eget repo, så nyere kopier rammes ikke uansett.)
 
 !!! note "Vil du også ha docs-siten i din private kopi?"
     Listen over er det funksjonelle verktøyet. Vil du i tillegg ha dokumentasjonen og README med, legg til `README.md CHANGELOG.md docs mkdocs.yml` i samme kommando. Det er valgfritt og rent kosmetisk for en privat regnskapskopi.

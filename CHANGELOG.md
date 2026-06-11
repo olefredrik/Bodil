@@ -12,6 +12,18 @@ Hver oppføring som rører grensesnittet mot Wenche oppgir hvilken Wenche-versjo
 Bodil er testet mot. Den versjonen er også pinnet i CI
 ([wenche-kompatibilitet.yml](.github/workflows/wenche-kompatibilitet.yml)).
 
+## [0.4.2]
+
+- CI-workflowene (`docs.yml`, `wenche-kompatibilitet.yml`) kjører nå kun i
+  Bodils eget repo (`if: github.repository == 'olefredrik/Bodil'`). Template-
+  kopier som har hentet inn `.github/` får dem dermed hoppet over i stedet for å
+  feile med e-postvarsel ved hver push.
+- Oppdateringsoppskriften (`docs/oppdatere.md`) henter ikke lenger inn `.github`,
+  og forklarer hvorfor Bodils CI ikke hører hjemme i en regnskapskopi (+ hvordan
+  rydde hvis den allerede er hentet inn). Eksempelversjonen er oppdatert.
+
+**Testet mot Wenche ≥ 0.31.2.**
+
 ## [0.4.1]
 
 - Tydeligere veiledning for Folio-integrasjonen: `folio-import`-skillen og docs
@@ -90,6 +102,7 @@ Første versjonerte utgave.
 
 **Testet mot Wenche ≥ 0.24.0.**
 
+[0.4.2]: https://github.com/olefredrik/Bodil/compare/v0.4.1...v0.4.2
 [0.4.1]: https://github.com/olefredrik/Bodil/compare/v0.4.0...v0.4.1
 [0.4.0]: https://github.com/olefredrik/Bodil/compare/v0.3.0...v0.4.0
 [0.3.0]: https://github.com/olefredrik/Bodil/compare/v0.2.0...v0.3.0
