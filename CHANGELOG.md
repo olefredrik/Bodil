@@ -12,6 +12,41 @@ Hver oppføring som rører grensesnittet mot Wenche oppgir hvilken Wenche-versjo
 Bodil er testet mot. Den versjonen er også pinnet i CI
 ([wenche-kompatibilitet.yml](.github/workflows/wenche-kompatibilitet.yml)).
 
+## [0.5.0]
+
+- **Skattekostnad er nå en del av den låste modellen.** Bodil regnet årsresultatet
+  som utbytte minus driftskostnader, altså implisitt skattekostnad 0. Det stemmer
+  for et hvilende år, men et år med mottatt utbytte og eierandel under 90 % har en
+  reell skattepliktig inntekt gjennom 3 %-sjablonen i fritaksmetoden (sktl. § 2-38
+  sjette ledd), og regnskapsloven § 6-1 krever skattekostnaden som egen linje før
+  årsresultatet. Årsresultatet ble dermed rapportert for høyt, og Wenche varslet
+  «skatten er beregnet, men ikke ført». `bokforing` regner nå skatten etter samme
+  regel som Wenche (skattepliktig del av utbyttet minus driftskostnader, minus
+  fremført underskudd, ganget med 22 %), og fører `betalbar_skatt` som motpost i
+  balansen. Golden-fixturet gikk fra ført 0 mot beregnet 55 kr til avvik 0.
+- **Betaling av skatt har fått sin egen rad i modellen.** Uten den ville
+  innbetalingen til Skatteetaten året etter blitt klassifisert som driftskostnad og
+  dermed kostnadsført to ganger. Den reduserer nå betalbar skatt.
+- **`regnskap.md` har en ny «Skattemessig»-seksjon** med skattepliktig inntekt,
+  anvendt fremført underskudd og underskudd til fremføring neste år. Den er input
+  til neste års bokføring og til `underskudd_til_fremfoering` i `wenche-config`,
+  som tidligere måtte hentes manuelt fra RF-1028 hvert år.
+- **`selskap.stiftelsesdato` tas nå med når den er kjent.** Uten den oppgir
+  aksjonærregisteroppgaven 1. januar som stiftelsestidspunkt for de nyutstedte
+  aksjene. Feltet er lagt til i `selskap.example.yaml` (hentes fra Enhetsregisteret).
+- **Forlenget første regnskapsår støttes** via `regnskapsstart` og `regnskapsslutt`
+  i `wenche-config`. Et selskap stiftet sent på året kan la første regnskapsår løpe
+  i inntil 18 måneder (rskl. § 1-7 andre ledd); Bodil oppgav tidligere hele
+  kalenderåret uansett.
+- **Kompatibilitetsgaten dekker nå begge formene** Bodil kan produsere: nytt fixture
+  `tests/fixtures/config.foerste-aar.yaml` for det forlengede første regnskapsåret,
+  og både validering og feltnavn-lint kjører over alle fixtures i `tests/fixtures/`
+  i stedet for bare golden-fixturet.
+- Pinnet Wenche bumpet fra 0.31.2 til 1.3.1. Ingen feltnavn Bodil bruker er fjernet
+  eller døpt om i 1.x; hele endringen over handler om felt Bodil ikke utnyttet.
+
+**Testet mot Wenche ≥ 1.3.1.**
+
 ## [0.4.2]
 
 - CI-workflowene (`docs.yml`, `wenche-kompatibilitet.yml`) kjører nå kun i
@@ -102,6 +137,7 @@ Første versjonerte utgave.
 
 **Testet mot Wenche ≥ 0.24.0.**
 
+[0.5.0]: https://github.com/olefredrik/Bodil/compare/v0.4.2...v0.5.0
 [0.4.2]: https://github.com/olefredrik/Bodil/compare/v0.4.1...v0.4.2
 [0.4.1]: https://github.com/olefredrik/Bodil/compare/v0.4.0...v0.4.1
 [0.4.0]: https://github.com/olefredrik/Bodil/compare/v0.3.0...v0.4.0

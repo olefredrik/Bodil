@@ -24,6 +24,8 @@ selskap:
   styreleder: "<navn>"
   forretningsadresse: "<adresse>"
   stiftelsesaar: <år>
+  stiftelsesdato: <ÅÅÅÅ-MM-DD>       # valgfri, men ta den med når den er kjent:
+                                     # aksjonærregisteroppgaven oppgir ellers 1. januar
   aksjekapital: <NOK>
   kontakt_epost: "<e-post>"          # påkrevd for aksjonærregisteroppgave
 
@@ -42,6 +44,13 @@ resultatregnskap:
     andre_finansinntekter: 0
     rentekostnader: 0
     andre_finanskostnader: 0
+  skattekostnad: <fra regnskap.md>     # egen linje før årsresultatet (rskl. § 6-1), 0 uten
+                                       # skattepliktig inntekt
+
+# regnskapsstart: <ÅÅÅÅ-MM-DD>       # UTELAT begge ved vanlig kalenderår. Tas bare med ved
+# regnskapsslutt: <ÅÅÅÅ-MM-DD>       # forlenget første regnskapsår (rskl. § 1-7 andre ledd):
+                                     # start = stiftelsesdato, slutt = 31.12, og
+                                     # regnskapsaar over er året perioden AVSLUTTES
 
 balanse:
   eiendeler:
@@ -62,6 +71,7 @@ balanse:
       andre_langsiktige_laan: 0
     kortsiktig_gjeld:
       leverandoergjeld: 0
+      betalbar_skatt: <fra regnskap.md>   # motposten til skattekostnaden, ubetalt skatt per 31.12
       skyldige_offentlige_avgifter: 0
       annen_kortsiktig_gjeld: 0
 
@@ -70,7 +80,7 @@ foregaaende_aar:                       # fjorårets tall fra regnskap.md (sammen
   balanse: { ... }                     # utelat hele seksjonen hvis selskapet ble stiftet i år
 
 skattemelding:
-  underskudd_til_fremfoering: <fra fjorårets skattemelding, RF-1028>
+  underskudd_til_fremfoering: <fra «Skattemessig» i regnskap.md, ellers fjorårets RF-1028>
   anvend_fritaksmetoden: true          # holdingselskap som eier aksjer
   eierandel_for_fritaksmetoden: <prosent>   # ≥ 90 % gir fullt skattefritt utbytte; < 90 % gir 3 % sjablonbeskatning
   boersnotert: false
@@ -90,7 +100,8 @@ aksjonaerer:
 Skriv ut en kort sjekkliste over det du IKKE kunne utlede fra bankeksporten og som brukeren må verifisere manuelt:
 
 - [ ] `formuesverdi_aksjer` hentet fra aksjeoppgaven RF-1088S (post 209). Kan ikke utledes fra bankeksporten.
-- [ ] `underskudd_til_fremfoering` hentet fra fjorårets skattemelding.
+- [ ] `underskudd_til_fremfoering` stemmer med «Skattemessig» i `regnskap.md` (år 1: hentet fra fjorårets RF-1028).
+- [ ] `skattekostnad` og `betalbar_skatt` stemmer med hverandre og med Wenches egen beregning. Sier Wenche at skatten er beregnet men ikke ført, mangler linjen i `regnskap.md`.
 - [ ] `eierandel_for_fritaksmetoden` riktig (avgjør om utbytte er fullt skattefritt eller 3 %-beskattet).
 - [ ] Noter fylles i Wenches **Dokumenter-fane**: antall ansatte (normalt 0) og eventuelt lån fra aksjonær som lån til/fra nærstående. Wenche genererer selve notene, Bodil gjør det ikke.
 - [ ] Balansen går opp (bekreftes også av valideringen under).

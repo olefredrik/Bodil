@@ -8,7 +8,7 @@ Bodil-output egentlig er feil (verdien droppes, defaulten brukes).
 
 Denne sjekken lukker det gapet. Den leser de gyldige feltnavnene rett fra
 dataklassene i den *installerte* Wenche-pakken (sannhetskilden, ingen egen kopi
-å vedlikeholde) og bekrefter at hver skalarnøkkel i golden-fixturet finnes der.
+å vedlikeholde) og bekrefter at hver skalarnøkkel i hvert fixture i tests/fixtures/ finnes der.
 
 Bare skalarnøkler sjekkes: container-nøkler (dict/liste) som døpes om feiler
 høylytt med KeyError og fanges allerede av validatoren. Det er bladfeltene som
@@ -31,7 +31,7 @@ except ImportError:
     print("FEIL: pakken 'wenche' er ikke installert. Kjør `pip install wenche`.")
     sys.exit(2)
 
-FIXTURE = Path(__file__).parent / "fixtures" / "config.golden.yaml"
+FIXTURES = sorted((Path(__file__).parent / "fixtures").glob("config.*.yaml"))
 
 
 def gyldige_feltnavn() -> set[str]:
@@ -59,24 +59,36 @@ def skalarnøkler(node: object) -> set[str]:
 
 
 def main() -> int:
-    with FIXTURE.open(encoding="utf-8") as f:
-        config = yaml.safe_load(f)
+    if not FIXTURES:
+        print("FEIL: fant ingen fixtures i tests/fixtures/.")
+        return 2
 
     gyldige = gyldige_feltnavn()
-    brukte = skalarnøkler(config)
-    ukjente = sorted(brukte - gyldige)
+    feilet = False
 
-    if ukjente:
-        print("Feltnavn-lint FEILET: golden-fixturet bruker felt Wenche ikke leser:")
-        for navn in ukjente:
-            print(f"  - {navn}")
+    for fixture in FIXTURES:
+        with fixture.open(encoding="utf-8") as f:
+            config = yaml.safe_load(f)
+
+        brukte = skalarnøkler(config)
+        ukjente = sorted(brukte - gyldige)
+
+        if ukjente:
+            feilet = True
+            print(f"Feltnavn-lint FEILET: {fixture.name} bruker felt Wenche ikke leser:")
+            for navn in ukjente:
+                print(f"  - {navn}")
+        else:
+            print(f"  {fixture.name}: {len(brukte)} feltnavn, alle kjent.")
+
+    if feilet:
         print(
             "\nWenche har sannsynligvis døpt om eller fjernet feltet. "
-            "Oppdater wenche-config-skillen og golden-fixturet til det nye navnet."
+            "Oppdater wenche-config-skillen og fixturet til det nye navnet."
         )
         return 1
 
-    print(f"Feltnavn-lint OK: {len(brukte)} feltnavn, alle kjent av Wenche.")
+    print(f"Feltnavn-lint OK: {len(FIXTURES)} fixtures kontrollert.")
     return 0
 
 

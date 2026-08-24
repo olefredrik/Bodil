@@ -8,6 +8,11 @@
 # gjennom, aksepterer Wenche fortsatt en Bodil-formet config. Feiler den, har
 # Wenches skjema eller valideringsregler endret seg og wenche-config må følge etter.
 #
+# Fixturet dekker et år med mottatt utbytte og eierandel under 90 %, altså tilfellet
+# der 3 %-sjablonen i fritaksmetoden gir en reell skattekostnad: 3 % av 12 500 = 375,
+# minus driftskostnader 125 = 250 skattepliktig, 22 % = 55 kr, med betalbar skatt som
+# motpost i balansen. Se config.foerste-aar.yaml for det forlengede første regnskapsåret.
+#
 # KUN syntetiske data. Aldri ekte fødselsnummer her (fila versjoneres).
 # Oppdater den bare når Bodils output-modell endres bevisst.
 
@@ -18,6 +23,7 @@ selskap:
   styreleder: "Kari Nordmann"
   forretningsadresse: "Eksempelgata 1, 0001 Oslo"
   stiftelsesaar: 2022
+  stiftelsesdato: "2022-03-14"
   aksjekapital: 30000
   kontakt_epost: "kari@example.no"
 
@@ -36,6 +42,7 @@ resultatregnskap:
     andre_finansinntekter: 0
     rentekostnader: 0
     andre_finanskostnader: 0
+  skattekostnad: 55
 
 balanse:
   eiendeler:
@@ -50,12 +57,13 @@ balanse:
     egenkapital:
       aksjekapital: 30000
       overkursfond: 0
-      annen_egenkapital: 2375
+      annen_egenkapital: 2320
     langsiktig_gjeld:
       laan_fra_aksjonaer: 70000
       andre_langsiktige_laan: 0
     kortsiktig_gjeld:
       leverandoergjeld: 0
+      betalbar_skatt: 55
       skyldige_offentlige_avgifter: 0
       annen_kortsiktig_gjeld: 0
 
@@ -73,6 +81,7 @@ foregaaende_aar:
       andre_finansinntekter: 0
       rentekostnader: 0
       andre_finanskostnader: 0
+    skattekostnad: 0
   balanse:
     eiendeler:
       anleggsmidler:
@@ -92,6 +101,7 @@ foregaaende_aar:
         andre_langsiktige_laan: 0
       kortsiktig_gjeld:
         leverandoergjeld: 0
+        betalbar_skatt: 0
         skyldige_offentlige_avgifter: 0
         annen_kortsiktig_gjeld: 0
 
