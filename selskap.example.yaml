@@ -11,6 +11,9 @@ selskap:
   styreleder: "Kari Nordmann"        # Kan være samme person
   forretningsadresse: "Eksempelgata 1, 0001 Oslo"
   stiftelsesaar: 2022
+  stiftelsesdato: "2022-03-14"       # Valgfri, men ta den med: aksjonærregisteroppgaven
+                                     # oppgir ellers 1. januar som stiftelsestidspunkt.
+                                     # Står i Enhetsregisteret (brreg.no)
   aksjekapital: 30000                # NOK, fra stiftelsesdokumentene
 
 # Aksjonærer per 31.12. Fødselsnummer brukes av Skatteetaten til å
@@ -30,6 +33,8 @@ aapningsbalanse:
   annen_egenkapital: 0               # Akkumulert resultat fra tidligere år (negativ = underskudd)
   laan_fra_aksjonaer: 50000          # Utestående lån fra eier ved årets start
                                      # (her: brukt til å finansiere eierposten under)
+  betalbar_skatt: 0                  # Skyldig selskapsskatt fra i fjor, ubetalt 01.01.
+                                     # Normalt 0 for et selskap uten skattepliktig inntekt
 
 # Eierposter i andre selskap, ført til kostpris (finansielle anleggsmidler).
 # Endres bare når du kjøper eller selger.

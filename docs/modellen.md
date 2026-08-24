@@ -11,8 +11,15 @@ Bodil fører etter en bevisst minimal, låst bokføringsmodell. Den dekker det e
 | Penger ut til eier | Utbytte (reduserer egenkapital) |
 | Alle andre utbetalinger | Driftskostnad (typisk bankgebyrer) |
 | Kjøp/salg av eierposter | Finansielle anleggsmidler til kostpris (fra `selskap.yaml`) |
+| Betaling av skatt til Skatteetaten | Reduserer betalbar skatt (gjeld), ikke en kostnad |
 
 Ingen andre kontoer, ingen inntekter utover utbytte fra datterselskap. Resultatet blir et lite underskudd lik driftskostnadene, med mindre det er mottatt utbytte.
+
+## Skatt
+
+Et hvilende år har ingen skattepliktig inntekt, og skattekostnaden er 0. Mottar selskapet utbytte og eierandelen er under 90 %, er 3 % av utbyttet skattepliktig (sjablonregelen i fritaksmetoden, sktl. § 2-38 sjette ledd). Da har selskapet en reell, liten skattekostnad, og regnskapsloven § 6-1 krever den som egen linje før årsresultatet. Bodil regner den etter samme regel som Wenche: skattepliktig del av utbyttet minus driftskostnadene, minus eventuelt fremført underskudd, ganget med 22 %.
+
+Skatten fastsettes og betales året etter, så den står som **betalbar skatt** i balansen per 31.12. Betalingen året etter reduserer den gjelden og er ikke en ny kostnad. Ved eierandel på 90 % eller mer er utbyttet fullt skattefritt, og skattekostnaden blir 0.
 
 ## Flagg, ikke gjett
 

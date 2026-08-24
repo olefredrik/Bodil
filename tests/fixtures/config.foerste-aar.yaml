@@ -1,0 +1,82 @@
+# Fixture for det forlengede første regnskapsåret (rskl. § 1-7 andre ledd).
+#
+# Golden-fixturet dekker et vanlig kalenderår. Denne dekker den andre formen
+# wenche-config kan produsere: et selskap stiftet sent på året som lar det
+# første regnskapsåret løpe fram til 31.12 året etter. Da settes
+# `regnskapsstart` (= stiftelsesdatoen) og `regnskapsslutt`, `regnskapsaar` er
+# året perioden AVSLUTTES, og `foregaaende_aar` utelates helt fordi det ikke
+# finnes noe fjorår å sammenligne med.
+#
+# Wenche gir to forventede ADVARSEL-linjer her (periode over 12 måneder, og
+# manglende sammenligningstall er ikke en av dem siden dette er første år).
+# CI godtar advarsler, den krever bare exit 0.
+#
+# KUN syntetiske data. Aldri ekte fødselsnummer her (fila versjoneres).
+
+selskap:
+  navn: "Nystiftet Holding AS"
+  org_nummer: "123456789"
+  daglig_leder: "Kari Nordmann"
+  styreleder: "Kari Nordmann"
+  forretningsadresse: "Eksempelgata 1, 0001 Oslo"
+  stiftelsesaar: 2025
+  stiftelsesdato: "2025-11-20"
+  aksjekapital: 30000
+  kontakt_epost: "kari@example.no"
+
+regnskapsaar: 2026
+regnskapsstart: "2025-11-20"
+regnskapsslutt: "2026-12-31"
+
+resultatregnskap:
+  driftsinntekter:
+    salgsinntekter: 0
+    andre_driftsinntekter: 0
+  driftskostnader:
+    loennskostnader: 0
+    avskrivninger: 0
+    andre_driftskostnader: 250
+  finansposter:
+    utbytte_fra_datterselskap: 0
+    andre_finansinntekter: 0
+    rentekostnader: 0
+    andre_finanskostnader: 0
+  skattekostnad: 0
+
+balanse:
+  eiendeler:
+    anleggsmidler:
+      aksjer_i_datterselskap: 0
+      andre_aksjer: 20000
+      langsiktige_fordringer: 0
+    omloepmidler:
+      kortsiktige_fordringer: 0
+      bankinnskudd: 9750
+  egenkapital_og_gjeld:
+    egenkapital:
+      aksjekapital: 30000
+      overkursfond: 0
+      annen_egenkapital: -250
+    langsiktig_gjeld:
+      laan_fra_aksjonaer: 0
+      andre_langsiktige_laan: 0
+    kortsiktig_gjeld:
+      leverandoergjeld: 0
+      betalbar_skatt: 0
+      skyldige_offentlige_avgifter: 0
+      annen_kortsiktig_gjeld: 0
+
+skattemelding:
+  underskudd_til_fremfoering: 0
+  anvend_fritaksmetoden: true
+  eierandel_for_fritaksmetoden: 25
+  boersnotert: false
+  formuesverdi_aksjer: 0
+
+aksjonaerer:
+  - navn: "Kari Nordmann"
+    fodselsnummer: "01010112345"
+    antall_aksjer: 1000
+    aksjeklasse: "ordinære"
+    utbytte_utbetalt: 0
+    innbetalt_kapital_per_aksje: 30

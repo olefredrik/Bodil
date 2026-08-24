@@ -49,7 +49,7 @@ Kjernen i en Bodil-release. En release uten grønn kompatibilitetstest er ikke g
   «Testet mot Wenche ≥ …»-linjen i `[X.Y.Z]`-seksjonen. **De må matche**, ellers stopp.
 - Bekreft at gaten er grønn på main HEAD (`gh run list --branch main --workflow wenche-kompatibilitet.yml --limit 1`).
 - Kjør gjerne lokalt hvis Wenche er installert; begge må gi exit 0:
-  - `wenche valider-aarsregnskap --config tests/fixtures/config.golden.yaml`
+  - `for f in tests/fixtures/config.*.yaml; do wenche valider-aarsregnskap --config "$f"; done`
   - `python tests/check_field_names.py`
 
 ## 4. Bekreft at alt er klart for tag
