@@ -12,6 +12,35 @@ Hver oppføring som rører grensesnittet mot Wenche oppgir hvilken Wenche-versjo
 Bodil er testet mot. Den versjonen er også pinnet i CI
 ([wenche-kompatibilitet.yml](.github/workflows/wenche-kompatibilitet.yml)).
 
+## [0.6.0]
+
+- **Utbetalt utbytte får riktig kode hos Skatteetaten.** Wenche 1.4.0 har fått avklart
+  at samleposten «andre negative endringer i egenkapital» ikke skal brukes ved utdeling
+  av utbytte, og koder nå utbetalingen som `tilleggsutbytte`: utdeling i løpet av året
+  basert på sist godkjente årsregnskap, som er nøyaktig det Bodils modell produserer.
+  Golden-fixturet gikk fra `annenNegativEndringIEgenkapital` til `tilleggsutbytte` uten
+  at en eneste linje i Bodils output endret seg. Alle som har delt ut utbytte fra et
+  Bodil-ført regnskap har sendt inn med den avviste samleposten; det retter seg ved å
+  bumpe pinnet Wenche, ingenting annet må gjøres.
+- **Selskap stiftet ved tinginnskudd kan nå rapportere det.** Skytes aksjer i et annet
+  selskap inn som aksjekapital, som er en vanlig måte å etablere en holdingstruktur på,
+  rapporterte egenkapitalavstemmingen hele stiftelsesinnskuddet som kontantinnskudd i
+  første regnskapsår. Det nye, valgfrie feltet `tinginnskudd_ved_stiftelse` i
+  `selskap.yaml` oppgir tingdelen, og kontantinnskuddet blir resten. Feltet kan ikke
+  utledes fra bankeksporten, siden et tinginnskudd aldri går gjennom bankkontoen, så
+  `wenche-config` fører det opp i sjekklisten over manuelle poster. Det gjelder bare
+  første regnskapsår; senere år ignorerer Wenche det med en advarsel.
+- **Gaten dekker nå tre former** Bodil kan produsere: nytt fixture
+  `tests/fixtures/config.tinginnskudd.yaml` for et delt stiftelsesinnskudd (25 000 som
+  aksjer, 5 000 som penger), som tvinger både `tinginnskudd` og `kontantinnskudd` ut i
+  avstemmingen.
+- Pinnet Wenche bumpet fra 1.3.1 til 1.5.1. Ingen feltnavn Bodil bruker er fjernet eller
+  døpt om. Wenche 1.5.0 la til `avsatt_utbytte` for utbytte som avsettes i regnskapet og
+  utbetales året etter; Bodil bruker det ikke i denne versjonen, siden den låste modellen
+  fører utbytte når pengene forlater konto.
+
+**Testet mot Wenche ≥ 1.5.1.**
+
 ## [0.5.0]
 
 - **Skattekostnad er nå en del av den låste modellen.** Bodil regnet årsresultatet
@@ -137,6 +166,7 @@ Første versjonerte utgave.
 
 **Testet mot Wenche ≥ 0.24.0.**
 
+[0.6.0]: https://github.com/olefredrik/Bodil/compare/v0.5.0...v0.6.0
 [0.5.0]: https://github.com/olefredrik/Bodil/compare/v0.4.2...v0.5.0
 [0.4.2]: https://github.com/olefredrik/Bodil/compare/v0.4.1...v0.4.2
 [0.4.1]: https://github.com/olefredrik/Bodil/compare/v0.4.0...v0.4.1

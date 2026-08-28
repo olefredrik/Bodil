@@ -27,6 +27,12 @@ selskap:
   stiftelsesdato: <ÅÅÅÅ-MM-DD>       # valgfri, men ta den med når den er kjent:
                                      # aksjonærregisteroppgaven oppgir ellers 1. januar
   aksjekapital: <NOK>
+  tinginnskudd_ved_stiftelse: <NOK>  # valgfri, fra selskap.yaml. Ta den med KUN i selskapets
+                                     # første regnskapsår, og bare hvis den er over 0: delen av
+                                     # aksjekapitalen som ble skutt inn som aksjer i stedet for
+                                     # penger. Uten den rapporterer egenkapitalavstemmingen hele
+                                     # stiftelsesinnskuddet som kontantinnskudd. Kan aldri
+                                     # overstige økningen i aksjekapital + overkursfond
   kontakt_epost: "<e-post>"          # påkrevd for aksjonærregisteroppgave
 
 regnskapsaar: <år>
@@ -102,6 +108,7 @@ Skriv ut en kort sjekkliste over det du IKKE kunne utlede fra bankeksporten og s
 - [ ] `formuesverdi_aksjer` hentet fra aksjeoppgaven RF-1088S (post 209). Kan ikke utledes fra bankeksporten.
 - [ ] `underskudd_til_fremfoering` stemmer med «Skattemessig» i `regnskap.md` (år 1: hentet fra fjorårets RF-1028).
 - [ ] `skattekostnad` og `betalbar_skatt` stemmer med hverandre og med Wenches egen beregning. Sier Wenche at skatten er beregnet men ikke ført, mangler linjen i `regnskap.md`.
+- [ ] `tinginnskudd_ved_stiftelse` stemmer med stiftelsesdokumentene (kun år 1, og bare hvis selskapet ble stiftet ved tinginnskudd). Kan ikke utledes fra bankeksporten: et tinginnskudd går aldri gjennom bankkontoen.
 - [ ] `eierandel_for_fritaksmetoden` riktig (avgjør om utbytte er fullt skattefritt eller 3 %-beskattet).
 - [ ] Noter fylles i Wenches **Dokumenter-fane**: antall ansatte (normalt 0) og eventuelt lån fra aksjonær som lån til/fra nærstående. Wenche genererer selve notene, Bodil gjør det ikke.
 - [ ] Balansen går opp (bekreftes også av valideringen under).
