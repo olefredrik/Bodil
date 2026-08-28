@@ -1,0 +1,124 @@
+# Fixture for avsetningsmodellen (Bodil ≥ 1.0.0).
+#
+# Dekker den kombinasjonen som gjør modellen ikke-triviell, og som Wenche 1.5.1
+# er skrevet for: selskapet betaler ut FJORÅRETS avsetning (10 000) og avsetter
+# ET NYTT utbytte for inneværende år (8 000) i samme regnskapsår.
+#
+# Det gir to poster som er lette å forveksle:
+#   avsatt_utbytte    = 8 000   (gjeld per 31.12, reduserer egenkapitalen i år)
+#   utbytte_utbetalt  = 10 000  (kontanter ut i år, gjør opp fjorårets gjeld)
+#
+# Egenkapitalavstemmingen skal derfor vise avsattEllerForventetUtbytte på 8 000, og
+# IKKE en utbyttepost for de 10 000: de traff egenkapitalen i fjor. Egenkapitalen
+# faller likevel ikke, siden årsresultatet på 12 320 er større enn avsetningen.
+#
+# Tallene følger config.golden.yaml (utbytte 12 500, eierandel 25 %, skatt 55) slik at
+# de to fixturene er direkte sammenlignbare på alt annet enn utbyttehåndteringen.
+#
+# KUN syntetiske data. Aldri ekte fødselsnummer her (fila versjoneres).
+
+selskap:
+  navn: "Avsetning Holding AS"
+  org_nummer: "123456789"
+  daglig_leder: "Kari Nordmann"
+  styreleder: "Kari Nordmann"
+  forretningsadresse: "Eksempelgata 1, 0001 Oslo"
+  stiftelsesaar: 2022
+  stiftelsesdato: "2022-03-14"
+  aksjekapital: 30000
+  kontakt_epost: "kari@example.no"
+
+regnskapsaar: 2025
+
+resultatregnskap:
+  driftsinntekter:
+    salgsinntekter: 0
+    andre_driftsinntekter: 0
+  driftskostnader:
+    loennskostnader: 0
+    avskrivninger: 0
+    andre_driftskostnader: 125
+  finansposter:
+    utbytte_fra_datterselskap: 12500
+    andre_finansinntekter: 0
+    rentekostnader: 0
+    andre_finanskostnader: 0
+  skattekostnad: 55
+
+balanse:
+  eiendeler:
+    anleggsmidler:
+      aksjer_i_datterselskap: 0
+      andre_aksjer: 50000
+      langsiktige_fordringer: 0
+    omloepmidler:
+      kortsiktige_fordringer: 0
+      bankinnskudd: 64695
+  egenkapital_og_gjeld:
+    egenkapital:
+      aksjekapital: 30000
+      overkursfond: 0
+      annen_egenkapital: 6640
+    langsiktig_gjeld:
+      laan_fra_aksjonaer: 70000
+      andre_langsiktige_laan: 0
+    kortsiktig_gjeld:
+      leverandoergjeld: 0
+      betalbar_skatt: 55
+      skyldige_offentlige_avgifter: 0
+      avsatt_utbytte: 8000
+      annen_kortsiktig_gjeld: 0
+
+foregaaende_aar:
+  resultatregnskap:
+    driftsinntekter:
+      salgsinntekter: 0
+      andre_driftsinntekter: 0
+    driftskostnader:
+      loennskostnader: 0
+      avskrivninger: 0
+      andre_driftskostnader: 0
+    finansposter:
+      utbytte_fra_datterselskap: 0
+      andre_finansinntekter: 0
+      rentekostnader: 0
+      andre_finanskostnader: 0
+    skattekostnad: 0
+  balanse:
+    eiendeler:
+      anleggsmidler:
+        aksjer_i_datterselskap: 0
+        andre_aksjer: 50000
+        langsiktige_fordringer: 0
+      omloepmidler:
+        kortsiktige_fordringer: 0
+        bankinnskudd: 62320
+    egenkapital_og_gjeld:
+      egenkapital:
+        aksjekapital: 30000
+        overkursfond: 0
+        annen_egenkapital: 2320
+      langsiktig_gjeld:
+        laan_fra_aksjonaer: 70000
+        andre_langsiktige_laan: 0
+      kortsiktig_gjeld:
+        leverandoergjeld: 0
+        betalbar_skatt: 0
+        skyldige_offentlige_avgifter: 0
+        avsatt_utbytte: 10000
+        annen_kortsiktig_gjeld: 0
+
+skattemelding:
+  underskudd_til_fremfoering: 0
+  anvend_fritaksmetoden: true
+  eierandel_for_fritaksmetoden: 25
+  boersnotert: false
+  formuesverdi_aksjer: 50000
+
+aksjonaerer:
+  - navn: "Kari Nordmann"
+    fodselsnummer: "01010112345"
+    antall_aksjer: 1000
+    aksjeklasse: "ordinære"
+    utbytte_utbetalt: 10000
+    innbetalt_kapital_per_aksje: 30

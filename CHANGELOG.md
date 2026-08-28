@@ -12,6 +12,64 @@ Hver oppføring som rører grensesnittet mot Wenche oppgir hvilken Wenche-versjo
 Bodil er testet mot. Den versjonen er også pinnet i CI
 ([wenche-kompatibilitet.yml](.github/workflows/wenche-kompatibilitet.yml)).
 
+## [1.0.0]
+
+Denne versjonen endrer den låste bokføringsmodellen. Les «Overgang» nederst i seksjonen
+før du fører et nytt år.
+
+- **Utbytte føres nå i avsetningsåret, ikke i utbetalingsåret.** Bodil bokførte utbytte
+  når pengene forlot konto. Det gjorde protokollen umulig å datere ærlig: den skrives
+  våren året etter, men skulle «vedta» en utdeling som allerede hadde skjedd, og skillen
+  lovet samtidig å være «det lovpålagte bilaget». Bodil følger nå aksjelovens normalsti.
+  Styret foreslår utbyttet når regnskapet utarbeides, det står som `avsatt utbytte`
+  (kortsiktig gjeld, konto 2800) per 31.12 og reduserer egenkapitalen i det året det
+  gjelder, generalforsamlingen vedtar avsetningen når den godkjenner årsregnskapet, og
+  utbetalingen året etter gjør bare opp gjelden. Alt Bodil produserer er dermed datert
+  når det faktisk skjer.
+- **To rader i den låste modellen er byttet ut.** «Penger ut til eier → utbytte» er delt
+  i to: en utbetaling opp til utestående avsetning reduserer gjelden og rører ikke
+  egenkapitalen, mens alt utover den blir **flagget**. Ny rad for selve avsetningen, som
+  er den ene posten i modellen som ikke stammer fra bankeksporten, fordi den er en
+  beslutning og ikke en betaling.
+- **Penger til eier uten dekkende avsetning gjettes ikke lenger på.** Bodil spør om det
+  er et utbytte vedtatt i løpet av året på grunnlag av fjorårets godkjente regnskap, et
+  lån til aksjonær, eller en tilbakebetaling av innbetalt kapital. Det første føres som
+  før (`utbytte_utbetalt`, reduserer egenkapitalen i utbetalingsåret) mot at brukeren
+  bekrefter at det finnes et vedtak datert senest på betalingsdagen. De to andre er
+  utenfor modellen og flagges.
+- **`protokoll` tilbakedaterer ikke lenger et vedtak.** Er utbyttet allerede utbetalt i
+  regnskapsåret, omtaler protokollen utdelingen som et faktum og sier eksplisitt at den
+  ikke er bilaget for vedtaket, i stedet for å «vedta» den i ettertid. Skillen lager
+  aldri et bilag den ikke kan datere riktig.
+- **Dekningskravet gjelder nå avsetningen.** En avsetning er en utdeling etter
+  aksjeloven § 8-1 og er allerede trukket fra annen egenkapital, så den kan gjøre fri
+  egenkapital negativ helt alene. Sjekken så tidligere bare på utbetalt utbytte.
+- **`regnskap.md` har fått en «Utbytte»-seksjon** som skiller inngående avsetning,
+  utbetaling mot den, utbytte vedtatt og utbetalt i året, og årets avsetning. Den er
+  input til `protokoll`, til `avsatt_utbytte` i `wenche-config`, og til neste års
+  bokføring. `avsatt_utbytte` er også ny linje i balansen, og `aapningsbalanse` i
+  `selskap.yaml` har fått feltet.
+- **`avsatt_utbytte` og `utbytte_utbetalt` er bevisst to felt.** Det første er balansen
+  og egenkapitalen i avsetningsåret; det andre er kontantstrømmen og posten i
+  aksjonærregisteroppgaven i utbetalingsåret, jf. Wenches egen definisjon. De er ulik
+  null samtidig det året fjorårets avsetning betales og et nytt utbytte avsettes, og
+  `wenche-config` har et sjekklistepunkt mot forveksling.
+- **Nytt fixture `tests/fixtures/config.avsatt-utbytte.yaml`** dekker nettopp den
+  kombinasjonen: 10 000 utbetalt mot fjorårets avsetning og 8 000 avsatt for året.
+  Avstemmingen viser `avsattEllerForventetUtbytte` 8 000 og ingen utbyttepost for
+  utbetalingen, som er oppførselen Wenche 1.5.1 retter. Gaten dekker nå fire fixtures,
+  og `config.golden.yaml` beholdes uendret som dekning for utbetalingsstien.
+- Sperren mot å gå til 1.0 i `release`-skillen er fjernet. Avviket om rentebærende
+  aksjonærlån som gjorde den nødvendig er avklart.
+
+**Overgang:** det første året etter oppgraderingen finnes det ingen inngående avsetning,
+så en utbetaling til eier vil bli flagget. Det er tilsiktet. Svar «utbytte vedtatt i
+året» hvis utdelingen hadde et gyldig vedtak, så føres den som før. Fra året etter er du
+på normalstien. Balansen for tidligere år endres ikke, og ingenting må sendes inn på
+nytt.
+
+**Testet mot Wenche ≥ 1.5.1.**
+
 ## [0.6.0]
 
 - **Utbetalt utbytte får riktig kode hos Skatteetaten.** Wenche 1.4.0 har fått avklart
@@ -166,6 +224,7 @@ Første versjonerte utgave.
 
 **Testet mot Wenche ≥ 0.24.0.**
 
+[1.0.0]: https://github.com/olefredrik/Bodil/compare/v0.6.0...v1.0.0
 [0.6.0]: https://github.com/olefredrik/Bodil/compare/v0.5.0...v0.6.0
 [0.5.0]: https://github.com/olefredrik/Bodil/compare/v0.4.2...v0.5.0
 [0.4.2]: https://github.com/olefredrik/Bodil/compare/v0.4.1...v0.4.2

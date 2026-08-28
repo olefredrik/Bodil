@@ -9,7 +9,7 @@ Tanken er enkel: et hvilende holdingselskap har likevel plikt til å føre og le
 Du fører ett regnskapsår av gangen ved å snakke med Claude Code. For hvert år produserer Bodil:
 
 - **`regnskap.md`** — resultatregnskap, balanse og en transaksjonslogg, ført etter en bevisst minimal, [låst modell](modellen.md).
-- **`protokoll.md`** — generalforsamlingsprotokoll som godkjenner regnskapet og vedtar utbytte eller dekning av underskudd. Fungerer også som utbytte-bilag.
+- **`protokoll.md`** — generalforsamlingsprotokoll som godkjenner regnskapet og vedtar avsetning av utbytte eller dekning av underskudd. Er bilaget for utbyttet den vedtar.
 - **`config.yaml`** — input med Wenches eksakte feltnavn, broen som lar [Wenche](bodil-og-wenche.md) sende inn uten at du flytter tall manuelt.
 
 Claude sender **ingenting** selv. Innsendingen gjør du i Wenche helt til slutt, og Claude stopper og spør hvis noe ikke passer modellen, i stedet for å gjette.

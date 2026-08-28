@@ -79,6 +79,9 @@ balanse:
       leverandoergjeld: 0
       betalbar_skatt: <fra regnskap.md>   # motposten til skattekostnaden, ubetalt skatt per 31.12
       skyldige_offentlige_avgifter: 0
+      avsatt_utbytte: <fra «Utbytte» i regnskap.md>   # utestående avsatt utbytte 31.12 (konto
+                                       # 2800). Reduserer egenkapitalen i avsetningsåret, ikke
+                                       # i utbetalingsåret. 0 hvis ingenting er avsatt
       annen_kortsiktig_gjeld: 0
 
 foregaaende_aar:                       # fjorårets tall fra regnskap.md (sammenligningstall, rskl. § 6-6)
@@ -97,7 +100,9 @@ aksjonaerer:
     fodselsnummer: "<11 siffer>"
     antall_aksjer: <n>
     aksjeklasse: "ordinære"
-    utbytte_utbetalt: <fra regnskap.md>
+    utbytte_utbetalt: <fra «Utbytte» i regnskap.md: utbetalt mot fjorårets avsetning + eventuelt
+                       # utbytte vedtatt og utbetalt i året. Dette er kontantstrømmen i året, ikke
+                       # årets avsetning, og kan derfor avvike fra avsatt_utbytte over>
     innbetalt_kapital_per_aksje: <aksjekapital / antall aksjer>
 ```
 
@@ -108,6 +113,8 @@ Skriv ut en kort sjekkliste over det du IKKE kunne utlede fra bankeksporten og s
 - [ ] `formuesverdi_aksjer` hentet fra aksjeoppgaven RF-1088S (post 209). Kan ikke utledes fra bankeksporten.
 - [ ] `underskudd_til_fremfoering` stemmer med «Skattemessig» i `regnskap.md` (år 1: hentet fra fjorårets RF-1028).
 - [ ] `skattekostnad` og `betalbar_skatt` stemmer med hverandre og med Wenches egen beregning. Sier Wenche at skatten er beregnet men ikke ført, mangler linjen i `regnskap.md`.
+- [ ] `avsatt_utbytte` stemmer med «Utbytte»-seksjonen i `regnskap.md` og med det protokollen faktisk vedtok.
+- [ ] `avsatt_utbytte` og `utbytte_utbetalt` er ikke forvekslet: den første er årets avsetning per 31.12, den andre er kontanter ut i året. Er fjorårets avsetning betalt i år og et nytt utbytte avsatt, er begge ulik null.
 - [ ] `tinginnskudd_ved_stiftelse` stemmer med stiftelsesdokumentene (kun år 1, og bare hvis selskapet ble stiftet ved tinginnskudd). Kan ikke utledes fra bankeksporten: et tinginnskudd går aldri gjennom bankkontoen.
 - [ ] `eierandel_for_fritaksmetoden` riktig (avgjør om utbytte er fullt skattefritt eller 3 %-beskattet).
 - [ ] Noter fylles i Wenches **Dokumenter-fane**: antall ansatte (normalt 0) og eventuelt lån fra aksjonær som lån til/fra nærstående. Wenche genererer selve notene, Bodil gjør det ikke.
