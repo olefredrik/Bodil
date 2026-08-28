@@ -1,21 +1,23 @@
 ---
 name: protokoll
-description: Lag generalforsamlingsprotokoll for et regnskapsår for et passivt holdingselskap. Leser <år>/regnskap.md og stamdata, og produserer <år>/protokoll.md som godkjenner årsregnskapet og vedtar utbytte eller dekning av underskudd. Fungerer også som utbytte-bilag. Bruk etter bokforing.
+description: Lag generalforsamlingsprotokoll for et regnskapsår for et passivt holdingselskap. Leser <år>/regnskap.md og stamdata, og produserer <år>/protokoll.md som godkjenner årsregnskapet og vedtar avsetning av utbytte eller dekning av underskudd. Er bilag for utbytte den selv vedtar, ikke for utbytte som allerede er utbetalt i året. Bruk etter bokforing.
 ---
 
 # Skill: protokoll
 
-Lager den ordinære generalforsamlingsprotokollen for et regnskapsår. Den godkjenner årsregnskapet og vedtar disponeringen (utbytte eller dekning av underskudd). Protokollen er samtidig det lovpålagte bilaget for et eventuelt utbytte.
+Lager den ordinære generalforsamlingsprotokollen for et regnskapsår. Den godkjenner årsregnskapet og vedtar disponeringen: avsetning av utbytte, eller dekning av underskudd. Protokollen er bilaget for et utbytte den selv vedtar, altså en avsetning. Den er **ikke** bilag for et utbytte som allerede er utbetalt i løpet av regnskapsåret; det vedtaket ble truffet før denne protokollen ble skrevet.
 
 ## Input
 
-- `<år>/regnskap.md` (fra bokforing-skillen), særlig årsresultat, fri egenkapital og eventuelt utbytte.
+- `<år>/regnskap.md` (fra bokforing-skillen), særlig årsresultat, fri egenkapital og «Utbytte»-seksjonen.
 - `selskap.yaml` (selskapsnavn, org.nr., daglig leder/styreleder, aksjonærer).
 
 ## Regler før du skriver
 
-- **Utbytte krever dekning.** Vedta bare utbytte hvis det finnes fri egenkapital (`overkursfond + annen_egenkapital ≥ utbyttet`, jf. aksjeloven § 8-1). Hvis regnskapet viser et utbytte uten dekning, stopp og be brukeren avklare før du skriver protokollen.
-- **Ved underskudd:** protokollen fastslår at årets underskudd dekkes av (føres mot) annen egenkapital, og at det ikke utdeles utbytte.
+- **Protokollen vedtar avsetningen, ikke en utbetaling.** Utbytte for regnskapsåret står som `avsatt utbytte` i balansen per 31.12: styret har foreslått det, og generalforsamlingen vedtar det når den godkjenner årsregnskapet. Utbetalingen skjer etterpå og gjør bare opp gjeldsposten.
+- **Utbytte krever dekning.** Vedta bare avsetningen hvis fri egenkapital (`overkursfond + annen_egenkapital`) er ≥ 0 etter at den er trukket fra, jf. aksjeloven § 8-1. Er den negativ, stopp og be brukeren avklare før du skriver protokollen.
+- **Utbytte som allerede er utbetalt i regnskapsåret skal ikke vedtas her.** Viser «Utbytte»-seksjonen et beløp under «vedtatt og utbetalt i året», ble det besluttet i løpet av året på grunnlag av fjorårets godkjente årsregnskap. Denne protokollen skrives etter at pengene forlot konto og kan ikke vedta dem i ettertid. Omtal utdelingen som et faktum, ikke som en beslutning, og bruk formuleringen i punkt 3 under. **Tilbakedater aldri** et vedtak, og ikke skriv en protokoll som gir inntrykk av å være bilaget for det. Mangler bilaget, si det til brukeren.
+- **Ved underskudd:** protokollen fastslår at årets underskudd dekkes av (føres mot) annen egenkapital, og at det ikke avsettes utbytte.
 - **Revisjon:** små holdingselskaper er normalt fritatt for revisjonsplikt. Protokollen bekrefter at årsregnskapet er fastsatt uten revisjon. Er du i tvil om selskapet faktisk er fritatt, flagg det.
 - Ikke skriv fullt fødselsnummer i protokollen (den versjoneres); bruk navn.
 
@@ -39,9 +41,10 @@ Innkalling og dagsorden ble godkjent.
 Årsregnskapet for <år> ble fremlagt, med et **årsresultat på <x> kr**. Generalforsamlingen vedtok å godkjenne resultatregnskapet og balansen.
 
 ## 3. Disponering av årsresultatet
-<Ett av to:>
-- Generalforsamlingen vedtok å utdele et utbytte på **<x> kr**, som belastes fri egenkapital. Etter utdelingen utgjør fri egenkapital <x> kr.
-- Generalforsamlingen vedtok at årets underskudd på <x> kr dekkes av annen egenkapital. Det utdeles ikke utbytte.
+<Velg det som passer. De to første utelukker ikke hverandre: et selskap kan ha utdelt tilleggsutbytte i året OG avsette nytt utbytte for året.>
+- Generalforsamlingen vedtok styrets forslag om et utbytte på **<x> kr**, avsatt i årsregnskapet per 31.12.<år> og oppført som kortsiktig gjeld. Utbyttet belastes fri egenkapital, som etter avsetningen utgjør <x> kr. Utbetaling skjer i <år+1>.
+- Det ble i løpet av regnskapsåret utdelt et utbytte på <x> kr, vedtatt <dato> på grunnlag av det godkjente årsregnskapet for <år-1>. Utdelingen framgår av årsregnskapet som nå godkjennes. Denne protokollen er ikke bilaget for det vedtaket.
+- Generalforsamlingen vedtok at årets underskudd på <x> kr dekkes av annen egenkapital. Det avsettes ikke utbytte.
 
 ## 4. Revisjon
 Selskapet er fritatt for revisjonsplikt, og årsregnskapet er fastsatt uten revisor.

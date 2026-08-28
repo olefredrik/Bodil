@@ -19,8 +19,8 @@ Begge gjør det samme. Skråstrek gir deg eksplisitt kontroll; vanlige ord er of
 For hvert regnskapsår kjører du skillene slik. Bytt ut `<år>` med året, f.eks. legg bankeksporten i `2026/bankeksport.csv`:
 
 1. **`/bokforing`** → lager `<år>/regnskap.md` (resultatregnskap + balanse + skattemessige tall + transaksjonslogg). Er det mottatt utbytte i året, spør Claude om underskudd til fremføring fra fjorårets RF-1028 hvis det ikke finnes et Bodil-ført fjorår å hente det fra.
-2. **Avgjør utbytte** sammen med Claude (kun hvis det er fri egenkapital å dele ut).
-3. **`/protokoll`** → lager `<år>/protokoll.md` (godkjenner regnskapet og vedtar utbytte, fungerer også som utbytte-bilag).
+2. **Avgjør utbytte for året** sammen med Claude (kun hvis det er fri egenkapital å dele ut). Utbyttet avsettes som gjeld per 31.12 og utbetales året etter.
+3. **`/protokoll`** → lager `<år>/protokoll.md` (godkjenner regnskapet og vedtar avsetningen, og er bilaget for den).
 4. **`/wenche-config`** → lager `<år>/config.yaml` + en sjekkliste, og kjører `wenche valider-aarsregnskap` for deg.
 5. **Overfør til Wenche og send inn** (se under).
 

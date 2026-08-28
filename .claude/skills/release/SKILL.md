@@ -39,7 +39,6 @@ Til kontroll av at nivået er riktig (SemVer, tilpasset template-prosjektet):
 - **MINOR** — ny skill, ny håndtert hendelse, eller støtte for en ny Wenche-versjon
 - **PATCH** — ordlyd, dokumentasjon, feilretting
 
-> Mens avviket om rentebærende aksjonærlån er uavklart, hold deg på `0.x`.
 
 ## 3. Verifiser Wenche-kompatibilitet
 

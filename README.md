@@ -1,6 +1,6 @@
 # Bodil
 
-[![Release](https://img.shields.io/badge/release-v0.6.0-blue)](https://github.com/olefredrik/Bodil/releases)
+[![Release](https://img.shields.io/badge/release-v1.0.0-blue)](https://github.com/olefredrik/Bodil/releases)
 [![Lisens: MIT](https://img.shields.io/badge/lisens-MIT-blue)](LICENSE)
 [![Status: aktiv](https://www.repostatus.org/badges/latest/active.svg)](https://www.repostatus.org/#active)
 [![Wenche-kompatibilitet](https://github.com/olefredrik/Bodil/actions/workflows/wenche-kompatibilitet.yml/badge.svg)](https://github.com/olefredrik/Bodil/actions/workflows/wenche-kompatibilitet.yml)
@@ -35,7 +35,7 @@ Engangsoppsett (detaljer i [dokumentasjonen](https://olefredrik.github.io/Bodil/
 2. **Åpne ditt private repo i [Claude Code](https://claude.com/claude-code).** Skillene i `.claude/skills/` oppdages automatisk.
 3. **Fyll inn stamdata:** `cp selskap.example.yaml selskap.yaml` og fyll inn selskapet ditt (`selskap.yaml` er gitignored, den inneholder fødselsnummer).
 
-Deretter fører du regnskapet ett år av gangen: `/bokforing` → avgjør utbytte → `/protokoll` → `/wenche-config`. Innsending skjer i **Wenche**, enklest på hostet [wenche.cloud](https://wenche.cloud) (last opp `config.yaml`, ingenting å installere), eller self-hosted lokalt. Se [Bruk](https://olefredrik.github.io/Bodil/bruk/) og [Bodil og Wenche](https://olefredrik.github.io/Bodil/bodil-og-wenche/).
+Deretter fører du regnskapet ett år av gangen: `/bokforing` → avgjør utbytte for året → `/protokoll` → `/wenche-config`. Innsending skjer i **Wenche**, enklest på hostet [wenche.cloud](https://wenche.cloud) (last opp `config.yaml`, ingenting å installere), eller self-hosted lokalt. Se [Bruk](https://olefredrik.github.io/Bodil/bruk/) og [Bodil og Wenche](https://olefredrik.github.io/Bodil/bodil-og-wenche/).
 
 ## Personvern
 

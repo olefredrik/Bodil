@@ -12,7 +12,9 @@ Kun passive holdingselskaper: selskaper som eier aksjer i andre selskaper og ell
 |---|---|
 | Penger inn fra eier | Lån fra aksjonær (gjeld) |
 | Utbytte mottatt fra datterselskap | Finansinntekt (utbytte fra datterselskap) |
-| Penger ut til eier | Utbytte (reduserer egenkapital) |
+| Penger ut til eier, opp til utestående avsatt utbytte | Reduserer avsatt utbytte (gjeld), ikke egenkapital |
+| Penger ut til eier utover det | Flagg og spør: utbytte vedtatt i året, lån til aksjonær, eller tilbakebetaling av kapital |
+| Utbytte for regnskapsåret (styrets forslag, ikke en banktransaksjon) | Avsatt utbytte (kortsiktig gjeld), reduserer egenkapital i avsetningsåret |
 | Alle andre utbetalinger | Driftskostnad |
 | Kjøp/salg av eierposter | Finansielle anleggsmidler til kostpris (fra `selskap.yaml`) |
 | Betaling av skatt til Skatteetaten | Reduserer betalbar skatt (gjeld), ikke en kostnad |
@@ -23,13 +25,14 @@ Ingen andre kontoer. Ingen inntekter utover utbytte fra datterselskap. Resultate
 
 - **Stamdata leses fra `selskap.yaml`** (navn, org.nr., aksjekapital, aksjonærer med fødselsnummer, åpningsbalanse, eierposter). Finnes bare `selskap.example.yaml`, be brukeren kopiere den til `selskap.yaml` først.
 - **Fødselsnummer og nøkler skal aldri i git.** `selskap.yaml` og `<år>/config.yaml` er gitignored. Ikke skriv fødselsnummer inn i `regnskap.md` eller `protokoll.md` (de versjoneres).
-- **Flagg, ikke gjett.** Stopp på: transaksjoner som ikke passer modellen, uvanlig store poster, og utbytte uten dekning i fri egenkapital (`overkursfond + annen_egenkapital < 0` etter utdeling, jf. aksjeloven § 8-1).
+- **Flagg, ikke gjett.** Stopp på: transaksjoner som ikke passer modellen, uvanlig store poster, utbetaling til eier uten dekkende avsetning, og utbytte uten dekning i fri egenkapital (`overkursfond + annen_egenkapital < 0` etter utdeling, jf. aksjeloven § 8-1). En avsetning er en utdeling etter § 8-1 på lik linje med en utbetaling.
+- **Tilbakedater aldri et vedtak.** Er utbytte utbetalt før protokollen skrives, skal protokollen omtale utdelingen som et faktum og ikke gi inntrykk av å være bilaget for det.
 - **Balansen skal gå opp.** Sum eiendeler = sum egenkapital og gjeld. Hvis ikke, finn årsaken før du går videre.
 
 ## Rekkefølge per regnskapsår (én avhengighet: utbytte må avgjøres før protokoll)
 
 1. **bokforing** → `<år>/regnskap.md` (resultat + balanse + skattemessige tall + transaksjonslogg)
-2. Avgjør utbytte (kun ved dekning i fri egenkapital) → oppdater balansen
+2. Avgjør utbytte for året (styrets forslag, kun ved dekning i fri egenkapital) → avsettes som gjeld i balansen
 3. **protokoll** → `<år>/protokoll.md` (godkjenner regnskapet, vedtar utbytte)
 4. **wenche-config** → `<år>/config.yaml` + sjekkliste. Valgfri lokal validering med `wenche valider-aarsregnskap` hvis Wenche er installert (ikke påkrevd for web-brukere)
 5. Brukeren sender inn, på én av to måter: **hostet** (wenche.cloud → Tall → «Hent tall fra Bodil», last opp `config.yaml`, anbefalt) eller **self-hosted** (`cd <år> && wenche`). Fyller noter i Dokumenter-fanen og sender

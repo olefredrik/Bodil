@@ -38,6 +38,9 @@ aapningsbalanse:
   annen_egenkapital: 0               # Akkumulert resultat fra tidligere år (negativ = underskudd)
   laan_fra_aksjonaer: 50000          # Utestående lån fra eier ved årets start
                                      # (her: brukt til å finansiere eierposten under)
+  avsatt_utbytte: 0                  # Utbytte vedtatt i fjorårets regnskap, ennå ikke utbetalt
+                                     # 01.01. Utbetalingen i år gjør opp denne gjelden og
+                                     # reduserer ikke egenkapitalen på nytt
   betalbar_skatt: 0                  # Skyldig selskapsskatt fra i fjor, ubetalt 01.01.
                                      # Normalt 0 for et selskap uten skattepliktig inntekt
 
