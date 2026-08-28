@@ -23,6 +23,8 @@ cp selskap.example.yaml selskap.yaml
 
 `selskap.yaml` holdes utenfor git fordi den inneholder fødselsnummer.
 
+Ble selskapet stiftet ved at du skjøt inn aksjer i et annet selskap i stedet for penger, sett `tinginnskudd_ved_stiftelse` til den delen av aksjekapitalen. Uten den rapporteres hele stiftelsesinnskuddet som kontantinnskudd i første regnskapsår. Beløpet kan ikke leses ut av bankeksporten, siden et tinginnskudd aldri går gjennom bankkontoen.
+
 ## 4. Velg hvordan du sender inn
 
 Bodil fører regnskapet; **Wenche** sender det inn. Du trenger ikke bestemme deg nå, men det er greit å vite at det finnes to veier:

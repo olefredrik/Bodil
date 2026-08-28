@@ -15,6 +15,11 @@ selskap:
                                      # oppgir ellers 1. januar som stiftelsestidspunkt.
                                      # Står i Enhetsregisteret (brreg.no)
   aksjekapital: 30000                # NOK, fra stiftelsesdokumentene
+  tinginnskudd_ved_stiftelse: 0      # Valgfri. Den delen av aksjekapitalen som ble skutt
+                                     # inn som ting i stedet for penger, typisk aksjer i et
+                                     # annet selskap. Vanlig ved etablering av en
+                                     # holdingstruktur. 0 = hele innskuddet var kontant.
+                                     # Brukes bare i selskapets FØRSTE regnskapsår.
 
 # Aksjonærer per 31.12. Fødselsnummer brukes av Skatteetaten til å
 # forhåndsutfylle aksjonærenes skattemelding.

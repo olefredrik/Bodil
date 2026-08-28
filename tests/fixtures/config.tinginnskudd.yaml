@@ -1,0 +1,84 @@
+# Fixture for et holdingselskap stiftet ved tinginnskudd.
+#
+# Golden-fixturet dekker et vanlig driftsår, config.foerste-aar.yaml det forlengede
+# første regnskapsåret. Denne dekker den tredje formen wenche-config kan produsere:
+# selskapets første regnskapsår der aksjekapitalen helt eller delvis ble skutt inn
+# som aksjer i et annet selskap i stedet for penger. Det er en vanlig måte å etablere
+# en holdingstruktur på, og uten `tinginnskudd_ved_stiftelse` rapporterer
+# egenkapitalavstemmingen hele stiftelsesinnskuddet som kontantinnskudd.
+#
+# Her er innskuddet delt: av aksjekapitalen på 30 000 ble 25 000 skutt inn som aksjer
+# (kostpris, står som andre_aksjer) og 5 000 som penger. Den delte formen er valgt
+# bevisst framfor et rent tinginnskudd, siden den tvinger begge kodene ut i
+# avstemmingen. Eier har i tillegg lånt inn 1 000 til å dekke bankgebyrene.
+#
+# `foregaaende_aar` er utelatt fordi det ikke finnes noe fjorår å sammenligne med.
+#
+# KUN syntetiske data. Aldri ekte fødselsnummer her (fila versjoneres).
+
+selskap:
+  navn: "Tinginnskudd Holding AS"
+  org_nummer: "123456789"
+  daglig_leder: "Kari Nordmann"
+  styreleder: "Kari Nordmann"
+  forretningsadresse: "Eksempelgata 1, 0001 Oslo"
+  stiftelsesaar: 2026
+  stiftelsesdato: "2026-01-15"
+  aksjekapital: 30000
+  tinginnskudd_ved_stiftelse: 25000
+  kontakt_epost: "kari@example.no"
+
+regnskapsaar: 2026
+
+resultatregnskap:
+  driftsinntekter:
+    salgsinntekter: 0
+    andre_driftsinntekter: 0
+  driftskostnader:
+    loennskostnader: 0
+    avskrivninger: 0
+    andre_driftskostnader: 125
+  finansposter:
+    utbytte_fra_datterselskap: 0
+    andre_finansinntekter: 0
+    rentekostnader: 0
+    andre_finanskostnader: 0
+  skattekostnad: 0
+
+balanse:
+  eiendeler:
+    anleggsmidler:
+      aksjer_i_datterselskap: 0
+      andre_aksjer: 25000
+      langsiktige_fordringer: 0
+    omloepmidler:
+      kortsiktige_fordringer: 0
+      bankinnskudd: 5875
+  egenkapital_og_gjeld:
+    egenkapital:
+      aksjekapital: 30000
+      overkursfond: 0
+      annen_egenkapital: -125
+    langsiktig_gjeld:
+      laan_fra_aksjonaer: 1000
+      andre_langsiktige_laan: 0
+    kortsiktig_gjeld:
+      leverandoergjeld: 0
+      betalbar_skatt: 0
+      skyldige_offentlige_avgifter: 0
+      annen_kortsiktig_gjeld: 0
+
+skattemelding:
+  underskudd_til_fremfoering: 0
+  anvend_fritaksmetoden: true
+  eierandel_for_fritaksmetoden: 25
+  boersnotert: false
+  formuesverdi_aksjer: 25000
+
+aksjonaerer:
+  - navn: "Kari Nordmann"
+    fodselsnummer: "01010112345"
+    antall_aksjer: 1000
+    aksjeklasse: "ordinære"
+    utbytte_utbetalt: 0
+    innbetalt_kapital_per_aksje: 30
