@@ -12,6 +12,12 @@ Hver oppføring som rører grensesnittet mot Wenche oppgir hvilken Wenche-versjo
 Bodil er testet mot. Den versjonen er også pinnet i CI
 ([wenche-kompatibilitet.yml](.github/workflows/wenche-kompatibilitet.yml)).
 
+## [1.1.0]
+
+- **`folio_import.py --med-id`** legger til kolonnen `folio_id` med Folios transaksjons-id, så et annet system kan skille to like transaksjoner fra en duplikat ved gjentatt import. Uten flagget er CSV-en uendret. Mangler en transaksjon id, stopper skriptet.
+
+**Testet mot Wenche ≥ 1.5.1.**
+
 ## [1.0.0]
 
 Denne versjonen endrer den låste bokføringsmodellen. Les «Overgang» nederst i seksjonen
@@ -224,6 +230,7 @@ Første versjonerte utgave.
 
 **Testet mot Wenche ≥ 0.24.0.**
 
+[1.1.0]: https://github.com/olefredrik/Bodil/compare/v1.0.0...v1.1.0
 [1.0.0]: https://github.com/olefredrik/Bodil/compare/v0.6.0...v1.0.0
 [0.6.0]: https://github.com/olefredrik/Bodil/compare/v0.5.0...v0.6.0
 [0.5.0]: https://github.com/olefredrik/Bodil/compare/v0.4.2...v0.5.0

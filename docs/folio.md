@@ -30,6 +30,8 @@ python3 scripts/folio_import.py <år>
 python3 scripts/folio_import.py <år> --konto <accountNumber>
 ```
 
+Skal fila importeres i et annet regnskapssystem som må kjenne igjen transaksjoner på tvers av importer, legg til `--med-id`. Da får CSV-en en fjerde kolonne, `folio_id`, med Folios transaksjons-id, slik at to like transaksjoner samme dag kan skilles fra en duplikat. Mangler en transaksjon id, stopper skriptet i stedet for å skrive tomme felt. `/bokforing` trenger ikke kolonnen.
+
 Du kan også be Claude om det med `/folio-import` eller vanlige ord («hent Folio-transaksjonene for 2026»).
 
 ## Kontroll før du går videre
