@@ -1,6 +1,6 @@
 ---
 name: folio-import
-description: Valgfri importør som kun leser, henter et regnskapsårs banktransaksjoner fra Folio (api.folio.no/v2) og skriver dem som <år>/bankeksport.csv med kolonnene dato,beskrivelse,belop. Erstatter kun det manuelle «last ned CSV fra banken»-steget før bokforing. Bruk når selskapets bank er Folio og brukeren vil slippe å laste ned CSV manuelt.
+description: Valgfri importør som kun leser, henter et regnskapsårs banktransaksjoner fra Folio (api.folio.no/v2) og skriver dem som <år>/bankeksport.csv med kolonnene dato,beskrivelse,belop (med --med-id også folio_id, Folios transaksjons-id). Erstatter kun det manuelle «last ned CSV fra banken»-steget før bokforing. Bruk når selskapets bank er Folio og brukeren vil slippe å laste ned CSV manuelt.
 ---
 
 # Skill: folio-import
@@ -54,12 +54,21 @@ python scripts/folio_import.py <år>
 
 # Har selskapet flere Folio-kontoer, velg én:
 python scripts/folio_import.py <år> --konto <konto-id>
+
+# Ta med Folios transaksjons-id som fjerde kolonne, folio_id:
+python scripts/folio_import.py <år> --med-id
 ```
+
+`--med-id` legger til kolonnen `folio_id`, slik at et annet system kan skille to
+like transaksjoner fra en duplikat ved gjentatt import. Mangler en transaksjon
+id, stopper skriptet i stedet for å skrive tomme felt. **bokforing** ignorerer
+kolonnen.
 
 Skriptet:
 1. `GET /accounts` og velger kontoen (stopper og ber om `--konto` hvis flere).
 2. `GET /accounts/{accountNumber}/transactions?startDate=&endDate=` for hele
-   året, og mapper hver transaksjon til `dato,beskrivelse,belop`.
+   året, og mapper hver transaksjon til `dato,beskrivelse,belop` (pluss
+   `folio_id` med `--med-id`).
 3. `GET /accounts/{accountNumber}/balance/<år>-01-01` og `.../<år>-12-31` for å
    krysse inngående + netto mot utgående saldo.
 4. Skriver `<år>/bankeksport.csv` og en oppsummering (antall, inn, ut, netto,

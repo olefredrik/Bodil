@@ -1,6 +1,7 @@
 #!/usr/bin/env python3
 """Folio-import: henter et regnskapsårs banktransaksjoner fra Folio og skriver
 dem som `<år>/bankeksport.csv` med nøyaktig kolonnene `dato,beskrivelse,belop`.
+Med `--med-id` kommer en fjerde kolonne, `folio_id`, med Folios transaksjons-id.
 
 Dette er en valgfri importør som kun leser. Den erstatter kun det manuelle steget
 «last ned CSV fra banken». Alt nedstrøms (bokforing -> regnskap.md ->
