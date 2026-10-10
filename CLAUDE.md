@@ -10,10 +10,11 @@ Kun passive holdingselskaper: selskaper som eier aksjer i andre selskaper og ell
 
 | Hendelse i bankeksporten | Bokføres som |
 |---|---|
-| Penger inn fra eier | Lån fra aksjonær (gjeld) |
+| Penger inn fra eier | Lån fra aksjonær (gjeld). Tyder beskrivelsen på kapitalforhøyelse eller tilleggsinnbetaling, flagg og spør |
 | Utbytte mottatt fra datterselskap | Finansinntekt (utbytte fra datterselskap) |
-| Penger ut til eier, opp til utestående avsatt utbytte | Reduserer avsatt utbytte (gjeld), ikke egenkapital |
-| Penger ut til eier utover det | Flagg og spør: utbytte vedtatt i året, lån til aksjonær, eller tilbakebetaling av kapital |
+| Penger ut til eier, opp til utestående avsatt utbytte | Reduserer avsatt utbytte (gjeld), ikke egenkapital. Har selskapet også lån fra aksjonær, spør om det er utbytte eller nedbetaling |
+| Penger ut til eier, bekreftet som nedbetaling, opp til utestående lån fra aksjonær | Reduserer lån fra aksjonær (gjeld), ikke egenkapital |
+| Penger ut til eier utover det | Flagg og spør: nedbetaling av lån fra aksjonær, utbytte vedtatt i året, lån til aksjonær, eller tilbakebetaling av kapital |
 | Utbytte for regnskapsåret (styrets forslag, ikke en banktransaksjon) | Avsatt utbytte (kortsiktig gjeld), reduserer egenkapital i avsetningsåret |
 | Alle andre utbetalinger | Driftskostnad |
 | Kjøp/salg av eierposter | Finansielle anleggsmidler til kostpris (fra `selskap.yaml`) |
@@ -25,7 +26,7 @@ Ingen andre kontoer. Ingen inntekter utover utbytte fra datterselskap. Resultate
 
 - **Stamdata leses fra `selskap.yaml`** (navn, org.nr., aksjekapital, aksjonærer med fødselsnummer, åpningsbalanse, eierposter). Finnes bare `selskap.example.yaml`, be brukeren kopiere den til `selskap.yaml` først.
 - **Fødselsnummer og nøkler skal aldri i git.** `selskap.yaml` og `<år>/config.yaml` er gitignored. Ikke skriv fødselsnummer inn i `regnskap.md` eller `protokoll.md` (de versjoneres).
-- **Flagg, ikke gjett.** Stopp på: transaksjoner som ikke passer modellen, uvanlig store poster, utbetaling til eier uten dekkende avsetning, og utbytte uten dekning i fri egenkapital (`overkursfond + annen_egenkapital < 0` etter utdeling, jf. aksjeloven § 8-1). En avsetning er en utdeling etter § 8-1 på lik linje med en utbetaling.
+- **Flagg, ikke gjett.** Stopp på: transaksjoner som ikke passer modellen, uvanlig store poster, utbetaling til eier uten dekkende avsetning, utbetaling som kan være både utbytte og nedbetaling av lån, og utbytte uten dekning i fri egenkapital (`overkursfond + annen_egenkapital < 0` etter utdeling, jf. aksjeloven § 8-1). En avsetning er en utdeling etter § 8-1 på lik linje med en utbetaling.
 - **Tilbakedater aldri et vedtak.** Er utbytte utbetalt før protokollen skrives, skal protokollen omtale utdelingen som et faktum og ikke gi inntrykk av å være bilaget for det.
 - **Balansen skal gå opp.** Sum eiendeler = sum egenkapital og gjeld. Hvis ikke, finn årsaken før du går videre.
 

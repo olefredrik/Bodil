@@ -17,9 +17,10 @@ Fører ett regnskapsår for et passivt holdingselskap fra en bankeksport. Du pro
 
 | Transaksjon | Konto |
 |---|---|
-| Penger inn fra eier | Lån fra aksjonær (øker gjeld) |
+| Penger inn fra eier | Lån fra aksjonær (øker gjeld). Se «Innbetaling fra eier» under |
 | Utbytte mottatt fra datterselskap | Utbytte fra datterselskap (finansinntekt) |
-| Penger ut til eier, opp til utestående avsatt utbytte | Reduserer avsatt utbytte (gjeld). Utbetalingen gjør opp en forpliktelse og rører ikke egenkapitalen |
+| Penger ut til eier, opp til utestående avsatt utbytte | Reduserer avsatt utbytte (gjeld). Utbetalingen gjør opp en forpliktelse og rører ikke egenkapitalen. Har selskapet også utestående lån fra aksjonær, **spør** om det er utbytte eller nedbetaling, se «Utbytte eller nedbetaling» under |
+| Penger ut til eier, bekreftet som nedbetaling, opp til utestående lån fra aksjonær | Reduserer lån fra aksjonær (gjeld). Rører verken resultat eller egenkapital |
 | Penger ut til eier utover utestående avsatt utbytte | **Flagg og spør.** Se «Utbetaling uten avsetning» under |
 | Alle andre utbetalinger | Andre driftskostnader |
 | Kjøp/salg av eierpost | Andre aksjer (finansielt anleggsmiddel), kostpris fra `selskap.yaml` |
@@ -29,13 +30,22 @@ Fører ett regnskapsår for et passivt holdingselskap fra en bankeksport. Du pro
 
 Utbytte er den ene posten som **ikke** stammer fra bankeksporten. Det avsettes som gjeld i det året det gjelder, og utbetalingen året etter gjør bare opp gjelden. Se «Utbytte» under.
 
+### Innbetaling fra eier
+
+Penger inn fra eier føres som lån fra aksjonær. Tyder beskrivelsen på en **kapitalforhøyelse** eller en **tilleggsinnbetaling** (for eksempel «kapitalforhøyelse», «aksjeinnskudd», «emisjon», «tilskudd»), skal du flagge og spørre i stedet. En kapitalforhøyelse krever vedtak i generalforsamlingen og registrering i Foretaksregisteret (aksjeloven kapittel 10) og endrer aksjekapitalen, ikke gjelden. Begge deler er utenfor den låste modellen: be brukeren avklare med regnskapsfører.
+
+### Utbytte eller nedbetaling
+
+Har selskapet både utestående avsatt utbytte og utestående lån fra aksjonær, kan en utbetaling til eier være begge deler. **Ikke la avsetningen dekke den først automatisk.** Spør brukeren, selv om beskrivelsen peker én vei, og si hva beskrivelsen tydet på. Utbytte er skattepliktig for eieren og går i aksjonærregisteroppgaven, mens en nedbetaling av lån ikke gjør det, så en feil gjetning her slår ut hos eieren og ikke bare i selskapets regnskap. En utbetaling kan også deles mellom de to; før da hver del etter sin rad.
+
 ### Utbetaling uten avsetning
 
-Går det penger til eier uten at det står en avsetning fra i fjor å dekke dem med, skal du **stoppe og spørre**, ikke føre det som utbytte. Det er tre mulige svar, og bare brukeren vet hvilket som gjelder:
+Går det penger til eier uten at det står en avsetning fra i fjor å dekke dem med, skal du **stoppe og spørre**, ikke føre det som utbytte. Det er fire mulige svar, og bare brukeren vet hvilket som gjelder:
 
-1. **Utbytte vedtatt i løpet av året** på grunnlag av sist godkjente årsregnskap (aksjeloven § 8-2 andre ledd). Da føres beløpet som `utbytte_utbetalt` og reduserer egenkapitalen i utbetalingsåret. Krev at brukeren bekrefter at det finnes et vedtak datert senest på betalingsdagen. **Bodil lager ikke det bilaget:** protokollen for dette året skrives våren etter og kan ikke tilbakedatere et vedtak. Mangler bilaget, si det rett ut i stedet for å produsere et.
-2. **Lån til aksjonær.** Da er det en fordring, ikke en utdeling. Utenfor den låste modellen: flagg og be brukeren avklare med regnskapsfører.
-3. **Tilbakebetaling av innbetalt kapital.** Også utenfor modellen. Flagg.
+1. **Nedbetaling av lån fra aksjonær**, opp til utestående lån (inngående lån + årets innskudd − det som allerede er nedbetalt). Reduserer `laan_fra_aksjonaer` og rører ikke egenkapitalen. Er utbetalingen større enn utestående lån, er resten ikke en nedbetaling: spør om resten på nytt.
+2. **Utbytte vedtatt i løpet av året** på grunnlag av sist godkjente årsregnskap (aksjeloven § 8-2 andre ledd). Da føres beløpet som `utbytte_utbetalt` og reduserer egenkapitalen i utbetalingsåret. Krev at brukeren bekrefter at det finnes et vedtak datert senest på betalingsdagen. **Bodil lager ikke det bilaget:** protokollen for dette året skrives våren etter og kan ikke tilbakedatere et vedtak. Mangler bilaget, si det rett ut i stedet for å produsere et.
+3. **Lån til aksjonær.** Da er det en fordring, ikke en utdeling. Utenfor den låste modellen: flagg og be brukeren avklare med regnskapsfører.
+4. **Tilbakebetaling av innbetalt kapital.** Også utenfor modellen. Flagg.
 
 Dette er den vanligste situasjonen det året et selskap går over fra utbetalingsmodellen (Bodil ≤ 0.6.0) til avsetningsmodellen, siden det ikke finnes noen inngående avsetning å dekke utbetalingen med.
 
@@ -45,8 +55,8 @@ Dette er den vanligste situasjonen det året et selskap går over fra utbetaling
 2. Summer:
    - `andre_driftskostnader` = sum av alle «andre utbetalinger»
    - `utbytte_fra_datterselskap` = sum mottatt utbytte fra datterselskap
-   - `utbytte_utbetalt` = sum utbetalt til eier. Dette tallet er **bare** en kontantstrøm og en post i aksjonærregisteroppgaven; det reduserer ikke egenkapitalen med mindre steget over konkluderte med utbytte vedtatt i året
-   - endring i `laan_fra_aksjonaer` = sum innskudd fra eier
+   - `utbytte_utbetalt` = sum utbetalt til eier som utbytte, ikke nedbetaling av lån fra aksjonær. Dette tallet er **bare** en kontantstrøm og en post i aksjonærregisteroppgaven; det reduserer ikke egenkapitalen med mindre steget over konkluderte med utbytte vedtatt i året
+   - endring i `laan_fra_aksjonaer` = sum innskudd fra eier − sum nedbetalt lån til eier
 3. **Skattekostnad.** Et år uten utbytte gir 0, men et år med mottatt utbytte har normalt en liten reell skattekostnad, og regnskapsloven § 6-1 krever den som egen linje før årsresultatet. Regn i denne rekkefølgen:
    - `skattepliktig_utbytte` = 0 hvis eierandelen er 90 % eller mer, ellers 3 % av mottatt utbytte rundet opp til nærmeste krone (fritaksmetoden, sktl. § 2-38 sjette ledd). Eierandelen står under `eierposter` i `selskap.yaml`. Har selskapet flere eierposter med ulik eierandel, flagg det og spør hvilken posten utbyttet kom fra i stedet for å velge selv.
    - `skattepliktig_inntekt` = `skattepliktig_utbytte − andre_driftskostnader`
@@ -64,7 +74,7 @@ Dette er den vanligste situasjonen det året et selskap går over fra utbetaling
    - `aksjekapital` = fra `selskap.yaml`
    - `annen_egenkapital` = inngående annen egenkapital + årsresultat − `avsatt_utbytte_i_aar` − eventuelt utbytte vedtatt og utbetalt i året (steget «Utbetaling uten avsetning»). Merk at et utbytte utbetalt i år som gjør opp fjorårets avsetning **ikke** står her: det traff egenkapitalen i fjor.
    - `avsatt_utbytte` = inngående avsatt utbytte − utbetalt i år mot den avsetningen + `avsatt_utbytte_i_aar`
-   - `laan_fra_aksjonaer` = inngående lån + årets innskudd fra eier
+   - `laan_fra_aksjonaer` = inngående lån + årets innskudd fra eier − årets nedbetaling. Kan ikke bli negativ: da er noe feilklassifisert
    - `betalbar_skatt` = inngående betalbar skatt − skatt betalt i år + årets `skattekostnad`. Skatten fastsettes og betales året etter, så årets skattekostnad står normalt ubetalt i balansen per 31.12. Dette er motposten til skattekostnaden: uten den går ikke balansen opp, og Wenche varsler om en skattekostnad uten motpost.
 7. **Kontroller at balansen går opp:** sum eiendeler = sum egenkapital og gjeld. Hvis ikke, finn årsaken (oftest en feilklassifisert transaksjon eller feil åpningssaldo) før du går videre.
 8. **Utbytte uten dekning:** hvis `overkursfond + annen_egenkapital < 0` etter at avsetningen og et eventuelt utbytte vedtatt i året er trukket fra, flagg det tydelig: utbytte kan bare deles ut av fri egenkapital (aksjeloven § 8-1). Dette gjelder avsetningen like fullt som en utbetaling, siden begge er utdelinger etter § 8-1.
@@ -148,7 +158,7 @@ Denne seksjonen er input til neste års bokføring, til `protokoll` og til `avsa
 
 ## Merknader
 - Balansekontroll: sum eiendeler = sum EK og gjeld (✓/avvik)
-- Eventuelle flagg (utbytte uten dekning, utbetaling til eier uten avsetning, uklare transaksjoner, store poster)
+- Eventuelle flagg (utbytte uten dekning, utbetaling til eier uten avsetning, utbytte eller nedbetaling av lån, mulig kapitalforhøyelse, uklare transaksjoner, store poster)
 ```
 
 Feltnavnene i tabellene er bevisst de samme som Wenche bruker, slik at `wenche-config`-skillen kan mappe dem nær mekanisk.
