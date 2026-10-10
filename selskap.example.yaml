@@ -46,8 +46,16 @@ aapningsbalanse:
 
 # Eierposter i andre selskap, ført til kostpris (finansielle anleggsmidler).
 # Endres bare når du kjøper eller selger.
+#
+# eierandel_prosent avgjør to ting:
+#   - balanselinjen: over 50 % er datterselskap (kontroll, rskl. § 1-3), ellers
+#     andre aksjer. Nøyaktig 50 % flagges.
+#   - fritaksmetoden: 90 % eller mer gir fullt skattefritt utbytte, ellers 3 %-sjablon.
 eierposter:
   - selskap: "Fjordheim Teknologi AS"
     org_nummer: "987654321"
     eierandel_prosent: 25
     kostpris: 50000
+    # datterselskap: true            # Valgfri. Overstyrer eierandelen når stemmeandelen
+                                     # avviker fra den, eller kontrollen følger av avtale
+                                     # (f.eks. rett til å velge flertallet av styret)

@@ -61,8 +61,10 @@ resultatregnskap:
 balanse:
   eiendeler:
     anleggsmidler:
-      aksjer_i_datterselskap: 0       # eierandel ≥ 90 % hører hjemme her; ellers andre_aksjer
-      andre_aksjer: <sum kostpris eierposter>
+      aksjer_i_datterselskap: <fra regnskap.md>   # eierposter selskapet har kontroll over (flertall
+                                       # av stemmene, rskl. § 1-3). Over 0 gjør at Wenche oppgir
+                                       # selskapet som morselskap i årsregnskapet
+      andre_aksjer: <fra regnskap.md>  # øvrige eierposter
       langsiktige_fordringer: 0
     omloepmidler:
       kortsiktige_fordringer: 0
@@ -117,6 +119,7 @@ Skriv ut en kort sjekkliste over det du IKKE kunne utlede fra bankeksporten og s
 - [ ] `avsatt_utbytte` og `utbytte_utbetalt` er ikke forvekslet: den første er årets avsetning per 31.12, den andre er kontanter ut i året. Er fjorårets avsetning betalt i år og et nytt utbytte avsatt, er begge ulik null.
 - [ ] `tinginnskudd_ved_stiftelse` stemmer med stiftelsesdokumentene (kun år 1, og bare hvis selskapet ble stiftet ved tinginnskudd). Kan ikke utledes fra bankeksporten: et tinginnskudd går aldri gjennom bankkontoen.
 - [ ] `eierandel_for_fritaksmetoden` riktig (avgjør om utbytte er fullt skattefritt eller 3 %-beskattet).
+- [ ] Eierpostene står på riktig linje: datterselskap (kontroll, normalt over 50 % av stemmene) under `aksjer_i_datterselskap`, resten under `andre_aksjer`. 90 %-grensen gjelder bare fritaksmetoden, ikke denne linjen.
 - [ ] Noter fylles i Wenches **Dokumenter-fane**: antall ansatte (normalt 0) og eventuelt lån fra aksjonær som lån til/fra nærstående. Wenche genererer selve notene, Bodil gjør det ikke.
 - [ ] Balansen går opp (bekreftes også av valideringen under).
 - [ ] Skatteberegningen sett over av regnskapsfører år 1.

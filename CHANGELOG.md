@@ -12,6 +12,12 @@ Hver oppføring som rører grensesnittet mot Wenche oppgir hvilken Wenche-versjo
 Bodil er testet mot. Den versjonen er også pinnet i CI
 ([wenche-kompatibilitet.yml](.github/workflows/wenche-kompatibilitet.yml)).
 
+## [1.1.0]
+
+- **Eierposter selskapet har kontroll over føres nå som `aksjer_i_datterselskap`, ikke `andre_aksjer`.** Bodil førte alle eierposter som andre aksjer, og wenche-config brukte 90 % som grense. Men 90 % er skattens grense (fritaksmetoden, konsern etter sktl. § 10-4); regnskapsmessig er et selskap datterselskap ved bestemmende innflytelse, normalt flertallet av stemmene (rskl. § 1-3, asl. § 1-3 andre ledd). Wenche oppgir selskapet som morselskap når `aksjer_i_datterselskap` er over 0, så et heleid holdingselskap ble rapportert som «ikke morselskap». Grensen leses av `eierandel_prosent` (over 50 %), med valgfritt `datterselskap: true|false` per eierpost som overstyring. Nøyaktig 50 %, og eierandel på nøyaktig 90 % for fritaksmetoden, flagges. Nytt fixture `config.datterselskap.yaml`.
+
+**Testet mot Wenche ≥ 1.5.1.**
+
 ## [1.0.0]
 
 Denne versjonen endrer den låste bokføringsmodellen. Les «Overgang» nederst i seksjonen
@@ -224,6 +230,7 @@ Første versjonerte utgave.
 
 **Testet mot Wenche ≥ 0.24.0.**
 
+[1.1.0]: https://github.com/olefredrik/Bodil/compare/v1.0.0...v1.1.0
 [1.0.0]: https://github.com/olefredrik/Bodil/compare/v0.6.0...v1.0.0
 [0.6.0]: https://github.com/olefredrik/Bodil/compare/v0.5.0...v0.6.0
 [0.5.0]: https://github.com/olefredrik/Bodil/compare/v0.4.2...v0.5.0

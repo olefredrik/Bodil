@@ -22,7 +22,7 @@ Fører ett regnskapsår for et passivt holdingselskap fra en bankeksport. Du pro
 | Penger ut til eier, opp til utestående avsatt utbytte | Reduserer avsatt utbytte (gjeld). Utbetalingen gjør opp en forpliktelse og rører ikke egenkapitalen |
 | Penger ut til eier utover utestående avsatt utbytte | **Flagg og spør.** Se «Utbetaling uten avsetning» under |
 | Alle andre utbetalinger | Andre driftskostnader |
-| Kjøp/salg av eierpost | Andre aksjer (finansielt anleggsmiddel), kostpris fra `selskap.yaml` |
+| Kjøp/salg av eierpost | Aksjer i datterselskap eller andre aksjer (finansielt anleggsmiddel), kostpris fra `selskap.yaml`. Se «Datterselskap eller andre aksjer» under |
 | Betaling av skatt til Skatteetaten | Reduserer betalbar skatt (gjeld), er ikke en kostnad |
 
 **Flagg og spør, ikke gjett**, ved: en transaksjon som ikke entydig passer en rad over, uvanlig store beløp, eller innbetalinger du ikke kan knytte til verken eier eller datterselskap. Bruk beskrivelsen i CSV-en til å avgjøre, men vær eksplisitt om hva du antok.
@@ -39,6 +39,16 @@ Går det penger til eier uten at det står en avsetning fra i fjor å dekke dem 
 
 Dette er den vanligste situasjonen det året et selskap går over fra utbetalingsmodellen (Bodil ≤ 0.6.0) til avsetningsmodellen, siden det ikke finnes noen inngående avsetning å dekke utbetalingen med.
 
+### Datterselskap eller andre aksjer
+
+Hver eierpost i `selskap.yaml` står på én av to balanselinjer, og skillet er **kontroll**, ikke skattens 90 %-grense. Et selskap er datterselskap når holdingselskapet har bestemmende innflytelse over det, og det har det alltid med flertallet av stemmene eller rett til å velge eller avsette flertallet av styret (regnskapsloven § 1-3, aksjeloven § 1-3 andre ledd).
+
+- Har eierposten `datterselskap: true` eller `false`, bruk det. Feltet er valgfritt og overstyrer eierandelen, for tilfeller der stemmeandelen avviker fra eierandelen eller kontrollen følger av avtale.
+- Ellers: `eierandel_prosent` over 50 gir `aksjer_i_datterselskap`, under 50 gir `andre_aksjer`.
+- **Flagg og spør** når kontroll ikke kan avgjøres: eierandel på nøyaktig 50 %, manglende `eierandel_prosent`, eller flere aksjeklasser med ulik stemmerett. Spør om selskapet har flertallet av stemmene eller rett til å velge flertallet av styret, og be brukeren sette `datterselskap` på eierposten.
+
+Linjen styrer mer enn plasseringen: Wenche oppgir selskapet som morselskap i årsregnskapet når `aksjer_i_datterselskap` er over 0. Et heleid datterselskap under `andre_aksjer` rapporterer derfor holdingselskapet som «ikke morselskap».
+
 ## Beregning
 
 1. Klassifiser hver rad og før den i en **transaksjonslogg**.
@@ -48,7 +58,8 @@ Dette er den vanligste situasjonen det året et selskap går over fra utbetaling
    - `utbytte_utbetalt` = sum utbetalt til eier. Dette tallet er **bare** en kontantstrøm og en post i aksjonærregisteroppgaven; det reduserer ikke egenkapitalen med mindre steget over konkluderte med utbytte vedtatt i året
    - endring i `laan_fra_aksjonaer` = sum innskudd fra eier
 3. **Skattekostnad.** Et år uten utbytte gir 0, men et år med mottatt utbytte har normalt en liten reell skattekostnad, og regnskapsloven § 6-1 krever den som egen linje før årsresultatet. Regn i denne rekkefølgen:
-   - `skattepliktig_utbytte` = 0 hvis eierandelen er 90 % eller mer, ellers 3 % av mottatt utbytte rundet opp til nærmeste krone (fritaksmetoden, sktl. § 2-38 sjette ledd). Eierandelen står under `eierposter` i `selskap.yaml`. Har selskapet flere eierposter med ulik eierandel, flagg det og spør hvilken posten utbyttet kom fra i stedet for å velge selv.
+   - `skattepliktig_utbytte` = 0 hvis eierandelen er 90 % eller mer, ellers 3 % av mottatt utbytte rundet opp til nærmeste krone (fritaksmetoden, sktl. § 2-38 sjette ledd). Eierandelen står under `eierposter` i `selskap.yaml`. Har selskapet flere eierposter med ulik eierandel, flagg det og spør hvilken posten utbyttet kom fra i stedet for å velge selv. Dette er en skattegrense og har ingenting med om eierposten er datterselskap å gjøre: en eierandel på 60 % er datterselskap i balansen, men utbyttet derfra er likevel 3 %-beskattet.
+   - **Eierandel på nøyaktig 90 %: flagg.** Unntaket fra sjablonen gjelder konsern etter sktl. § 10-4, som krever *mer enn* 90 % av aksjene og tilsvarende andel av stemmene. Wenche regner 90 % som fritatt. Be brukeren avklare med regnskapsfører i stedet for å velge.
    - `skattepliktig_inntekt` = `skattepliktig_utbytte − andre_driftskostnader`
    - Er `skattepliktig_inntekt` positiv, trekk fra fremført underskudd. Tallet står under «Skattemessig» i `<år-1>/regnskap.md`. Finnes ikke fjorårets fil (år 1, eller år ført utenfor Bodil), **spør brukeren** om underskudd til fremføring fra fjorårets RF-1028 i stedet for å anta 0.
    - `skattekostnad` = 22 % av det som står igjen, rundet opp. Er `skattepliktig_inntekt` 0 eller negativ etter fradrag, er skattekostnaden 0.
@@ -60,7 +71,8 @@ Dette er den vanligste situasjonen det året et selskap går over fra utbetaling
    - Generalforsamlingen vedtar avsetningen når den godkjenner årsregnskapet, altså i `protokoll`-skillen. Bodil foregriper ikke vedtaket, den fører styrets forslag.
 6. **Balanse per 31.12:**
    - `bankinnskudd` = åpningssaldo + sum alle transaksjoner (skal stemme med faktisk saldo 31.12, sjekk mot bankutskrift)
-   - `andre_aksjer` = sum kostpris for eierposter i `selskap.yaml`
+   - `aksjer_i_datterselskap` = sum kostpris for eierposter som er datterselskap (se «Datterselskap eller andre aksjer»)
+   - `andre_aksjer` = sum kostpris for øvrige eierposter
    - `aksjekapital` = fra `selskap.yaml`
    - `annen_egenkapital` = inngående annen egenkapital + årsresultat − `avsatt_utbytte_i_aar` − eventuelt utbytte vedtatt og utbetalt i året (steget «Utbetaling uten avsetning»). Merk at et utbytte utbetalt i år som gjør opp fjorårets avsetning **ikke** står her: det traff egenkapitalen i fjor.
    - `avsatt_utbytte` = inngående avsatt utbytte − utbetalt i år mot den avsetningen + `avsatt_utbytte_i_aar`
@@ -95,7 +107,7 @@ Skriv en lesbar markdown-fil med disse seksjonene (ikke skriv fødselsnummer i d
 ### Eiendeler
 | Post | <år> | <år-1> |
 |---|--:|--:|
-| Aksjer i datterselskap | 0 | ... |
+| Aksjer i datterselskap | <x> | ... |
 | Andre aksjer | <x> | ... |
 | Langsiktige fordringer | 0 | ... |
 | Kortsiktige fordringer | 0 | ... |

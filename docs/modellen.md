@@ -11,10 +11,18 @@ Bodil fører etter en bevisst minimal, låst bokføringsmodell. Den dekker det e
 | Penger ut til eier, opp til utestående avsatt utbytte | Reduserer avsatt utbytte (gjeld), ikke egenkapital |
 | Penger ut til eier utover det | Flagges: utbytte vedtatt i året, lån til aksjonær, eller tilbakebetaling av kapital |
 | Alle andre utbetalinger | Driftskostnad (typisk bankgebyrer) |
-| Kjøp/salg av eierposter | Finansielle anleggsmidler til kostpris (fra `selskap.yaml`) |
+| Kjøp/salg av eierposter | Finansielle anleggsmidler til kostpris (fra `selskap.yaml`): aksjer i datterselskap eller andre aksjer |
 | Betaling av skatt til Skatteetaten | Reduserer betalbar skatt (gjeld), ikke en kostnad |
 
 Ingen andre kontoer, ingen inntekter utover utbytte fra datterselskap. Resultatet blir et lite underskudd lik driftskostnadene, med mindre det er mottatt utbytte.
+
+## Datterselskap eller andre aksjer
+
+Eierpostene står til kostpris, men på én av to linjer i balansen. Skillet er **kontroll**: et selskap er datterselskap når holdingselskapet har bestemmende innflytelse over det, og det har det alltid med flertallet av stemmene eller rett til å velge eller avsette flertallet av styret (regnskapsloven § 1-3, aksjeloven § 1-3 andre ledd). Bodil leser det av `eierandel_prosent` i `selskap.yaml`: over 50 % er datterselskap, under 50 % er andre aksjer. Avviker stemmene fra eierandelen, eller følger kontrollen av en avtale, setter du `datterselskap: true` eller `false` på eierposten. Ved nøyaktig 50 % flagger Bodil og spør.
+
+Linjen er ikke bare kosmetikk. Wenche oppgir selskapet som morselskap i årsregnskapet når det har aksjer i datterselskap, så et heleid datterselskap ført som andre aksjer gir feil opplysning. Små foretak trenger likevel ikke konsernregnskap (regnskapsloven § 3-2), så datterselskapet står fortsatt bare til kostpris.
+
+90 %-grensen hører til skatten, ikke balansen: den avgjør om utbytte er fullt skattefritt (se «Skatt» under).
 
 ## Utbytte
 
@@ -28,7 +36,7 @@ Går det likevel penger til eier uten en avsetning å dekke dem med, gjetter ikk
 
 Et hvilende år har ingen skattepliktig inntekt, og skattekostnaden er 0. Mottar selskapet utbytte og eierandelen er under 90 %, er 3 % av utbyttet skattepliktig (sjablonregelen i fritaksmetoden, sktl. § 2-38 sjette ledd). Da har selskapet en reell, liten skattekostnad, og regnskapsloven § 6-1 krever den som egen linje før årsresultatet. Bodil regner den etter samme regel som Wenche: skattepliktig del av utbyttet minus driftskostnadene, minus eventuelt fremført underskudd, ganget med 22 %.
 
-Skatten fastsettes og betales året etter, så den står som **betalbar skatt** i balansen per 31.12. Betalingen året etter reduserer den gjelden og er ikke en ny kostnad. Ved eierandel på 90 % eller mer er utbyttet fullt skattefritt, og skattekostnaden blir 0.
+Skatten fastsettes og betales året etter, så den står som **betalbar skatt** i balansen per 31.12. Betalingen året etter reduserer den gjelden og er ikke en ny kostnad. Ved eierandel på 90 % eller mer er utbyttet fullt skattefritt, og skattekostnaden blir 0. Grensen gjelder uavhengig av om eierposten er datterselskap i balansen. Står eierandelen på nøyaktig 90 %, flagger Bodil: loven (sktl. § 10-4) krever *mer enn* 90 %, mens Wenche regner 90 % som fritatt.
 
 ## Flagg, ikke gjett
 
