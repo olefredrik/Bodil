@@ -21,6 +21,9 @@ Fører ett regnskapsår for et passivt holdingselskap fra en bankeksport. Du pro
 | Utbytte mottatt fra datterselskap | Utbytte fra datterselskap (finansinntekt) |
 | Penger ut til eier, opp til utestående avsatt utbytte | Reduserer avsatt utbytte (gjeld). Utbetalingen gjør opp en forpliktelse og rører ikke egenkapitalen |
 | Penger ut til eier utover utestående avsatt utbytte | **Flagg og spør.** Se «Utbetaling uten avsetning» under |
+| Renteinntekt fra banken (kreditrenter) | Andre finansinntekter. Fullt skattepliktig, verken fritaksmetode eller sjablon |
+| Renter belastet av banken (debetrenter, renter på lån i banken) | Rentekostnader |
+| Renter betalt til eier (f.eks. på aksjonærlån) eller til Skatteetaten (rentetillegg, forsinkelsesrenter) | **Flagg og spør.** Det første forutsetter en låneavtale, det andre kan blandes med skattebetalingen og har egne fradragsregler |
 | Alle andre utbetalinger | Andre driftskostnader |
 | Kjøp/salg av eierpost | Andre aksjer (finansielt anleggsmiddel), kostpris fra `selskap.yaml` |
 | Betaling av skatt til Skatteetaten | Reduserer betalbar skatt (gjeld), er ikke en kostnad |
@@ -45,15 +48,17 @@ Dette er den vanligste situasjonen det året et selskap går over fra utbetaling
 2. Summer:
    - `andre_driftskostnader` = sum av alle «andre utbetalinger»
    - `utbytte_fra_datterselskap` = sum mottatt utbytte fra datterselskap
+   - `andre_finansinntekter` = sum renteinntekter fra banken
+   - `rentekostnader` = sum renter belastet av banken
    - `utbytte_utbetalt` = sum utbetalt til eier. Dette tallet er **bare** en kontantstrøm og en post i aksjonærregisteroppgaven; det reduserer ikke egenkapitalen med mindre steget over konkluderte med utbytte vedtatt i året
    - endring i `laan_fra_aksjonaer` = sum innskudd fra eier
-3. **Skattekostnad.** Et år uten utbytte gir 0, men et år med mottatt utbytte har normalt en liten reell skattekostnad, og regnskapsloven § 6-1 krever den som egen linje før årsresultatet. Regn i denne rekkefølgen:
+3. **Skattekostnad.** Et år uten utbytte gir normalt 0, siden bankrentene sjelden overstiger gebyrene. Et år med mottatt utbytte, eller med renteinntekter større enn kostnadene, har en liten reell skattekostnad, og regnskapsloven § 6-1 krever den som egen linje før årsresultatet. Regn i denne rekkefølgen:
    - `skattepliktig_utbytte` = 0 hvis eierandelen er 90 % eller mer, ellers 3 % av mottatt utbytte rundet opp til nærmeste krone (fritaksmetoden, sktl. § 2-38 sjette ledd). Eierandelen står under `eierposter` i `selskap.yaml`. Har selskapet flere eierposter med ulik eierandel, flagg det og spør hvilken posten utbyttet kom fra i stedet for å velge selv.
-   - `skattepliktig_inntekt` = `skattepliktig_utbytte − andre_driftskostnader`
+   - `skattepliktig_inntekt` = `skattepliktig_utbytte + andre_finansinntekter − andre_driftskostnader − rentekostnader`. Renteinntektene tas med fullt ut: fritaksmetoden gjelder bare utbytte. Samme formel som Wenches `beregn_skatt`
    - Er `skattepliktig_inntekt` positiv, trekk fra fremført underskudd. Tallet står under «Skattemessig» i `<år-1>/regnskap.md`. Finnes ikke fjorårets fil (år 1, eller år ført utenfor Bodil), **spør brukeren** om underskudd til fremføring fra fjorårets RF-1028 i stedet for å anta 0.
    - `skattekostnad` = 22 % av det som står igjen, rundet opp. Er `skattepliktig_inntekt` 0 eller negativ etter fradrag, er skattekostnaden 0.
    - `underskudd_til_fremfoering` for neste år: er `skattepliktig_inntekt` negativ, øk fjorårets fremførte underskudd med hele det negative beløpet. Er den positiv, reduser fjorårets med det som faktisk ble brukt som fradrag.
-4. **Årsresultat** = `utbytte_fra_datterselskap − andre_driftskostnader − skattekostnad`
+4. **Årsresultat** = `utbytte_fra_datterselskap + andre_finansinntekter − andre_driftskostnader − rentekostnader − skattekostnad`
 5. **Utbytte for året.** Dette er en beslutning, ikke en transaksjon, så den kommer ikke fra bankeksporten. Spør brukeren om styret foreslår utbytte for dette regnskapsåret. Blir svaret ja:
    - `avsatt_utbytte_i_aar` = beløpet. Det avsettes som kortsiktig gjeld per 31.12 og reduserer egenkapitalen i **dette** året, ikke i året det utbetales (rskl. § 6-2, aksjeloven § 8-2 første ledd).
    - **Krev dekning.** `overkursfond + annen_egenkapital` etter avsetningen må være ≥ 0 (aksjeloven § 8-1). En avsetning er en utdeling og kan gjøre fri egenkapital negativ helt alene. Er den negativ, stopp og be brukeren redusere beløpet.
@@ -85,8 +90,8 @@ Skriv en lesbar markdown-fil med disse seksjonene (ikke skriv fødselsnummer i d
 | Avskrivninger | 0 | ... |
 | Andre driftskostnader | <x> | ... |
 | Utbytte fra datterselskap | <x> | ... |
-| Andre finansinntekter | 0 | ... |
-| Rentekostnader | 0 | ... |
+| Andre finansinntekter (renteinntekter) | <x> | ... |
+| Rentekostnader | <x> | ... |
 | Andre finanskostnader | 0 | ... |
 | Skattekostnad | <x> | ... |
 | **Årsresultat** | <x> | ... |
@@ -122,6 +127,8 @@ Skriv en lesbar markdown-fil med disse seksjonene (ikke skriv fødselsnummer i d
 |---|--:|
 | Mottatt utbytte | <x> |
 | Skattepliktig del av utbyttet (3 %-sjablon, 0 ved eierandel ≥ 90 %) | <x> |
+| Renteinntekter (fullt skattepliktig) | <x> |
+| Driftskostnader og rentekostnader (fradrag) | <x> |
 | Skattepliktig inntekt før fradrag | <x> |
 | Anvendt fremført underskudd | <x> |
 | Skattepliktig inntekt | <x> |
@@ -148,7 +155,7 @@ Denne seksjonen er input til neste års bokføring, til `protokoll` og til `avsa
 
 ## Merknader
 - Balansekontroll: sum eiendeler = sum EK og gjeld (✓/avvik)
-- Eventuelle flagg (utbytte uten dekning, utbetaling til eier uten avsetning, uklare transaksjoner, store poster)
+- Eventuelle flagg (utbytte uten dekning, utbetaling til eier uten avsetning, renter til eier eller Skatteetaten, uklare transaksjoner, store poster)
 ```
 
 Feltnavnene i tabellene er bevisst de samme som Wenche bruker, slik at `wenche-config`-skillen kan mappe dem nær mekanisk.
