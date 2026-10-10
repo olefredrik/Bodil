@@ -1,6 +1,7 @@
 #!/usr/bin/env python3
 """Folio-import: henter et regnskapsårs banktransaksjoner fra Folio og skriver
 dem som `<år>/bankeksport.csv` med nøyaktig kolonnene `dato,beskrivelse,belop`.
+Med `--med-id` kommer en fjerde kolonne, `folio_id`, med Folios transaksjons-id.
 
 Dette er en valgfri importør som kun leser. Den erstatter kun det manuelle steget
 «last ned CSV fra banken». Alt nedstrøms (bokforing -> regnskap.md ->
@@ -161,7 +162,18 @@ def til_rad(tx: dict) -> dict:
         "dato": str(tx.get("bookingDate", ""))[:10],
         "beskrivelse": " ".join(str(beskrivelse).split()),
         "belop": belop,
+        "folio_id": str(tx.get("id") or "").strip(),
     }
+
+
+def kolonner(med_id: bool) -> list[str]:
+    """Standard er nøyaktig det bokforing leser. folio_id kommer bare på forespørsel."""
+    return ["dato", "beskrivelse", "belop"] + (["folio_id"] if med_id else [])
+
+
+def csv_rad(r: dict, med_id: bool) -> list[str]:
+    rad = [r["dato"], r["beskrivelse"], format_belop(r["belop"])]
+    return rad + ([r["folio_id"]] if med_id else [])
 
 
 def hent_saldo(konto_nr: str, dato: str, nokkel: str, felt: str) -> float | None:
@@ -186,6 +198,9 @@ def main() -> int:
     p.add_argument("--env", default=".env", help="Sti til .env (standard: .env)")
     p.add_argument("--vis", action="store_true",
                    help="Skriv til stdout i stedet for fil (trygg førstegangstest)")
+    p.add_argument("--med-id", action="store_true",
+                   help="Legg til kolonnen folio_id (Folios transaksjons-id), så "
+                        "en ny import kan skille like transaksjoner fra duplikater")
     args = p.parse_args()
 
     aar = args.aar
@@ -214,6 +229,12 @@ def main() -> int:
     rader = [r for r in rader if r["dato"][:4] == str(aar)]
     rader.sort(key=lambda r: r["dato"])
 
+    if args.med_id:
+        mangler = sum(1 for r in rader if not r["folio_id"])
+        if mangler:
+            sys.exit(f"{mangler} transaksjon(er) mangler id fra Folio. --med-id "
+                     "skriver ikke en fil med tomme id-er; kjør uten --med-id.")
+
     if not rader:
         print(f"ADVARSEL: ingen transaksjoner funnet for {aar}.", file=sys.stderr)
 
@@ -227,9 +248,9 @@ def main() -> int:
 
     # 4) Skriv ut eller lagre.
     def skriv(writer):
-        writer.writerow(["dato", "beskrivelse", "belop"])
+        writer.writerow(kolonner(args.med_id))
         for r in rader:
-            writer.writerow([r["dato"], r["beskrivelse"], format_belop(r["belop"])])
+            writer.writerow(csv_rad(r, args.med_id))
 
     if args.vis:
         skriv(csv.writer(sys.stdout))

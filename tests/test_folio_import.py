@@ -80,6 +80,30 @@ def test_velg_konto_flertydig_stopper() -> None:
     raise AssertionError("velg_konto skulle stoppet ved flere kontoer uten --konto")
 
 
+def test_standardkolonner_er_uendret() -> None:
+    """Uten --med-id er CSV-en nøyaktig det bokforing leser i dag."""
+    r = f.til_rad({"id": "abc", "transactionAmount": {"amount": "-25.00"},
+                   "bookingDate": "2026-03-01", "description": "Gebyr"})
+    assert f.kolonner(False) == ["dato", "beskrivelse", "belop"]
+    assert f.csv_rad(r, False) == ["2026-03-01", "Gebyr", "-25"]
+
+
+def test_med_id_skiller_like_transaksjoner() -> None:
+    """To like gebyrer samme dag får hver sin folio_id med --med-id."""
+    felles = {"transactionAmount": {"amount": "-25.00"}, "bookingDate": "2026-03-01",
+              "description": "Gebyr"}
+    a = f.til_rad({**felles, "id": "id-1"})
+    b = f.til_rad({**felles, "id": "id-2"})
+    assert f.kolonner(True) == ["dato", "beskrivelse", "belop", "folio_id"]
+    assert f.csv_rad(a, False) == f.csv_rad(b, False)
+    assert f.csv_rad(a, True)[-1] == "id-1" and f.csv_rad(b, True)[-1] == "id-2"
+
+
+def test_manglende_id_blir_tom_streng() -> None:
+    r = f.til_rad({"transactionAmount": {"amount": "1.00"}, "bookingDate": "2026-01-01"})
+    assert r["folio_id"] == ""
+
+
 def test_pengeflytt_vakt_nekter() -> None:
     """hent() skal nekte alt som ser ut som en pengeflytt-ressurs."""
     for path in ("/payments", "/accounts/1/payment", "/transfer"):
