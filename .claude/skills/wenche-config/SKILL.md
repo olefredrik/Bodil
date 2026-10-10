@@ -47,8 +47,8 @@ resultatregnskap:
     andre_driftskostnader: <fra regnskap.md>
   finansposter:
     utbytte_fra_datterselskap: <fra regnskap.md>
-    andre_finansinntekter: 0
-    rentekostnader: 0
+    andre_finansinntekter: <fra regnskap.md>   # renteinntekter fra banken, fullt skattepliktig
+    rentekostnader: <fra regnskap.md>          # renter belastet av banken
     andre_finanskostnader: 0
   skattekostnad: <fra regnskap.md>     # egen linje før årsresultatet (rskl. § 6-1), 0 uten
                                        # skattepliktig inntekt
@@ -112,6 +112,7 @@ Skriv ut en kort sjekkliste over det du IKKE kunne utlede fra bankeksporten og s
 
 - [ ] `formuesverdi_aksjer` hentet fra aksjeoppgaven RF-1088S (post 209). Kan ikke utledes fra bankeksporten.
 - [ ] `underskudd_til_fremfoering` stemmer med «Skattemessig» i `regnskap.md` (år 1: hentet fra fjorårets RF-1028).
+- [ ] `andre_finansinntekter` og `rentekostnader` stemmer med rentelinjene i bankeksporten (eller årsoppgaven fra banken).
 - [ ] `skattekostnad` og `betalbar_skatt` stemmer med hverandre og med Wenches egen beregning. Sier Wenche at skatten er beregnet men ikke ført, mangler linjen i `regnskap.md`.
 - [ ] `avsatt_utbytte` stemmer med «Utbytte»-seksjonen i `regnskap.md` og med det protokollen faktisk vedtok.
 - [ ] `avsatt_utbytte` og `utbytte_utbetalt` er ikke forvekslet: den første er årets avsetning per 31.12, den andre er kontanter ut i året. Er fjorårets avsetning betalt i år og et nytt utbytte avsatt, er begge ulik null.

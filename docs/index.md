@@ -16,7 +16,7 @@ Claude sender **ingenting** selv. Innsendingen gjør du i Wenche helt til slutt,
 
 ## Hvem passer det for?
 
-Bodil er laget for **passive holdingselskaper**: selskaper som eier aksjer i andre selskaper og ellers bare har bankkostnader, og eventuelt mottar utbytte.
+Bodil er laget for **passive holdingselskaper**: selskaper som eier aksjer i andre selskaper og ellers bare har bankkostnader og bankrenter, og eventuelt mottar utbytte.
 
 !!! warning "Bodil er ikke en regnskapsfører"
     Bodil er et hjelpeverktøy for bokføring og dokumentproduksjon, ikke en regnskapsfører, revisor eller juridisk rådgivning. Genererte dokumenter er utkast du må kontrollere før bruk. Driftsselskaper er utenfor scope. Les [Ansvar](ansvar.md) før du tar verktøyet i bruk.
