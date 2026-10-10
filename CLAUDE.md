@@ -16,10 +16,11 @@ Kun passive holdingselskaper: selskaper som eier aksjer i andre selskaper og ell
 | Penger ut til eier utover det | Flagg og spør: utbytte vedtatt i året, lån til aksjonær, eller tilbakebetaling av kapital |
 | Utbytte for regnskapsåret (styrets forslag, ikke en banktransaksjon) | Avsatt utbytte (kortsiktig gjeld), reduserer egenkapital i avsetningsåret |
 | Alle andre utbetalinger | Driftskostnad |
-| Kjøp/salg av eierposter | Finansielle anleggsmidler til kostpris (fra `selskap.yaml`) |
+| Kjøp av eierpost | Finansielle anleggsmidler til kostpris (fra `selskap.yaml`) |
+| Salg av eierpost | Kostprisen ut av balansen, differansen mot salgssummen er gevinst/tap ved realisasjon av aksjer (finanspost, skattefri/ikke fradrag etter fritaksmetoden) |
 | Betaling av skatt til Skatteetaten | Reduserer betalbar skatt (gjeld), ikke en kostnad |
 
-Ingen andre kontoer. Ingen inntekter utover utbytte fra datterselskap. Resultatet blir et lite underskudd lik driftskostnadene, med mindre det er mottatt utbytte. Er det mottatt utbytte og eierandelen er under 90 %, gir 3 %-sjablonen i fritaksmetoden en liten skattepliktig inntekt: da føres **skattekostnad** som egen linje før årsresultatet (rskl. § 6-1) med **betalbar skatt** som motpost i balansen.
+Ingen andre kontoer. Ingen inntekter utover utbytte fra datterselskap og gevinst ved salg av eierpost. Resultatet blir et lite underskudd lik driftskostnadene, med mindre det er mottatt utbytte. Er det mottatt utbytte og eierandelen er under 90 %, gir 3 %-sjablonen i fritaksmetoden en liten skattepliktig inntekt: da føres **skattekostnad** som egen linje før årsresultatet (rskl. § 6-1) med **betalbar skatt** som motpost i balansen.
 
 ## Faste regler
 

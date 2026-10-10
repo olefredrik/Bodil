@@ -12,6 +12,12 @@ Hver oppføring som rører grensesnittet mot Wenche oppgir hvilken Wenche-versjo
 Bodil er testet mot. Den versjonen er også pinnet i CI
 ([wenche-kompatibilitet.yml](.github/workflows/wenche-kompatibilitet.yml)).
 
+## [1.1.0]
+
+- **Salg av eierpost gir nå et regnskap som går opp.** Kostprisen tas ut av balansen, og differansen mot salgssummen føres som gevinst eller tap ved realisasjon av aksjer. `bokforing` holder gevinst og tap utenfor skatteberegningen (fritaksmetoden: gevinst skattefri, tap ikke fradragsberettiget), flagger utenlandske selskaper og ber brukeren oppdatere `eierposter` i `selskap.yaml`. Delsalg tar ut forholdsmessig kostpris. Wenche har ennå ikke egne felt for dette, så `wenche-config` stopper og forklarer at beløpet i `andre_finansinntekter`/`andre_finanskostnader` ville gitt feil skatt, i stedet for å skrive det inn stille.
+
+**Testet mot Wenche ≥ 1.5.1.**
+
 ## [1.0.0]
 
 Denne versjonen endrer den låste bokføringsmodellen. Les «Overgang» nederst i seksjonen
@@ -224,6 +230,7 @@ Første versjonerte utgave.
 
 **Testet mot Wenche ≥ 0.24.0.**
 
+[1.1.0]: https://github.com/olefredrik/Bodil/compare/v1.0.0...v1.1.0
 [1.0.0]: https://github.com/olefredrik/Bodil/compare/v0.6.0...v1.0.0
 [0.6.0]: https://github.com/olefredrik/Bodil/compare/v0.5.0...v0.6.0
 [0.5.0]: https://github.com/olefredrik/Bodil/compare/v0.4.2...v0.5.0

@@ -11,10 +11,11 @@ Bodil fører etter en bevisst minimal, låst bokføringsmodell. Den dekker det e
 | Penger ut til eier, opp til utestående avsatt utbytte | Reduserer avsatt utbytte (gjeld), ikke egenkapital |
 | Penger ut til eier utover det | Flagges: utbytte vedtatt i året, lån til aksjonær, eller tilbakebetaling av kapital |
 | Alle andre utbetalinger | Driftskostnad (typisk bankgebyrer) |
-| Kjøp/salg av eierposter | Finansielle anleggsmidler til kostpris (fra `selskap.yaml`) |
+| Kjøp av eierpost | Finansielle anleggsmidler til kostpris (fra `selskap.yaml`) |
+| Salg av eierpost | Kostprisen ut av balansen, differansen mot salgssummen er gevinst eller tap ved realisasjon av aksjer |
 | Betaling av skatt til Skatteetaten | Reduserer betalbar skatt (gjeld), ikke en kostnad |
 
-Ingen andre kontoer, ingen inntekter utover utbytte fra datterselskap. Resultatet blir et lite underskudd lik driftskostnadene, med mindre det er mottatt utbytte.
+Ingen andre kontoer, ingen inntekter utover utbytte fra datterselskap og gevinst ved salg av aksjer. Resultatet blir et lite underskudd lik driftskostnadene, med mindre det er mottatt utbytte.
 
 ## Utbytte
 
@@ -29,6 +30,8 @@ Går det likevel penger til eier uten en avsetning å dekke dem med, gjetter ikk
 Et hvilende år har ingen skattepliktig inntekt, og skattekostnaden er 0. Mottar selskapet utbytte og eierandelen er under 90 %, er 3 % av utbyttet skattepliktig (sjablonregelen i fritaksmetoden, sktl. § 2-38 sjette ledd). Da har selskapet en reell, liten skattekostnad, og regnskapsloven § 6-1 krever den som egen linje før årsresultatet. Bodil regner den etter samme regel som Wenche: skattepliktig del av utbyttet minus driftskostnadene, minus eventuelt fremført underskudd, ganget med 22 %.
 
 Skatten fastsettes og betales året etter, så den står som **betalbar skatt** i balansen per 31.12. Betalingen året etter reduserer den gjelden og er ikke en ny kostnad. Ved eierandel på 90 % eller mer er utbyttet fullt skattefritt, og skattekostnaden blir 0.
+
+Selges en eierpost, er gevinsten skattefri og tapet ikke fradragsberettiget under fritaksmetoden, og 3 %-sjablonen gjelder ikke gevinst. Gevinst og tap står derfor i resultatet, men holdes utenfor skatteberegningen. Er det solgte selskapet utenlandsk, flagger Bodil det. Wenche har ennå ikke egne felt for gevinst og tap ved realisasjon av aksjer, så `wenche-config` stopper og ber deg håndtere skatteberegningen i Wenche manuelt. Brukeren må selv fjerne eller redusere eierposten i `selskap.yaml`.
 
 ## Flagg, ikke gjett
 

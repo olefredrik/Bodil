@@ -12,6 +12,15 @@ Mapper et ferdig regnskap til en `config.yaml` som Wenche konsumerer, og selv-ve
 - `<år>/regnskap.md` (fra bokforing): alle tall til resultatregnskap og balanse, og fjorårets sammenligningstall.
 - `selskap.yaml`: selskapsopplysninger og aksjonærer (med fødselsnummer), eierposter.
 
+## Stopp først: gevinst eller tap ved salg av aksjer
+
+Har `regnskap.md` en linje for gevinst eller tap ved realisasjon av aksjer som er ulik 0, **stopp og si fra før du skriver `config.yaml`**. Wenche har ennå ingen egne felt for dette. Det eneste stedet beløpet kan stå er `andre_finansinntekter` (gevinst) eller `andre_finanskostnader` (tap), og der behandler Wenche det som vanlig finansinntekt og -kostnad: gevinsten skattlegges fullt og tapet trekkes fra. Under fritaksmetoden er gevinsten skattefri og tapet ikke fradragsberettiget (sktl. § 2-38), så skatten blir feil. Utelater du beløpet, går årsresultatet og egenkapitalavstemmingen ikke opp.
+
+Skriv det ikke stille inn i noen av feltene. Forklar dette for brukeren og la brukeren velge:
+
+1. **Vent** med innsending til Wenche har egne felt for gevinst og tap ved realisasjon av aksjer.
+2. **Før beløpet i `andre_finansinntekter`/`andre_finanskostnader`** og rett skatteberegningen manuelt i Wenche før innsending, slik at gevinsten holdes utenfor skattepliktig inntekt (eller tapet legges tilbake). Skattekostnaden i Wenche skal da stemme med `skattekostnad` i `regnskap.md`, som er regnet riktig. Skriv en kommentar ved feltet i `config.yaml` om at beløpet er gevinst/tap ved aksjesalg, og ta punktet med i sjekklisten.
+
 ## Output 1: `<år>/config.yaml`
 
 Denne fila er gitignored og er det eneste stedet fødselsnummer skal skrives. Bruk Wenches eksakte feltnavn (bekreftet mot `config.example.yaml` i Wenche):
@@ -47,9 +56,9 @@ resultatregnskap:
     andre_driftskostnader: <fra regnskap.md>
   finansposter:
     utbytte_fra_datterselskap: <fra regnskap.md>
-    andre_finansinntekter: 0
+    andre_finansinntekter: 0             # gevinst ved aksjesalg: se «Stopp først» over
     rentekostnader: 0
-    andre_finanskostnader: 0
+    andre_finanskostnader: 0             # tap ved aksjesalg: se «Stopp først» over
   skattekostnad: <fra regnskap.md>     # egen linje før årsresultatet (rskl. § 6-1), 0 uten
                                        # skattepliktig inntekt
 
@@ -116,6 +125,7 @@ Skriv ut en kort sjekkliste over det du IKKE kunne utlede fra bankeksporten og s
 - [ ] `avsatt_utbytte` stemmer med «Utbytte»-seksjonen i `regnskap.md` og med det protokollen faktisk vedtok.
 - [ ] `avsatt_utbytte` og `utbytte_utbetalt` er ikke forvekslet: den første er årets avsetning per 31.12, den andre er kontanter ut i året. Er fjorårets avsetning betalt i år og et nytt utbytte avsatt, er begge ulik null.
 - [ ] `tinginnskudd_ved_stiftelse` stemmer med stiftelsesdokumentene (kun år 1, og bare hvis selskapet ble stiftet ved tinginnskudd). Kan ikke utledes fra bankeksporten: et tinginnskudd går aldri gjennom bankkontoen.
+- [ ] Ved salg av eierpost: gevinst eller tap ved realisasjon av aksjer er håndtert etter valget i «Stopp først» over, og skatteberegningen i Wenche er kontrollert manuelt slik at gevinsten ikke er skattlagt og tapet ikke er trukket fra. `andre_aksjer` stemmer med `eierposter` i oppdatert `selskap.yaml`.
 - [ ] `eierandel_for_fritaksmetoden` riktig (avgjør om utbytte er fullt skattefritt eller 3 %-beskattet).
 - [ ] Noter fylles i Wenches **Dokumenter-fane**: antall ansatte (normalt 0) og eventuelt lån fra aksjonær som lån til/fra nærstående. Wenche genererer selve notene, Bodil gjør det ikke.
 - [ ] Balansen går opp (bekreftes også av valideringen under).

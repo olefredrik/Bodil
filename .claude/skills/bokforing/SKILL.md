@@ -22,7 +22,8 @@ Fører ett regnskapsår for et passivt holdingselskap fra en bankeksport. Du pro
 | Penger ut til eier, opp til utestående avsatt utbytte | Reduserer avsatt utbytte (gjeld). Utbetalingen gjør opp en forpliktelse og rører ikke egenkapitalen |
 | Penger ut til eier utover utestående avsatt utbytte | **Flagg og spør.** Se «Utbetaling uten avsetning» under |
 | Alle andre utbetalinger | Andre driftskostnader |
-| Kjøp/salg av eierpost | Andre aksjer (finansielt anleggsmiddel), kostpris fra `selskap.yaml` |
+| Kjøp av eierpost | Andre aksjer (finansielt anleggsmiddel) til kostpris |
+| Salg av eierpost | Kostprisen ut av balansen, differansen mot salgssummen er gevinst eller tap ved realisasjon av aksjer. Se «Salg av eierpost» under |
 | Betaling av skatt til Skatteetaten | Reduserer betalbar skatt (gjeld), er ikke en kostnad |
 
 **Flagg og spør, ikke gjett**, ved: en transaksjon som ikke entydig passer en rad over, uvanlig store beløp, eller innbetalinger du ikke kan knytte til verken eier eller datterselskap. Bruk beskrivelsen i CSV-en til å avgjøre, men vær eksplisitt om hva du antok.
@@ -39,6 +40,19 @@ Går det penger til eier uten at det står en avsetning fra i fjor å dekke dem 
 
 Dette er den vanligste situasjonen det året et selskap går over fra utbetalingsmodellen (Bodil ≤ 0.6.0) til avsetningsmodellen, siden det ikke finnes noen inngående avsetning å dekke utbetalingen med.
 
+### Salg av eierpost
+
+Eierposten står til kostpris. Ved salg fjernes kostprisen fra balansen (`andre_aksjer`, eller `aksjer_i_datterselskap` hvis posten står der), og salgssummen kommer inn på bankkontoen. Differansen er et regnskapsmessig resultat:
+
+- `gevinst_realisasjon_aksjer` = salgssum − kostpris, når positiv
+- `tap_realisasjon_aksjer` = kostpris − salgssum, når positiv
+
+Uten denne linjen går ikke balansen opp når salgssummen avviker fra kostprisen.
+
+- **Delsalg:** fjern en forholdsmessig del av kostprisen (kostpris × solgte aksjer / aksjer i posten før salget). Er posten kjøpt i flere omganger til ulik pris, spør hvilken kostpris som gjelder i stedet for å velge.
+- **`selskap.yaml` må oppdateres av brukeren:** be brukeren fjerne eierposten (helt salg) eller redusere `kostpris` og `eierandel_prosent` (delsalg), slik at `eierposter` viser beholdningen per 31.12. Regn balansen ut fra den oppdaterte fila, og bekreft at summen stemmer med inngående kostpris minus det som er solgt. Det samme gjelder ved kjøp: be brukeren legge til posten.
+- **Kostpris, salgssum og dato** skal fremgå av bilag (avtale eller sluttseddel). Mangler salgssummen i bankeksporten, eller er den motregnet mot noe annet, flagg og spør.
+
 ## Beregning
 
 1. Klassifiser hver rad og før den i en **transaksjonslogg**.
@@ -49,18 +63,18 @@ Dette er den vanligste situasjonen det året et selskap går over fra utbetaling
    - endring i `laan_fra_aksjonaer` = sum innskudd fra eier
 3. **Skattekostnad.** Et år uten utbytte gir 0, men et år med mottatt utbytte har normalt en liten reell skattekostnad, og regnskapsloven § 6-1 krever den som egen linje før årsresultatet. Regn i denne rekkefølgen:
    - `skattepliktig_utbytte` = 0 hvis eierandelen er 90 % eller mer, ellers 3 % av mottatt utbytte rundet opp til nærmeste krone (fritaksmetoden, sktl. § 2-38 sjette ledd). Eierandelen står under `eierposter` i `selskap.yaml`. Har selskapet flere eierposter med ulik eierandel, flagg det og spør hvilken posten utbyttet kom fra i stedet for å velge selv.
-   - `skattepliktig_inntekt` = `skattepliktig_utbytte − andre_driftskostnader`
+   - `skattepliktig_inntekt` = `skattepliktig_utbytte − andre_driftskostnader`. Gevinst og tap ved realisasjon av aksjer holdes utenfor: under fritaksmetoden er gevinsten skattefri og tapet ikke fradragsberettiget (sktl. § 2-38), og 3 %-sjablonen gjelder bare utbytte, ikke gevinst. Dette gjelder aksjer i norske aksjeselskaper. Er det solgte selskapet utenlandsk, **flagg og spør**: fritaksmetoden har egne vilkår for selskaper utenfor EØS og i lavskatteland (sktl. § 2-38), og Bodil avgjør ikke det.
    - Er `skattepliktig_inntekt` positiv, trekk fra fremført underskudd. Tallet står under «Skattemessig» i `<år-1>/regnskap.md`. Finnes ikke fjorårets fil (år 1, eller år ført utenfor Bodil), **spør brukeren** om underskudd til fremføring fra fjorårets RF-1028 i stedet for å anta 0.
    - `skattekostnad` = 22 % av det som står igjen, rundet opp. Er `skattepliktig_inntekt` 0 eller negativ etter fradrag, er skattekostnaden 0.
    - `underskudd_til_fremfoering` for neste år: er `skattepliktig_inntekt` negativ, øk fjorårets fremførte underskudd med hele det negative beløpet. Er den positiv, reduser fjorårets med det som faktisk ble brukt som fradrag.
-4. **Årsresultat** = `utbytte_fra_datterselskap − andre_driftskostnader − skattekostnad`
+4. **Årsresultat** = `utbytte_fra_datterselskap + gevinst_realisasjon_aksjer − tap_realisasjon_aksjer − andre_driftskostnader − skattekostnad`
 5. **Utbytte for året.** Dette er en beslutning, ikke en transaksjon, så den kommer ikke fra bankeksporten. Spør brukeren om styret foreslår utbytte for dette regnskapsåret. Blir svaret ja:
    - `avsatt_utbytte_i_aar` = beløpet. Det avsettes som kortsiktig gjeld per 31.12 og reduserer egenkapitalen i **dette** året, ikke i året det utbetales (rskl. § 6-2, aksjeloven § 8-2 første ledd).
    - **Krev dekning.** `overkursfond + annen_egenkapital` etter avsetningen må være ≥ 0 (aksjeloven § 8-1). En avsetning er en utdeling og kan gjøre fri egenkapital negativ helt alene. Er den negativ, stopp og be brukeren redusere beløpet.
    - Generalforsamlingen vedtar avsetningen når den godkjenner årsregnskapet, altså i `protokoll`-skillen. Bodil foregriper ikke vedtaket, den fører styrets forslag.
 6. **Balanse per 31.12:**
    - `bankinnskudd` = åpningssaldo + sum alle transaksjoner (skal stemme med faktisk saldo 31.12, sjekk mot bankutskrift)
-   - `andre_aksjer` = sum kostpris for eierposter i `selskap.yaml`
+   - `andre_aksjer` = sum kostpris for eierposter i `selskap.yaml` per 31.12, etter eventuelle kjøp og salg i året (se «Salg av eierpost»)
    - `aksjekapital` = fra `selskap.yaml`
    - `annen_egenkapital` = inngående annen egenkapital + årsresultat − `avsatt_utbytte_i_aar` − eventuelt utbytte vedtatt og utbetalt i året (steget «Utbetaling uten avsetning»). Merk at et utbytte utbetalt i år som gjør opp fjorårets avsetning **ikke** står her: det traff egenkapitalen i fjor.
    - `avsatt_utbytte` = inngående avsatt utbytte − utbetalt i år mot den avsetningen + `avsatt_utbytte_i_aar`
@@ -85,8 +99,10 @@ Skriv en lesbar markdown-fil med disse seksjonene (ikke skriv fødselsnummer i d
 | Avskrivninger | 0 | ... |
 | Andre driftskostnader | <x> | ... |
 | Utbytte fra datterselskap | <x> | ... |
+| Gevinst ved realisasjon av aksjer | <x> | ... |
 | Andre finansinntekter | 0 | ... |
 | Rentekostnader | 0 | ... |
+| Tap ved realisasjon av aksjer | <x> | ... |
 | Andre finanskostnader | 0 | ... |
 | Skattekostnad | <x> | ... |
 | **Årsresultat** | <x> | ... |
@@ -122,6 +138,7 @@ Skriv en lesbar markdown-fil med disse seksjonene (ikke skriv fødselsnummer i d
 |---|--:|
 | Mottatt utbytte | <x> |
 | Skattepliktig del av utbyttet (3 %-sjablon, 0 ved eierandel ≥ 90 %) | <x> |
+| Gevinst (+) / tap (−) ved realisasjon av aksjer, holdt utenfor (fritaksmetoden) | <x> |
 | Skattepliktig inntekt før fradrag | <x> |
 | Anvendt fremført underskudd | <x> |
 | Skattepliktig inntekt | <x> |
@@ -148,10 +165,10 @@ Denne seksjonen er input til neste års bokføring, til `protokoll` og til `avsa
 
 ## Merknader
 - Balansekontroll: sum eiendeler = sum EK og gjeld (✓/avvik)
-- Eventuelle flagg (utbytte uten dekning, utbetaling til eier uten avsetning, uklare transaksjoner, store poster)
+- Eventuelle flagg (salg av eierpost, utbytte uten dekning, utbetaling til eier uten avsetning, uklare transaksjoner, store poster)
 ```
 
-Feltnavnene i tabellene er bevisst de samme som Wenche bruker, slik at `wenche-config`-skillen kan mappe dem nær mekanisk.
+Feltnavnene i tabellene er bevisst de samme som Wenche bruker, slik at `wenche-config`-skillen kan mappe dem nær mekanisk. Unntaket er gevinst og tap ved realisasjon av aksjer: Wenche har ennå ikke egne felt for dem, så de står på egne linjer og håndteres særskilt i `wenche-config`.
 
 ## Neste steg
 
