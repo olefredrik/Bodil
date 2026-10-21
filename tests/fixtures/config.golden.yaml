@@ -15,6 +15,9 @@
 # til 64 kr, med betalbar skatt som motpost i balansen. Se config.foerste-aar.yaml for
 # det forlengede første regnskapsåret.
 #
+# Utbyttet på 10 000 er vedtatt i løpet av året og har dekning i fjorårets balanse:
+# annen egenkapital 15 000 per 31.12 i fjor (aksjeloven § 8-1).
+#
 # KUN syntetiske data. Aldri ekte fødselsnummer her (fila versjoneres).
 # Oppdater den bare når Bodils output-modell endres bevisst.
 
@@ -54,12 +57,12 @@ balanse:
       langsiktige_fordringer: 0
     omloepmidler:
       kortsiktige_fordringer: 0
-      bankinnskudd: 52413
+      bankinnskudd: 67413
   egenkapital_og_gjeld:
     egenkapital:
       aksjekapital: 30000
       overkursfond: 0
-      annen_egenkapital: 2349
+      annen_egenkapital: 17349
     langsiktig_gjeld:
       laan_fra_aksjonaer: 70000
       andre_langsiktige_laan: 0
@@ -92,12 +95,12 @@ foregaaende_aar:
         langsiktige_fordringer: 0
       omloepmidler:
         kortsiktige_fordringer: 0
-        bankinnskudd: 30000
+        bankinnskudd: 45000
     egenkapital_og_gjeld:
       egenkapital:
         aksjekapital: 30000
         overkursfond: 0
-        annen_egenkapital: 0
+        annen_egenkapital: 15000
       langsiktig_gjeld:
         laan_fra_aksjonaer: 50000
         andre_langsiktige_laan: 0

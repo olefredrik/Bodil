@@ -33,7 +33,7 @@ Fører ett regnskapsår for et passivt holdingselskap fra en bankeksport. Du pro
 
 **Flagg og spør, ikke gjett**, ved: en transaksjon som ikke entydig passer en rad over, uvanlig store beløp, eller innbetalinger du ikke kan knytte til verken eier eller datterselskap. Bruk beskrivelsen i CSV-en til å avgjøre, men vær eksplisitt om hva du antok.
 
-Utbytte er den ene posten som **ikke** stammer fra bankeksporten. Det avsettes som gjeld i det året det gjelder, og utbetalingen året etter gjør bare opp gjelden. Se «Utbytte» under.
+Utbytte er den ene posten som **ikke** stammer fra bankeksporten. Det avsettes som gjeld i det året det gjelder, og utbetalingen året etter gjør bare opp gjelden. Se steg 5 «Utbytte for året» under «Beregning».
 
 ### Innbetaling fra eier
 
@@ -48,7 +48,7 @@ Har selskapet både utestående avsatt utbytte og utestående lån fra aksjonær
 Går det penger til eier uten at det står en avsetning fra i fjor å dekke dem med, skal du **stoppe og spørre**, ikke føre det som utbytte. Det er fire mulige svar, og bare brukeren vet hvilket som gjelder:
 
 1. **Nedbetaling av lån fra aksjonær**, opp til utestående lån (inngående lån + årets innskudd − det som allerede er nedbetalt). Reduserer `laan_fra_aksjonaer` og rører ikke egenkapitalen. Er utbetalingen større enn utestående lån, er resten ikke en nedbetaling: spør om resten på nytt.
-2. **Utbytte vedtatt i løpet av året** på grunnlag av sist godkjente årsregnskap (aksjeloven § 8-2 andre ledd). Da føres beløpet som `utbytte_utbetalt` og reduserer egenkapitalen i utbetalingsåret. Krev at brukeren bekrefter at det finnes et vedtak datert senest på betalingsdagen. **Bodil lager ikke det bilaget:** protokollen for dette året skrives våren etter og kan ikke tilbakedatere et vedtak. Mangler bilaget, si det rett ut i stedet for å produsere et.
+2. **Utbytte vedtatt i løpet av året** på grunnlag av sist godkjente årsregnskap (aksjeloven § 8-2 andre ledd). Da føres beløpet som `utbytte_utbetalt` og reduserer egenkapitalen i utbetalingsåret. Krev at brukeren bekrefter at det finnes et vedtak datert senest på betalingsdagen. **Bodil lager ikke det bilaget:** protokollen for dette året skrives våren etter og kan ikke tilbakedatere et vedtak. Mangler bilaget, si det rett ut i stedet for å produsere et. **Krev dekning i sist godkjente balanse:** utdelingsgrunnlaget er balansen i sist godkjente årsregnskap, ikke årets (aksjeloven § 8-1). Fri egenkapital (`overkursfond + annen_egenkapital`) i fjorårets balanse per 31.12, minus andre utdelinger som allerede er vedtatt i år på grunnlag av samme balanse, må dekke beløpet. Årets resultat teller ikke med. Dekker den ikke, **stopp**: utdelingen kan være ulovlig (aksjeloven § 3-7), med mindre den bygger på en godkjent mellombalanse (§ 8-2 a). Be brukeren avklare med regnskapsfører.
 3. **Lån til aksjonær.** Da er det en fordring, ikke en utdeling. Utenfor den låste modellen: flagg og be brukeren avklare med regnskapsfører.
 4. **Tilbakebetaling av innbetalt kapital.** Også utenfor modellen. Flagg.
 
@@ -111,7 +111,7 @@ Uten denne linjen går ikke balansen opp når salgssummen avviker fra kostprisen
    - `laan_fra_aksjonaer` = inngående lån + årets innskudd fra eier − årets nedbetaling. Kan ikke bli negativ: da er noe feilklassifisert
    - `betalbar_skatt` = inngående betalbar skatt − skatt betalt i år + årets `skattekostnad`. Skatten fastsettes og betales året etter, så årets skattekostnad står normalt ubetalt i balansen per 31.12. Dette er motposten til skattekostnaden: uten den går ikke balansen opp, og Wenche varsler om en skattekostnad uten motpost.
 7. **Kontroller at balansen går opp:** sum eiendeler = sum egenkapital og gjeld. Hvis ikke, finn årsaken (oftest en feilklassifisert transaksjon eller feil åpningssaldo) før du går videre.
-8. **Utbytte uten dekning:** hvis `overkursfond + annen_egenkapital < 0` etter at avsetningen og et eventuelt utbytte vedtatt i året er trukket fra, flagg det tydelig: utbytte kan bare deles ut av fri egenkapital (aksjeloven § 8-1). Dette gjelder avsetningen like fullt som en utbetaling, siden begge er utdelinger etter § 8-1.
+8. **Utbytte uten dekning:** hvis `overkursfond + annen_egenkapital < 0` per 31.12 etter at avsetningen og et eventuelt utbytte vedtatt i året er trukket fra, **stopp**: utbytte kan bare deles ut av fri egenkapital (aksjeloven § 8-1). Dette gjelder avsetningen like fullt som en utbetaling, siden begge er utdelinger etter § 8-1. Kontrollen her gjelder årets balanse. Et utbytte vedtatt i året skal i tillegg ha dekning i sist godkjente balanse (valg 2 i «Utbetaling uten avsetning»), og at årets resultat dekker det, er ikke nok.
 
 ## Output: `<år>/regnskap.md`
 

@@ -30,7 +30,7 @@ Ingen andre kontoer. Ingen inntekter utover utbytte fra datterselskap, renter fr
 
 - **Stamdata leses fra `selskap.yaml`** (navn, org.nr., aksjekapital, aksjonærer med fødselsnummer, åpningsbalanse, eierposter). Finnes bare `selskap.example.yaml`, be brukeren kopiere den til `selskap.yaml` først.
 - **Fødselsnummer og nøkler skal aldri i git.** `selskap.yaml` og `<år>/config.yaml` er gitignored. Ikke skriv fødselsnummer inn i `regnskap.md` eller `protokoll.md` (de versjoneres).
-- **Flagg, ikke gjett.** Stopp på: transaksjoner som ikke passer modellen, uvanlig store poster, utbetaling til eier uten dekkende avsetning, utbetaling som kan være både utbytte og nedbetaling av lån, og utbytte uten dekning i fri egenkapital (`overkursfond + annen_egenkapital < 0` etter utdeling, jf. aksjeloven § 8-1). En avsetning er en utdeling etter § 8-1 på lik linje med en utbetaling.
+- **Flagg, ikke gjett.** Stopp på: transaksjoner som ikke passer modellen, uvanlig store poster, utbetaling til eier uten dekkende avsetning, utbetaling som kan være både utbytte og nedbetaling av lån, og utbytte uten dekning i fri egenkapital (`overkursfond + annen_egenkapital < 0` etter utdeling, jf. aksjeloven § 8-1). En avsetning er en utdeling etter § 8-1 på lik linje med en utbetaling. Et utbytte vedtatt i løpet av året skal ha dekning i balansen i sist godkjente årsregnskap, ikke i årets.
 - **Tilbakedater aldri et vedtak.** Er utbytte utbetalt før protokollen skrives, skal protokollen omtale utdelingen som et faktum og ikke gi inntrykk av å være bilaget for det.
 - **Balansen skal gå opp.** Sum eiendeler = sum egenkapital og gjeld. Hvis ikke, finn årsaken før du går videre.
 

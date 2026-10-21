@@ -36,8 +36,10 @@ aksjonaerer:
 # regnskapsåret er dette stiftelsesbalansen (typisk bare aksjekapital som
 # bankinnskudd). Fra år to leses dette automatisk fra fjorårets regnskap.md.
 aapningsbalanse:
-  bankinnskudd: 30000                # Saldo 01.01
-  annen_egenkapital: 0               # Akkumulert resultat fra tidligere år (negativ = underskudd)
+  bankinnskudd: 45000                # Saldo 01.01
+  annen_egenkapital: 15000           # Akkumulert resultat fra tidligere år (negativ = underskudd).
+                                     # Fri egenkapital her avgjør hvor mye utbytte som kan
+                                     # vedtas i løpet av året (aksjeloven § 8-1)
   laan_fra_aksjonaer: 50000          # Utestående lån fra eier ved årets start
                                      # (her: brukt til å finansiere eierposten under).
                                      # Nedbetaling i året reduserer det
