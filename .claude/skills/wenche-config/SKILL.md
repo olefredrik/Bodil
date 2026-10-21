@@ -47,8 +47,8 @@ resultatregnskap:
     andre_driftskostnader: <fra regnskap.md>
   finansposter:
     utbytte_fra_datterselskap: <fra regnskap.md>
-    andre_finansinntekter: 0
-    rentekostnader: 0
+    andre_finansinntekter: <fra regnskap.md>   # renteinntekter fra banken, fullt skattepliktig
+    rentekostnader: <fra regnskap.md>          # renter belastet av banken
     andre_finanskostnader: 0
     gevinst_ved_realisasjon_av_aksjer: <fra regnskap.md>   # salg av eierpost. Skattefri under
     tap_ved_realisasjon_av_aksjer: <fra regnskap.md>       # fritaksmetoden (tapet gir ikke fradrag),
@@ -144,6 +144,7 @@ Skriv ut en kort sjekkliste over det du IKKE kunne utlede fra bankeksporten og s
 
 - [ ] `formuesverdi_aksjer` hentet fra aksjeoppgaven RF-1088S (post 209). Kan ikke utledes fra bankeksporten.
 - [ ] `underskudd_til_fremfoering` er «Fremførbart underskudd 01.01» fra «Skattemessig» i `regnskap.md` (år 1: fra fjorårets skattemelding; mangler linjen, se «Fremførbart underskudd»). Underskuddet til fremføring som Wenche beregner, skal være lik «Underskudd til fremføring neste år» i `regnskap.md`.
+- [ ] `andre_finansinntekter` og `rentekostnader` stemmer med rentelinjene i bankeksporten (eller årsoppgaven fra banken).
 - [ ] `skattekostnad` og `betalbar_skatt` stemmer med hverandre og med Wenches egen beregning. Sier Wenche at skatten er beregnet men ikke ført, mangler linjen i `regnskap.md`.
 - [ ] `avsatt_utbytte` stemmer med «Utbytte»-seksjonen i `regnskap.md` og med det protokollen faktisk vedtok.
 - [ ] Er det utbetalt utbytte, er `utbytte_vedtaksdato` datoen for vedtaket om det utbetalte utbyttet (normalt generalforsamlingen i `<år-1>/protokoll.md`), og den ligger i regnskapsåret.

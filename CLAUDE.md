@@ -4,7 +4,7 @@ Dette repoet fører regnskap «i git» for et **passivt holdingselskap** og prod
 
 ## Scope
 
-Kun passive holdingselskaper: selskaper som eier aksjer i andre selskaper og ellers bare har bankkostnader (og eventuelt mottar utbytte). Driftsselskaper er utenfor scope. Møter du noe som ikke passer den låste modellen under, **flagg det og spør** i stedet for å gjette.
+Kun passive holdingselskaper: selskaper som eier aksjer i andre selskaper og ellers bare har bankkostnader og bankrenter (og eventuelt mottar utbytte). Driftsselskaper er utenfor scope. Møter du noe som ikke passer den låste modellen under, **flagg det og spør** i stedet for å gjette.
 
 ## Låst bokføringsmodell
 
@@ -16,12 +16,15 @@ Kun passive holdingselskaper: selskaper som eier aksjer i andre selskaper og ell
 | Penger ut til eier, bekreftet som nedbetaling, opp til utestående lån fra aksjonær | Reduserer lån fra aksjonær (gjeld), ikke egenkapital |
 | Penger ut til eier utover det | Flagg og spør: nedbetaling av lån fra aksjonær, utbytte vedtatt i året, lån til aksjonær, eller tilbakebetaling av kapital |
 | Utbytte for regnskapsåret (styrets forslag, ikke en banktransaksjon) | Avsatt utbytte (kortsiktig gjeld), reduserer egenkapital i avsetningsåret |
+| Renteinntekt fra banken | Andre finansinntekter (fullt skattepliktig, ingen fritaksmetode) |
+| Renter belastet av banken på kontoen (debetrenter) | Rentekostnader |
+| Renter på lån i banken, til eier eller til Skatteetaten | Flagg og spør. Et lån i banken er utenfor modellen |
 | Alle andre utbetalinger | Driftskostnad |
 | Kjøp av eierpost | Finansielle anleggsmidler til kostpris (fra `selskap.yaml`): aksjer i datterselskap ved kontroll (> 50 % av stemmene, rskl. § 1-3), ellers andre aksjer |
 | Salg av eierpost | Kostprisen ut av balansen, differansen mot salgssummen er gevinst/tap ved realisasjon av aksjer (finanspost, skattefri/ikke fradrag etter fritaksmetoden) |
 | Betaling av skatt til Skatteetaten | Reduserer betalbar skatt (gjeld), ikke en kostnad |
 
-Ingen andre kontoer. Ingen inntekter utover utbytte fra datterselskap og gevinst ved salg av eierpost. Resultatet blir et lite underskudd lik driftskostnadene, med mindre det er mottatt utbytte. Er det mottatt utbytte og eierandelen er 90 % eller lavere, gir 3 %-sjablonen i fritaksmetoden en liten skattepliktig inntekt: da føres **skattekostnad** som egen linje før årsresultatet (rskl. § 6-1) med **betalbar skatt** som motpost i balansen.
+Ingen andre kontoer. Ingen inntekter utover utbytte fra datterselskap, renter fra banken og gevinst ved salg av eierpost. Resultatet blir normalt et lite underskudd lik driftskostnadene minus bankrentene, med mindre det er mottatt utbytte. Renteinntekter er fullt skattepliktige (22 %), og er det mottatt utbytte og eierandelen er 90 % eller lavere, gir 3 %-sjablonen i fritaksmetoden en liten skattepliktig inntekt i tillegg. Blir skattepliktig inntekt positiv, føres **skattekostnad** som egen linje før årsresultatet (rskl. § 6-1) med **betalbar skatt** som motpost i balansen.
 
 ## Faste regler
 

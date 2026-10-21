@@ -8,10 +8,12 @@
 # gjennom, aksepterer Wenche fortsatt en Bodil-formet config. Feiler den, har
 # Wenches skjema eller valideringsregler endret seg og wenche-config må følge etter.
 #
-# Fixturet dekker et år med mottatt utbytte og eierandel under 90 %, altså tilfellet
-# der 3 %-sjablonen i fritaksmetoden gir en reell skattekostnad: 3 % av 12 500 = 375,
-# minus driftskostnader 125 = 250 skattepliktig, 22 % = 55 kr, med betalbar skatt som
-# motpost i balansen. Se config.foerste-aar.yaml for det forlengede første regnskapsåret.
+# Fixturet dekker et år med mottatt utbytte og eierandel på 90 % eller lavere, altså
+# tilfellet der 3 %-sjablonen i fritaksmetoden gir en reell skattekostnad, pluss
+# renteinntekter fra banken, som er fullt skattepliktige: 3 % av 12 500 = 375, pluss
+# renter 38, minus driftskostnader 125 = 288 skattepliktig, 22 % = 63,36, rundet opp
+# til 64 kr, med betalbar skatt som motpost i balansen. Se config.foerste-aar.yaml for
+# det forlengede første regnskapsåret.
 #
 # KUN syntetiske data. Aldri ekte fødselsnummer her (fila versjoneres).
 # Oppdater den bare når Bodils output-modell endres bevisst.
@@ -39,10 +41,10 @@ resultatregnskap:
     andre_driftskostnader: 125
   finansposter:
     utbytte_fra_datterselskap: 12500
-    andre_finansinntekter: 0
+    andre_finansinntekter: 38
     rentekostnader: 0
     andre_finanskostnader: 0
-  skattekostnad: 55
+  skattekostnad: 64
 
 balanse:
   eiendeler:
@@ -52,18 +54,18 @@ balanse:
       langsiktige_fordringer: 0
     omloepmidler:
       kortsiktige_fordringer: 0
-      bankinnskudd: 52375
+      bankinnskudd: 52413
   egenkapital_og_gjeld:
     egenkapital:
       aksjekapital: 30000
       overkursfond: 0
-      annen_egenkapital: 2320
+      annen_egenkapital: 2349
     langsiktig_gjeld:
       laan_fra_aksjonaer: 70000
       andre_langsiktige_laan: 0
     kortsiktig_gjeld:
       leverandoergjeld: 0
-      betalbar_skatt: 55
+      betalbar_skatt: 64
       skyldige_offentlige_avgifter: 0
       annen_kortsiktig_gjeld: 0
 

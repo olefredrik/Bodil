@@ -11,12 +11,15 @@ Bodil fører etter en bevisst minimal, låst bokføringsmodell. Den dekker det e
 | Penger ut til eier, opp til utestående avsatt utbytte | Reduserer avsatt utbytte (gjeld), ikke egenkapital. Flagges hvis selskapet også har lån fra aksjonær |
 | Penger ut til eier, bekreftet som nedbetaling, opp til utestående lån fra aksjonær | Reduserer lån fra aksjonær (gjeld), ikke egenkapital |
 | Penger ut til eier utover det | Flagges: nedbetaling av lån fra aksjonær, utbytte vedtatt i året, lån til aksjonær, eller tilbakebetaling av kapital |
+| Renteinntekt fra banken | Andre finansinntekter (fullt skattepliktig) |
+| Renter belastet av banken på kontoen (debetrenter) | Rentekostnader |
+| Renter på lån i banken, til eier eller til Skatteetaten | Flagges: et lån i banken er utenfor modellen; ellers hvilket lån, og om renten er fradragsberettiget |
 | Alle andre utbetalinger | Driftskostnad (typisk bankgebyrer) |
 | Kjøp av eierpost | Finansielle anleggsmidler til kostpris (fra `selskap.yaml`): aksjer i datterselskap eller andre aksjer |
 | Salg av eierpost | Kostprisen ut av balansen, differansen mot salgssummen er gevinst eller tap ved realisasjon av aksjer |
 | Betaling av skatt til Skatteetaten | Reduserer betalbar skatt (gjeld), ikke en kostnad |
 
-Ingen andre kontoer, ingen inntekter utover utbytte fra datterselskap og gevinst ved salg av aksjer. Resultatet blir et lite underskudd lik driftskostnadene, med mindre det er mottatt utbytte.
+Ingen andre kontoer, ingen inntekter utover utbytte fra datterselskap, renter fra banken og gevinst ved salg av aksjer. Resultatet blir normalt et lite underskudd lik driftskostnadene minus bankrentene, med mindre det er mottatt utbytte.
 
 ## Datterselskap eller andre aksjer
 
@@ -44,7 +47,7 @@ Er en innbetaling fra eier egentlig en kapitalforhøyelse, krever den vedtak i g
 
 ## Skatt
 
-Et hvilende år har ingen skattepliktig inntekt, og skattekostnaden er 0. Mottar selskapet utbytte og eierandelen er 90 % eller lavere, er 3 % av utbyttet skattepliktig (sjablonregelen i fritaksmetoden, sktl. § 2-38 sjette ledd). Da har selskapet en reell, liten skattekostnad, og regnskapsloven § 6-1 krever den som egen linje før årsresultatet. Bodil regner den etter samme regel som Wenche: skattepliktig del av utbyttet minus driftskostnadene, minus eventuelt fremført underskudd, ganget med 22 %.
+Renteinntekter fra banken er vanlig kapitalinntekt for selskapet. De omfattes ikke av fritaksmetoden og er fullt skattepliktige med 22 %. Rentekostnader er fradragsberettigede på samme måte som driftskostnadene. I et hvilende år er bankrentene som regel mindre enn gebyrene, så skattepliktig inntekt blir negativ og skattekostnaden 0. Mottar selskapet utbytte og eierandelen er 90 % eller lavere, er 3 % av utbyttet skattepliktig (sjablonregelen i fritaksmetoden, sktl. § 2-38 sjette ledd). Da har selskapet en reell, liten skattekostnad, og regnskapsloven § 6-1 krever den som egen linje før årsresultatet. Bodil regner den etter samme regel som Wenche: skattepliktig del av utbyttet pluss renteinntekter, minus driftskostnader og rentekostnader, minus eventuelt fremført underskudd, ganget med 22 %. Overstiger renteinntektene kostnadene, gir det en skattekostnad også uten utbytte.
 
 Skatten fastsettes og betales året etter, så den står som **betalbar skatt** i balansen per 31.12. Betalingen året etter reduserer den gjelden og er ikke en ny kostnad. Ved eierandel over 90 % er utbyttet fullt skattefritt, og skattekostnaden blir 0. Grensen er *mer enn* 90 % (konsern etter sktl. § 10-4), så nøyaktig 90 % gir 3 %-sjablon. Grensen gjelder uavhengig av om eierposten er datterselskap i balansen.
 
