@@ -107,7 +107,8 @@ skattemelding:
   anvend_fritaksmetoden: true          # holdingselskap som eier aksjer
   eierandel_for_fritaksmetoden: <prosent>   # over 90 % gir fullt skattefritt utbytte; 90 % eller lavere gir 3 % sjablonbeskatning
   boersnotert: false
-  formuesverdi_aksjer: <RF-1088S post 209, MÅ fylles inn manuelt>
+  formuesverdi_aksjer: <spør brukeren: RF-1088S post 209>   # aldri tom og aldri 0 uten bekreftelse:
+                                       # Wenche godtar et tomt felt stille og regner med 0
 
 aksjonaerer:
   - navn: "<navn>"
@@ -147,7 +148,7 @@ Wenche krever `utbytte_vedtaksdato` når det er utbetalt utbytte, og rapporterer
 Skriv ut en kort sjekkliste over det du IKKE kunne utlede fra bankeksporten og som brukeren må verifisere manuelt:
 
 - [ ] `foregaaende_aar` stemmer med fjorårets innsendte årsregnskap. Første år i Bodil for et eldre selskap: resultatet er tallene brukeren oppga, og balansen er `aapningsbalanse` med eierpostene.
-- [ ] `formuesverdi_aksjer` hentet fra aksjeoppgaven RF-1088S (post 209). Kan ikke utledes fra bankeksporten.
+- [ ] `formuesverdi_aksjer` hentet fra aksjeoppgaven RF-1088S (post 209), oppgitt av brukeren. Kan ikke utledes fra bankeksporten.
 - [ ] `underskudd_til_fremfoering` er «Fremførbart underskudd 01.01» fra «Skattemessig» i `regnskap.md` (år 1: fra fjorårets skattemelding; mangler linjen, se «Fremførbart underskudd»). Underskuddet til fremføring som Wenche beregner, skal være lik «Underskudd til fremføring neste år» i `regnskap.md`.
 - [ ] `andre_finansinntekter` og `rentekostnader` stemmer med rentelinjene i bankeksporten (eller årsoppgaven fra banken).
 - [ ] `skattekostnad` og `betalbar_skatt` stemmer med hverandre og med Wenches egen beregning. Sier Wenche at skatten er beregnet men ikke ført, mangler linjen i `regnskap.md`.
