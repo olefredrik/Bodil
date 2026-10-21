@@ -10,6 +10,8 @@ selskap:
   daglig_leder: "Kari Nordmann"
   styreleder: "Kari Nordmann"        # Kan være samme person
   forretningsadresse: "Eksempelgata 1, 0001 Oslo"
+  kontakt_epost: "kari@example.no"   # Påkrevd for aksjonærregisteroppgaven. Skatteetaten
+                                     # sender tilbakemelding på oppgaven til denne adressen
   stiftelsesaar: 2022
   stiftelsesdato: "2022-03-14"       # Valgfri, men ta den med: aksjonærregisteroppgaven
                                      # oppgir ellers 1. januar som stiftelsestidspunkt.

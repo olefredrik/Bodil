@@ -10,7 +10,7 @@ Mapper et ferdig regnskap til en `config.yaml` som Wenche konsumerer, og selv-ve
 ## Input
 
 - `<år>/regnskap.md` (fra bokforing): alle tall til resultatregnskap og balanse, og fjorårets sammenligningstall.
-- `selskap.yaml`: selskapsopplysninger og aksjonærer (med fødselsnummer), eierposter.
+- `selskap.yaml`: selskapsopplysninger (inkludert `kontakt_epost`) og aksjonærer (med fødselsnummer), eierposter.
 
 ## Output 1: `<år>/config.yaml`
 
@@ -33,7 +33,8 @@ selskap:
                                      # penger. Uten den rapporterer egenkapitalavstemmingen hele
                                      # stiftelsesinnskuddet som kontantinnskudd. Kan aldri
                                      # overstige økningen i aksjekapital + overkursfond
-  kontakt_epost: "<e-post>"          # påkrevd for aksjonærregisteroppgave
+  kontakt_epost: "<fra selskap.yaml>" # påkrevd for aksjonærregisteroppgaven. Mangler den i
+                                     # selskap.yaml, spør brukeren og be dem legge den inn der
 
 regnskapsaar: <år>
 
