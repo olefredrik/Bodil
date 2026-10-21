@@ -93,8 +93,11 @@ balanse:
 
 foregaaende_aar:                       # fjorårets tall fra sammenligningskolonnen i regnskap.md, med eventuell
                                        # omklassifisering av eierposter (sammenligningstall, rskl. § 6-6)
-  resultatregnskap: { ... }            # samme struktur som over
-  balanse: { ... }                     # utelat hele seksjonen hvis selskapet ble stiftet i år
+  resultatregnskap: { ... }            # samme felt som over. Mangler fjorårets resultat i regnskap.md
+                                       # (og selskapet ble ikke stiftet i år), STOPP i stedet for å
+                                       # utelate den: Wenche setter da fjorårets resultat stille til 0
+  balanse: { ... }                     # samme felt som over
+                                       # utelat hele foregaaende_aar bare hvis selskapet ble stiftet i år
 
 skattemelding:
   underskudd_til_fremfoering: <«Fremførbart underskudd 01.01» fra «Skattemessig» i regnskap.md>
@@ -143,6 +146,7 @@ Wenche krever `utbytte_vedtaksdato` når det er utbetalt utbytte, og rapporterer
 
 Skriv ut en kort sjekkliste over det du IKKE kunne utlede fra bankeksporten og som brukeren må verifisere manuelt:
 
+- [ ] `foregaaende_aar` stemmer med fjorårets innsendte årsregnskap. Første år i Bodil for et eldre selskap: resultatet er tallene brukeren oppga, og balansen er `aapningsbalanse` med eierpostene.
 - [ ] `formuesverdi_aksjer` hentet fra aksjeoppgaven RF-1088S (post 209). Kan ikke utledes fra bankeksporten.
 - [ ] `underskudd_til_fremfoering` er «Fremførbart underskudd 01.01» fra «Skattemessig» i `regnskap.md` (år 1: fra fjorårets skattemelding; mangler linjen, se «Fremførbart underskudd»). Underskuddet til fremføring som Wenche beregner, skal være lik «Underskudd til fremføring neste år» i `regnskap.md`.
 - [ ] `andre_finansinntekter` og `rentekostnader` stemmer med rentelinjene i bankeksporten (eller årsoppgaven fra banken).

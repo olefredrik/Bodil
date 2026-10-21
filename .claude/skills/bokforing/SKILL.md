@@ -12,6 +12,7 @@ Fører ett regnskapsår for et passivt holdingselskap fra en bankeksport. Du pro
 - `selskap.yaml` (stamdata, åpningsbalanse, eierposter). Finnes bare `selskap.example.yaml`, be brukeren kopiere den til `selskap.yaml` først.
 - `<år>/bankeksport.csv` med kolonnene `dato,beskrivelse,belop` (positivt = inn, negativt = ut). En ekstra kolonne `folio_id` (fra `folio_import.py --med-id`) er kjent: la den stå i fila og ignorer den. Ser eksporten ellers annerledes ut, spør hvilke kolonner som er dato/beskrivelse/beløp i stedet for å gjette.
 - Forrige års `<år-1>/regnskap.md` hvis det finnes. Da brukes fjorårets utgående balanse som åpningsbalanse (overstyrer `aapningsbalanse` i `selskap.yaml`), og fjorårets tall fylles inn som sammenligningstall. Står en eierpost på en annen balanselinje i fjorårets fil enn den skal stå på i år, se «Overgang» under «Datterselskap eller andre aksjer».
+- **Første år i Bodil for et eldre selskap** (fjorårets `regnskap.md` finnes ikke, men selskapet ble stiftet før regnskapsåret): fjorårets balanse per 31.12 er `aapningsbalanse` i `selskap.yaml` sammen med eierpostene til kostpris. Fjorårets resultatregnskap finnes ikke i noen fil. **Spør brukeren** om det, linje for linje, fra fjorårets innsendte årsregnskap (det finnes også i Regnskapsregisteret hos Brønnøysundregistrene). Ikke sett 0 uten at brukeren bekrefter det. Skriv tallene i sammenligningskolonnen, så `wenche-config` kan hente dem.
 
 ## Den låste modellen (gjelder hver transaksjon)
 
