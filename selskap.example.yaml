@@ -48,6 +48,8 @@ aapningsbalanse:
                                      # reduserer ikke egenkapitalen på nytt
   betalbar_skatt: 0                  # Skyldig selskapsskatt fra i fjor, ubetalt 01.01.
                                      # Normalt 0 for et selskap uten skattepliktig inntekt
+  leverandoergjeld: 0                # Ubetalte regninger fra i fjor per 01.01. Betalingen i år
+                                     # reduserer gjelden og er ikke en ny kostnad
 
 # Eierposter i andre selskap, ført til kostpris (finansielle anleggsmidler).
 # Endres bare når du kjøper eller selger.

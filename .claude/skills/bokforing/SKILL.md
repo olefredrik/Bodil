@@ -26,6 +26,7 @@ Fører ett regnskapsår for et passivt holdingselskap fra en bankeksport. Du pro
 | Renteinntekt fra banken (kreditrenter) | Andre finansinntekter. Fullt skattepliktig, verken fritaksmetode eller sjablon |
 | Renter belastet av banken på kontoen (debetrenter) | Rentekostnader |
 | Renter på lån i banken, renter betalt til eier (f.eks. på aksjonærlån) eller til Skatteetaten (rentetillegg, forsinkelsesrenter) | **Flagg og spør.** Et lån i banken er utenfor den låste modellen, renter til eier forutsetter en låneavtale, og renter til Skatteetaten kan blandes med skattebetalingen og har egne fradragsregler |
+| Betaling av en regning som sto som leverandørgjeld 01.01 | Reduserer leverandørgjeld (gjeld), er ikke en ny kostnad. Se «Ubetalte regninger» under |
 | Alle andre utbetalinger | Andre driftskostnader |
 | Kjøp av eierpost | Aksjer i datterselskap eller andre aksjer (finansielt anleggsmiddel) til kostpris. Se «Datterselskap eller andre aksjer» under |
 | Salg av eierpost | Kostprisen ut av balansen, differansen mot salgssummen er gevinst eller tap ved realisasjon av aksjer. Se «Salg av eierpost» under |
@@ -33,7 +34,7 @@ Fører ett regnskapsår for et passivt holdingselskap fra en bankeksport. Du pro
 
 **Flagg og spør, ikke gjett**, ved: en transaksjon som ikke entydig passer en rad over, uvanlig store beløp, eller innbetalinger du ikke kan knytte til verken eier eller en eierpost. Bruk beskrivelsen i CSV-en til å avgjøre, men vær eksplisitt om hva du antok.
 
-Utbytte er den ene posten som **ikke** stammer fra bankeksporten. Det avsettes som gjeld i det året det gjelder, og utbetalingen året etter gjør bare opp gjelden. Se steg 5 «Utbytte for året» under «Beregning».
+Utbytte og ubetalte regninger per 31.12 er de to postene som **ikke** stammer fra bankeksporten. Utbytte avsettes som gjeld i det året det gjelder, og utbetalingen året etter gjør bare opp gjelden (se steg 5 «Utbytte for året» under «Beregning»). Ubetalte regninger føres som kostnad i året de gjelder, og betalingen året etter gjør bare opp leverandørgjelden (se «Ubetalte regninger» under).
 
 ### Innbetaling fra eier
 
@@ -79,6 +80,15 @@ Merk at feltnavnet `utbytte_fra_datterselskap` også dekker tilknyttet selskap, 
 
 **Overgang fra Bodil 1.1.0 og eldre:** da sto alt utbytte som utbytte fra datterselskap. Står utbytte fra en eierpost under 20 % på den linjen i fjorårets `regnskap.md`, skal du omklassifisere fjorårets beløp til «Utbytte fra andre aksjer» i sammenligningskolonnen. Årsresultatet endres ikke. Skriv omklassifiseringen under Merknader, og ikke endre fjorårets `regnskap.md`.
 
+### Ubetalte regninger
+
+Bankeksporten viser bare det som er betalt. En kostnad som gjelder regnskapsåret, men som betales etter 31.12 (for eksempel en faktura fra regnskapsfører eller et gebyr fakturert i desember), skal likevel med i årets regnskap.
+
+- **Spør brukeren** om selskapet har ubetalte regninger per 31.12 som gjelder regnskapsåret: leverandør, fakturadato og beløp. Fakturaen er bilaget.
+- Før hver slik regning som andre driftskostnader i året, med `leverandoergjeld` som motpost. Bankinnskuddet påvirkes ikke.
+- **Året etter:** står det leverandørgjeld 01.01 (i fjorårets `regnskap.md`, eller i `aapningsbalanse` det første året i Bodil), skal betalingen i bankeksporten redusere leverandørgjelden og ikke føres som ny kostnad. Knytt betalingen til regningen ut fra beskrivelse og beløp. Avviker beløpet, eller kan betalingen ikke knyttes entydig, flagg og spør.
+- Forskuddsbetalte kostnader og andre periodiseringer er utenfor modellen. Flagg dem.
+
 ### Salg av eierpost
 
 Eierposten står til kostpris. Ved salg fjernes kostprisen fra balansen (`andre_aksjer`, eller `aksjer_i_datterselskap` hvis posten står der), og salgssummen kommer inn på bankkontoen. Differansen er et regnskapsmessig resultat:
@@ -96,7 +106,7 @@ Uten denne linjen går ikke balansen opp når salgssummen avviker fra kostprisen
 
 1. Klassifiser hver rad og før den i en **transaksjonslogg**.
 2. Summer:
-   - `andre_driftskostnader` = sum av alle «andre utbetalinger»
+   - `andre_driftskostnader` = sum av alle «andre utbetalinger» + årets ubetalte regninger per 31.12. Betalinger av fjorårets leverandørgjeld er ikke med
    - `utbytte_fra_datterselskap` = sum mottatt utbytte fra eierposter på 20 % eller mer
    - `utbytte_fra_andre_aksjer` = sum mottatt utbytte fra eierposter under 20 %
    - `andre_finansinntekter` = sum renteinntekter fra banken
@@ -123,6 +133,7 @@ Uten denne linjen går ikke balansen opp når salgssummen avviker fra kostprisen
    - `annen_egenkapital` = inngående annen egenkapital + årsresultat − `avsatt_utbytte_i_aar` − eventuelt utbytte vedtatt og utbetalt i året (steget «Utbetaling uten avsetning»). Merk at et utbytte utbetalt i år som gjør opp fjorårets avsetning **ikke** står her: det traff egenkapitalen i fjor.
    - `avsatt_utbytte` = inngående avsatt utbytte − utbetalt i år mot den avsetningen + `avsatt_utbytte_i_aar`
    - `laan_fra_aksjonaer` = inngående lån + årets innskudd fra eier − årets nedbetaling. Kan ikke bli negativ: da er noe feilklassifisert
+   - `leverandoergjeld` = inngående leverandørgjeld − betalt i år + årets ubetalte regninger per 31.12. Kan ikke bli negativ: da er en betaling feilklassifisert
    - `betalbar_skatt` = inngående betalbar skatt − skatt betalt i år + årets `skattekostnad`. Skatten fastsettes og betales året etter, så årets skattekostnad står normalt ubetalt i balansen per 31.12. Dette er motposten til skattekostnaden: uten den går ikke balansen opp, og Wenche varsler om en skattekostnad uten motpost.
 7. **Kontroller at balansen går opp:** sum eiendeler = sum egenkapital og gjeld. Hvis ikke, finn årsaken (oftest en feilklassifisert transaksjon eller feil åpningssaldo) før du går videre.
 8. **Utbytte uten dekning:** hvis `overkursfond + annen_egenkapital < 0` per 31.12 etter at avsetningen og et eventuelt utbytte vedtatt i året er trukket fra, **stopp**: utbytte kan bare deles ut av fri egenkapital (aksjeloven § 8-1). Dette gjelder avsetningen like fullt som en utbetaling, siden begge er utdelinger etter § 8-1. Kontrollen her gjelder årets balanse. Et utbytte vedtatt i året skal i tillegg ha dekning i sist godkjente balanse (valg 2 i «Utbetaling uten avsetning»), og at årets resultat dekker det, er ikke nok.
@@ -206,6 +217,20 @@ Skriv en lesbar markdown-fil med disse seksjonene (ikke skriv fødselsnummer i d
 
 Denne seksjonen er input til neste års bokføring, til `protokoll` og til `avsatt_utbytte` i `wenche-config`. De to midterste linjene er ulike ting: den første gjør opp en gjeldspost og rører ikke egenkapitalen, den andre reduserer egenkapitalen i år. Summen av dem er `utbytte_utbetalt` og går i aksjonærregisteroppgaven for dette året.
 
+## Ubetalte regninger per 31.12
+| Leverandør | Fakturadato | Beløp |
+|---|---|--:|
+| ... | ... | ... |
+
+| Post | <år> |
+|---|--:|
+| Leverandørgjeld 01.01 | <x> |
+| Betalt i året | <x> |
+| Ubetalte regninger per 31.12 | <x> |
+| **Leverandørgjeld 31.12** | <x> |
+
+Denne seksjonen er input til neste års bokføring og til `leverandoergjeld` i `wenche-config`. Skriv «Ingen» i den første tabellen hvis brukeren bekreftet at det ikke er ubetalte regninger.
+
 ## Transaksjonslogg
 | Dato | Beskrivelse | Beløp | Klassifisert som |
 |---|---|--:|---|
@@ -213,7 +238,7 @@ Denne seksjonen er input til neste års bokføring, til `protokoll` og til `avsa
 
 ## Merknader
 - Balansekontroll: sum eiendeler = sum EK og gjeld (✓/avvik)
-- Eventuelle flagg (salg av eierpost, utbytte uten dekning, utbetaling til eier uten avsetning, utbytte eller nedbetaling av lån, mulig kapitalforhøyelse, renter til eier, Skatteetaten eller på lån i banken, uklare transaksjoner, store poster)
+- Eventuelle flagg (salg av eierpost, utbytte uten dekning, utbetaling til eier uten avsetning, utbytte eller nedbetaling av lån, mulig kapitalforhøyelse, renter til eier, Skatteetaten eller på lån i banken, betaling som ikke kan knyttes til leverandørgjeld, uklare transaksjoner, store poster)
 ```
 
 Feltnavnene i tabellene er bevisst de samme som Wenche bruker, slik at `wenche-config`-skillen kan mappe dem nær mekanisk.
