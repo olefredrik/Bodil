@@ -18,6 +18,7 @@ Bodil fører etter en bevisst minimal, låst bokføringsmodell. Den dekker det e
 | Kjøp av eierpost | Finansielle anleggsmidler til kostpris (fra `selskap.yaml`): aksjer i datterselskap eller andre aksjer |
 | Salg av eierpost | Kostprisen ut av balansen, differansen mot salgssummen er gevinst eller tap ved realisasjon av aksjer |
 | Betaling av skatt til Skatteetaten | Reduserer betalbar skatt (gjeld), ikke en kostnad |
+| Regning for regnskapsåret som er ubetalt per 31.12 (ikke en banktransaksjon) | Driftskostnad i året, med leverandørgjeld som motpost. Betalingen året etter reduserer leverandørgjelden og er ikke en ny kostnad |
 
 Ingen andre kontoer, ingen inntekter utover utbytte fra eierposter, renter fra banken og gevinst ved salg av aksjer. Resultatet blir normalt et lite underskudd lik driftskostnadene minus bankrentene, med mindre det er mottatt utbytte.
 
