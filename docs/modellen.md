@@ -59,7 +59,7 @@ Alt som ikke entydig passer modellen blir **flagget, ikke gjettet**. Claude stop
 
 - transaksjoner som ikke passer en rad over,
 - uvanlig store poster,
-- utbytte uten dekning i fri egenkapital (jf. aksjeloven § 8-1), som gjelder en avsetning like fullt som en utbetaling,
+- utbytte uten dekning i fri egenkapital (jf. aksjeloven § 8-1), som gjelder en avsetning like fullt som en utbetaling. Et utbytte vedtatt i løpet av året må ha dekning i sist godkjente årsregnskap, så årets resultat kan ikke dekke det,
 - penger ut til eier uten en avsetning som dekker dem,
 - penger ut til eier som kan være både utbytte og nedbetaling av lån fra aksjonær,
 - penger inn fra eier som ser ut som en kapitalforhøyelse eller tilleggsinnbetaling.
