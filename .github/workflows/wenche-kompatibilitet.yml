@@ -21,7 +21,7 @@ on:
   workflow_dispatch:
 
 env:
-  WENCHE_PINNET: "1.7.2"   # må matche kompatibilitetslinjen i CHANGELOG.md
+  WENCHE_PINNET: "1.8.0"   # må matche kompatibilitetslinjen i CHANGELOG.md
 
 jobs:
   pinnet:

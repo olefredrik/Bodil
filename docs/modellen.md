@@ -7,7 +7,7 @@ Bodil fører etter en bevisst minimal, låst bokføringsmodell. Den dekker det e
 | Hendelse i bankeksporten | Bokføres som |
 |---|---|
 | Penger inn fra eier | Lån fra aksjonær (gjeld). Flagges hvis beskrivelsen tyder på kapitalforhøyelse eller tilleggsinnbetaling |
-| Utbytte mottatt fra datterselskap | Finansinntekt (utbytte fra datterselskap) |
+| Utbytte mottatt fra en eierpost | Finansinntekt: utbytte fra datterselskap ved eierandel 20 % eller mer, ellers utbytte fra andre aksjer |
 | Penger ut til eier, opp til utestående avsatt utbytte | Reduserer avsatt utbytte (gjeld), ikke egenkapital. Flagges hvis selskapet også har lån fra aksjonær |
 | Penger ut til eier, bekreftet som nedbetaling, opp til utestående lån fra aksjonær | Reduserer lån fra aksjonær (gjeld), ikke egenkapital |
 | Penger ut til eier utover det | Flagges: nedbetaling av lån fra aksjonær, utbytte vedtatt i året, lån til aksjonær, eller tilbakebetaling av kapital |
@@ -19,7 +19,7 @@ Bodil fører etter en bevisst minimal, låst bokføringsmodell. Den dekker det e
 | Salg av eierpost | Kostprisen ut av balansen, differansen mot salgssummen er gevinst eller tap ved realisasjon av aksjer |
 | Betaling av skatt til Skatteetaten | Reduserer betalbar skatt (gjeld), ikke en kostnad |
 
-Ingen andre kontoer, ingen inntekter utover utbytte fra datterselskap, renter fra banken og gevinst ved salg av aksjer. Resultatet blir normalt et lite underskudd lik driftskostnadene minus bankrentene, med mindre det er mottatt utbytte.
+Ingen andre kontoer, ingen inntekter utover utbytte fra eierposter, renter fra banken og gevinst ved salg av aksjer. Resultatet blir normalt et lite underskudd lik driftskostnadene minus bankrentene, med mindre det er mottatt utbytte.
 
 ## Datterselskap eller andre aksjer
 
@@ -28,6 +28,8 @@ Eierpostene står til kostpris, men på én av to linjer i balansen. Skillet er 
 Linjen er ikke bare kosmetikk. Wenche oppgir selskapet som morselskap i årsregnskapet når det har aksjer i datterselskap, så et heleid datterselskap ført som andre aksjer gir feil opplysning. Små foretak trenger likevel ikke konsernregnskap (regnskapsloven § 3-2), så datterselskapet står fortsatt bare til kostpris.
 
 90 %-grensen hører til skatten, ikke balansen: den avgjør om utbytte er fullt skattefritt (se «Skatt» under).
+
+Utbyttet følger en egen grense på 20 %. Fra en eierpost på 20 % eller mer (datterselskap eller tilknyttet selskap) føres det som utbytte fra datterselskap, og under 20 % som utbytte fra andre aksjer. Årsregnskapet viser de to på hver sin linje, og skatten er den samme: fritaksmetoden med 3 %-sjablon, unntatt utbytte fra et datterselskap selskapet eier mer enn 90 % av.
 
 ## Utbytte
 

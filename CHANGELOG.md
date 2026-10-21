@@ -12,6 +12,14 @@ Hver oppføring som rører grensesnittet mot Wenche oppgir hvilken Wenche-versjo
 Bodil er testet mot. Den versjonen er også pinnet i CI
 ([wenche-kompatibilitet.yml](.github/workflows/wenche-kompatibilitet.yml)).
 
+## [1.2.0]
+
+- **Utbytte fra eierposter under 20 % føres som utbytte fra andre aksjer.** Bodil førte alt mottatt utbytte som `utbytte_fra_datterselskap`, og Wenche sendte det til Brønnøysund som «Inntekt på investering i datterselskap og tilknyttet selskap». Fra en eierpost under 20 % er selskapet verken datterselskap eller tilknyttet selskap. `bokforing` velger nå linje etter eierandelen, og `wenche-config` mapper til `utbytte_fra_andre_aksjer`, som Wenche har fra 1.8.0. Skatten er den samme: utbytte fra andre aksjer får alltid 3 %-sjablonen. Nytt fixture `config.andre-aksjer.yaml` (#30). **Feltet krever Wenche 1.8.0 eller nyere.** Eldre Wenche ignorerer det uten varsel, så utbyttet forsvinner fra resultatet. Hostet Wenche er oppdatert. Kjører du Wenche lokalt, oppgrader med `pipx upgrade wenche`. `wenche-config` sjekker versjonen og stopper hvis den er for gammel.
+
+**Overgang:** står utbytte fra en eierpost under 20 % som utbytte fra datterselskap i fjorårets `regnskap.md`, flytter `bokforing` fjorårets beløp til «Utbytte fra andre aksjer» i sammenligningstallene. Årsresultatet endres ikke, og ingenting må sendes inn på nytt.
+
+**Testet mot Wenche ≥ 1.8.0.**
+
 ## [1.1.0]
 
 - **`folio_import.py --med-id`** legger til kolonnen `folio_id` med Folios transaksjons-id, så et annet system kan skille to like transaksjoner fra en duplikat ved gjentatt import. Uten flagget er CSV-en uendret. Mangler en transaksjon id, stopper skriptet.
@@ -244,6 +252,7 @@ Første versjonerte utgave.
 
 **Testet mot Wenche ≥ 0.24.0.**
 
+[1.2.0]: https://github.com/olefredrik/Bodil/compare/v1.1.0...v1.2.0
 [1.1.0]: https://github.com/olefredrik/Bodil/compare/v1.0.0...v1.1.0
 [1.0.0]: https://github.com/olefredrik/Bodil/compare/v0.6.0...v1.0.0
 [0.6.0]: https://github.com/olefredrik/Bodil/compare/v0.5.0...v0.6.0

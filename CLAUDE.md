@@ -11,7 +11,7 @@ Kun passive holdingselskaper: selskaper som eier aksjer i andre selskaper og ell
 | Hendelse i bankeksporten | Bokføres som |
 |---|---|
 | Penger inn fra eier | Lån fra aksjonær (gjeld). Tyder beskrivelsen på kapitalforhøyelse eller tilleggsinnbetaling, flagg og spør |
-| Utbytte mottatt fra datterselskap | Finansinntekt (utbytte fra datterselskap) |
+| Utbytte mottatt fra en eierpost | Finansinntekt: utbytte fra datterselskap ved eierandel 20 % eller mer, ellers utbytte fra andre aksjer |
 | Penger ut til eier, opp til utestående avsatt utbytte | Reduserer avsatt utbytte (gjeld), ikke egenkapital. Har selskapet også lån fra aksjonær, spør om det er utbytte eller nedbetaling |
 | Penger ut til eier, bekreftet som nedbetaling, opp til utestående lån fra aksjonær | Reduserer lån fra aksjonær (gjeld), ikke egenkapital |
 | Penger ut til eier utover det | Flagg og spør: nedbetaling av lån fra aksjonær, utbytte vedtatt i året, lån til aksjonær, eller tilbakebetaling av kapital |
@@ -24,7 +24,7 @@ Kun passive holdingselskaper: selskaper som eier aksjer i andre selskaper og ell
 | Salg av eierpost | Kostprisen ut av balansen, differansen mot salgssummen er gevinst/tap ved realisasjon av aksjer (finanspost, skattefri/ikke fradrag etter fritaksmetoden) |
 | Betaling av skatt til Skatteetaten | Reduserer betalbar skatt (gjeld), ikke en kostnad |
 
-Ingen andre kontoer. Ingen inntekter utover utbytte fra datterselskap, renter fra banken og gevinst ved salg av eierpost. Resultatet blir normalt et lite underskudd lik driftskostnadene minus bankrentene, med mindre det er mottatt utbytte. Renteinntekter er fullt skattepliktige (22 %), og er det mottatt utbytte og eierandelen er 90 % eller lavere, gir 3 %-sjablonen i fritaksmetoden en liten skattepliktig inntekt i tillegg. Blir skattepliktig inntekt positiv, føres **skattekostnad** som egen linje før årsresultatet (rskl. § 6-1) med **betalbar skatt** som motpost i balansen.
+Ingen andre kontoer. Ingen inntekter utover utbytte fra eierposter, renter fra banken og gevinst ved salg av eierpost. Resultatet blir normalt et lite underskudd lik driftskostnadene minus bankrentene, med mindre det er mottatt utbytte. Renteinntekter er fullt skattepliktige (22 %), og er det mottatt utbytte og eierandelen er 90 % eller lavere, gir 3 %-sjablonen i fritaksmetoden en liten skattepliktig inntekt i tillegg. Blir skattepliktig inntekt positiv, føres **skattekostnad** som egen linje før årsresultatet (rskl. § 6-1) med **betalbar skatt** som motpost i balansen.
 
 ## Faste regler
 
