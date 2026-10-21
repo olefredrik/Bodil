@@ -130,6 +130,13 @@ utbytte_vedtaksdato: <ÅÅÅÅ-MM-DD>     # påkrevd når en aksjonær har utbyt
                                      # UTBETALT i år. Må ligge i regnskapsåret. Se under
 ```
 
+### Wenche-versjon ved utbytte fra andre aksjer
+
+`utbytte_fra_andre_aksjer` krever Wenche 1.8.0 eller nyere. Eldre Wenche ignorerer feltet uten varsel: utbyttet forsvinner fra resultatet, og valideringen går likevel gjennom. Er feltet over 0:
+
+- Si fra til brukeren at configen krever Wenche 1.8.0 eller nyere. Hostet Wenche (wenche.cloud) er oppdatert.
+- Er `wenche` installert lokalt, kjør `wenche --version`. Er versjonen eldre enn 1.8.0, **stopp** og be brukeren oppgradere (`pipx upgrade wenche`) før innsending.
+
 ### Fremførbart underskudd
 
 `underskudd_til_fremfoering` er saldoen ved årets **start**. Hent den fra linjen «Fremførbart underskudd 01.01» under «Skattemessig» i `regnskap.md`.
@@ -162,7 +169,7 @@ Skriv ut en kort sjekkliste over det du IKKE kunne utlede fra bankeksporten og s
 - [ ] `avsatt_utbytte` og `utbytte_utbetalt` er ikke forvekslet: den første er årets avsetning per 31.12, den andre er kontanter ut i året. Er fjorårets avsetning betalt i år og et nytt utbytte avsatt, er begge ulik null.
 - [ ] `tinginnskudd_ved_stiftelse` stemmer med stiftelsesdokumentene (kun år 1, og bare hvis selskapet ble stiftet ved tinginnskudd). Kan ikke utledes fra bankeksporten: et tinginnskudd går aldri gjennom bankkontoen.
 - [ ] Ved salg av eierpost: `gevinst_ved_realisasjon_av_aksjer` eller `tap_ved_realisasjon_av_aksjer` stemmer med «Salg av eierpost» i `regnskap.md`, og ingen del av beløpet står i `andre_finansinntekter`/`andre_finanskostnader`. `andre_aksjer` stemmer med `eierposter` i oppdatert `selskap.yaml`.
-- [ ] Utbyttet står på riktig linje: fra eierposter på 20 % eller mer under `utbytte_fra_datterselskap`, under 20 % under `utbytte_fra_andre_aksjer`.
+- [ ] Utbyttet står på riktig linje: fra eierposter på 20 % eller mer under `utbytte_fra_datterselskap`, under 20 % under `utbytte_fra_andre_aksjer`. Er `utbytte_fra_andre_aksjer` over 0, sendes configen med Wenche 1.8.0 eller nyere.
 - [ ] `eierandel_for_fritaksmetoden` riktig (avgjør om utbytte er fullt skattefritt eller 3 %-beskattet).
 - [ ] Eierpostene står på riktig linje: datterselskap (kontroll, normalt over 50 % av stemmene) under `aksjer_i_datterselskap`, resten under `andre_aksjer`. 90 %-grensen gjelder bare fritaksmetoden, ikke denne linjen.
 - [ ] Noter fylles i Wenches **Dokumenter-fane**: antall ansatte (normalt 0) og eventuelt lån fra aksjonær som lån til/fra nærstående. Wenche genererer selve notene, Bodil gjør det ikke.
