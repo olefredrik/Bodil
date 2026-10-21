@@ -33,7 +33,7 @@ Fører ett regnskapsår for et passivt holdingselskap fra en bankeksport. Du pro
 
 **Flagg og spør, ikke gjett**, ved: en transaksjon som ikke entydig passer en rad over, uvanlig store beløp, eller innbetalinger du ikke kan knytte til verken eier eller datterselskap. Bruk beskrivelsen i CSV-en til å avgjøre, men vær eksplisitt om hva du antok.
 
-Utbytte er den ene posten som **ikke** stammer fra bankeksporten. Det avsettes som gjeld i det året det gjelder, og utbetalingen året etter gjør bare opp gjelden. Se «Utbytte» under.
+Utbytte er den ene posten som **ikke** stammer fra bankeksporten. Det avsettes som gjeld i det året det gjelder, og utbetalingen året etter gjør bare opp gjelden. Se steg 5 «Utbytte for året» under «Beregning».
 
 ### Innbetaling fra eier
 
