@@ -1,6 +1,6 @@
 # Fixture for et holdingselskap stiftet ved tinginnskudd.
 #
-# Golden-fixturet dekker et vanlig driftsår, config.foerste-aar.yaml det forlengede
+# Golden-fixturet dekker et vanlig driftsår, config.foerste-aar.yaml det korte
 # første regnskapsåret. Denne dekker den tredje formen wenche-config kan produsere:
 # selskapets første regnskapsår der aksjekapitalen helt eller delvis ble skutt inn
 # som aksjer i et annet selskap i stedet for penger. Det er en vanlig måte å etablere

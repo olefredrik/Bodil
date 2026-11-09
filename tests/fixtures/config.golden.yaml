@@ -13,7 +13,7 @@
 # renteinntekter fra banken, som er fullt skattepliktige: 3 % av 12 500 = 375, pluss
 # renter 38, minus driftskostnader 125 = 288 skattepliktig, 22 % = 63,36, rundet opp
 # til 64 kr, med betalbar skatt som motpost i balansen. Se config.foerste-aar.yaml for
-# det forlengede første regnskapsåret.
+# det korte første regnskapsåret.
 #
 # Utbyttet på 10 000 er vedtatt i løpet av året og har dekning i fjorårets balanse:
 # annen egenkapital 15 000 per 31.12 i fjor (aksjeloven § 8-1).
