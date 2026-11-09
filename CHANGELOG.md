@@ -261,6 +261,7 @@ Første versjonerte utgave.
 
 **Testet mot Wenche ≥ 0.24.0.**
 
+[1.3.0]: https://github.com/olefredrik/Bodil/compare/v1.2.0...v1.3.0
 [1.2.0]: https://github.com/olefredrik/Bodil/compare/v1.1.0...v1.2.0
 [1.1.0]: https://github.com/olefredrik/Bodil/compare/v1.0.0...v1.1.0
 [1.0.0]: https://github.com/olefredrik/Bodil/compare/v0.6.0...v1.0.0
