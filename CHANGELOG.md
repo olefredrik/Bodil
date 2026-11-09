@@ -12,6 +12,14 @@ Hver oppføring som rører grensesnittet mot Wenche oppgir hvilken Wenche-versjo
 Bodil er testet mot. Den versjonen er også pinnet i CI
 ([wenche-kompatibilitet.yml](.github/workflows/wenche-kompatibilitet.yml)).
 
+## [1.3.0]
+
+- **Forlenget første regnskapsår er fjernet, og et selskap stiftet i løpet av året får et kort første regnskapsår.** `wenche-config` kunne lage en config for et første regnskapsår på inntil 18 måneder (rskl. § 1-7 andre ledd), og Wenche sendte da én skattemelding for hele perioden. Skattemeldingen skal leveres for hvert kalenderår, så stiftelsesåret fikk ingen skattemelding. Wenche avviser derfor en periode over to kalenderår fra 1.10.0 ([Wenche#193](https://github.com/olefredrik/Wenche/issues/193)). `wenche-config` setter nå `regnskapsstart` til stiftelsesdatoen bare i et kort første regnskapsår som slutter 31.12 samme år, og stopper med en forklaring hvis brukeren ber om et forlenget år. Fixturet `config.foerste-aar.yaml` dekker nå det korte første året.
+
+**Overgang:** har du valgt forlenget første regnskapsår og ennå ikke levert noe, før stiftelsesåret som eget regnskapsår, med eget årsregnskap og egen skattemelding. Har du allerede levert skattemelding for en forlenget periode med Wenche, kontroller med Skatteetaten om stiftelsesåret mangler skattemelding.
+
+**Testet mot Wenche ≥ 1.10.0.**
+
 ## [1.2.0]
 
 - **Utbytte fra eierposter under 20 % føres som utbytte fra andre aksjer.** Bodil førte alt mottatt utbytte som `utbytte_fra_datterselskap`, og Wenche sendte det til Brønnøysund som «Inntekt på investering i datterselskap og tilknyttet selskap». Fra en eierpost under 20 % er selskapet verken datterselskap eller tilknyttet selskap. `bokforing` velger nå linje etter eierandelen, og `wenche-config` mapper til `utbytte_fra_andre_aksjer`, som Wenche har fra 1.8.0. Skatten er den samme: utbytte fra andre aksjer får alltid 3 %-sjablonen. Nytt fixture `config.andre-aksjer.yaml` (#30). **Feltet krever Wenche 1.8.0 eller nyere.** Eldre Wenche ignorerer det uten varsel, så utbyttet forsvinner fra resultatet. Hostet Wenche er oppdatert. Kjører du Wenche lokalt, oppgrader med `pipx upgrade wenche`. `wenche-config` sjekker versjonen og stopper hvis den er for gammel.

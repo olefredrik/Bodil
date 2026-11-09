@@ -1,15 +1,13 @@
-# Fixture for det forlengede første regnskapsåret (rskl. § 1-7 andre ledd).
+# Fixture for det korte første regnskapsåret.
 #
 # Golden-fixturet dekker et vanlig kalenderår. Denne dekker den andre formen
-# wenche-config kan produsere: et selskap stiftet sent på året som lar det
-# første regnskapsåret løpe fram til 31.12 året etter. Da settes
-# `regnskapsstart` (= stiftelsesdatoen) og `regnskapsslutt`, `regnskapsaar` er
-# året perioden AVSLUTTES, og `foregaaende_aar` utelates helt fordi det ikke
-# finnes noe fjorår å sammenligne med.
+# wenche-config kan produsere: et selskap stiftet i løpet av året, der det
+# første regnskapsåret løper fra stiftelsesdatoen til 31.12 samme år. Da settes
+# `regnskapsstart` (= stiftelsesdatoen), `regnskapsaar` er stiftelsesåret, og
+# `regnskapsslutt` og `foregaaende_aar` utelates.
 #
-# Wenche gir to forventede ADVARSEL-linjer her (periode over 12 måneder, og
-# manglende sammenligningstall er ikke en av dem siden dette er første år).
-# CI godtar advarsler, den krever bare exit 0.
+# Forlenget første regnskapsår (rskl. § 1-7 andre ledd) støttes ikke av Wenche
+# fra 1.10.0, siden skattemeldingen leveres for hvert kalenderår.
 #
 # KUN syntetiske data. Aldri ekte fødselsnummer her (fila versjoneres).
 
@@ -24,9 +22,8 @@ selskap:
   aksjekapital: 30000
   kontakt_epost: "kari@example.no"
 
-regnskapsaar: 2026
+regnskapsaar: 2025
 regnskapsstart: "2025-11-20"
-regnskapsslutt: "2026-12-31"
 
 resultatregnskap:
   driftsinntekter:

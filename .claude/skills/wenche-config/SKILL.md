@@ -59,10 +59,10 @@ resultatregnskap:
   skattekostnad: <fra regnskap.md>     # egen linje før årsresultatet (rskl. § 6-1), 0 uten
                                        # skattepliktig inntekt
 
-# regnskapsstart: <ÅÅÅÅ-MM-DD>       # UTELAT begge ved vanlig kalenderår. Tas bare med ved
-# regnskapsslutt: <ÅÅÅÅ-MM-DD>       # forlenget første regnskapsår (rskl. § 1-7 andre ledd):
-                                     # start = stiftelsesdato, slutt = 31.12, og
-                                     # regnskapsaar over er året perioden AVSLUTTES
+# regnskapsstart: <ÅÅÅÅ-MM-DD>       # UTELAT ved vanlig kalenderår. Tas bare med i selskapets
+                                     # første regnskapsår når det ble stiftet i løpet av året:
+                                     # start = stiftelsesdato. regnskapsslutt utelates alltid
+                                     # (31.12). Se «Første regnskapsår» under
 
 balanse:
   eiendeler:
@@ -136,6 +136,12 @@ utbytte_vedtaksdato: <ÅÅÅÅ-MM-DD>     # påkrevd når en aksjonær har utbyt
 
 - Si fra til brukeren at configen krever Wenche 1.8.0 eller nyere. Hostet Wenche (wenche.cloud) er oppdatert.
 - Er `wenche` installert lokalt, kjør `wenche --version`. Er versjonen eldre enn 1.8.0, **stopp** og be brukeren oppgradere (`pipx upgrade wenche`) før innsending.
+
+### Første regnskapsår
+
+Et selskap stiftet i løpet av året har et kort første regnskapsår fra stiftelsesdatoen til 31.12 samme år. Sett da `regnskapsstart` til stiftelsesdatoen og `regnskapsaar` til stiftelsesåret, og utelat `regnskapsslutt` og `foregaaende_aar`.
+
+Wenche støtter ikke forlenget første regnskapsår (rskl. § 1-7 andre ledd, inntil 18 måneder fram til 31.12 året etter), og avviser fra 1.10.0 en periode som går over to kalenderår. Skattemeldingen skal leveres for hvert kalenderår, også stiftelsesåret, og Wenche bygger årsregnskap og skattemelding fra samme periode. Ber brukeren om et forlenget første regnskapsår, eller dekker `regnskap.md` transaksjoner fra to kalenderår, **stopp** og forklar dette i stedet for å lage en config. Anbefal et kort første regnskapsår, med eget regnskap for stiftelsesåret.
 
 ### Fremførbart underskudd
 
