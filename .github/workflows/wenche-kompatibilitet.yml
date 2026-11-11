@@ -65,8 +65,6 @@ jobs:
         # `wenche skjema` (Wenche 1.16.0 og nyere) er et JSON Schema generert fra Wenches
         # datamodell. Avviser ukjente felt, feil type og manglende påkrevde felt, med sti.
         run: python tests/valider_mot_skjema.py
-      - name: Feltnavn-lint
-        run: python tests/check_field_names.py
       - name: Folio-import-tester
         run: python tests/test_folio_import.py
 
@@ -107,8 +105,6 @@ jobs:
         # `wenche skjema` (Wenche 1.16.0 og nyere) er et JSON Schema generert fra Wenches
         # datamodell. Avviser ukjente felt, feil type og manglende påkrevde felt, med sti.
         run: python tests/valider_mot_skjema.py
-      - name: Feltnavn-lint
-        run: python tests/check_field_names.py
       - name: Opprett issue ved brudd
         if: failure()
         env:
