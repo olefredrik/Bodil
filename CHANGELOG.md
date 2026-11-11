@@ -12,6 +12,12 @@ Hver oppføring som rører grensesnittet mot Wenche oppgir hvilken Wenche-versjo
 Bodil er testet mot. Den versjonen er også pinnet i CI
 ([wenche-kompatibilitet.yml](.github/workflows/wenche-kompatibilitet.yml)).
 
+## [1.4.1]
+
+- **Feltnavn-linten er fjernet.** `tests/check_field_names.py` sjekket at hvert feltnavn i fixturene fantes i Wenches dataklasser. Skjemavalideringen fra 1.4.0 dekker det samme med sti til feltet, og i tillegg typer, valg og påkrevde felt, så linten var dobbelt arbeid.
+
+**Testet mot Wenche ≥ 1.16.0.**
+
 ## [1.4.0]
 
 - **Fixturene valideres mot Wenches config-skjema.** Wenche 1.16.0 har `wenche skjema`, et JSON Schema generert fra Wenches datamodell som avviser felt Wenche ikke kjenner, feil type, ugyldige valg og manglende påkrevde felt, med sti til feltet. CI kjører nå `tests/valider_mot_skjema.py` mot hvert fixture i tillegg til `wenche valider-aarsregnskap`, både mot den pinnede og nyeste Wenche. Dermed fanges det at et felt Bodil skriver er døpt om, fjernet eller har fått en annen type i Wenche, før verdien stille forsvinner fra innsendingen.
@@ -267,6 +273,7 @@ Første versjonerte utgave.
 
 **Testet mot Wenche ≥ 0.24.0.**
 
+[1.4.1]: https://github.com/olefredrik/Bodil/compare/v1.4.0...v1.4.1
 [1.4.0]: https://github.com/olefredrik/Bodil/compare/v1.3.0...v1.4.0
 [1.3.0]: https://github.com/olefredrik/Bodil/compare/v1.2.0...v1.3.0
 [1.2.0]: https://github.com/olefredrik/Bodil/compare/v1.1.0...v1.2.0

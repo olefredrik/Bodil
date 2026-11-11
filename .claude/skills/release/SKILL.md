@@ -50,7 +50,6 @@ Kjernen i en Bodil-release. En release uten grønn kompatibilitetstest er ikke g
 - Kjør gjerne lokalt hvis Wenche er installert; begge må gi exit 0:
   - `for f in tests/fixtures/config.*.yaml; do wenche valider-aarsregnskap --config "$f"; done`
   - `python tests/valider_mot_skjema.py`
-  - `python tests/check_field_names.py`
 
 ## 4. Bekreft at alt er klart for tag
 
