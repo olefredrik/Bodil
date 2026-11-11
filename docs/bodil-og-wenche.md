@@ -42,6 +42,6 @@ Resten er likt: gå gjennom fanene, fyll noter i **Dokumenter**-fanen, kontrolle
 
 Siden `config.yaml` er broen, må Bodil holde tritt med Wenches feltnavn. Hver Bodil-versjon er verifisert mot en bestemt Wenche-versjon, oppgitt i [CHANGELOG](https://github.com/olefredrik/Bodil/blob/main/CHANGELOG.md).
 
-Kompatibiliteten håndheves automatisk: en GitHub Action validerer et golden-fixture mot den pinnede Wenche-versjonen på hver PR, og kjører ukentlig mot nyeste Wenche for å varsle om kommende endringer. Bruker du en eldre Bodil-kopi mot en mye nyere Wenche, sjekk CHANGELOG.
+Kompatibiliteten håndheves automatisk: en GitHub Action validerer fixturene i `tests/fixtures/` mot den pinnede Wenche-versjonen på hver PR, både med Wenches egen validering og mot config-skjemaet fra `wenche skjema`, og kjører ukentlig mot nyeste Wenche for å varsle om kommende endringer. Bruker du en eldre Bodil-kopi mot en mye nyere Wenche, sjekk CHANGELOG.
 
 Se [Wenche-dokumentasjonen](https://olefredrik.github.io/Wenche/) for installasjon, Maskinporten-oppsett og innsending.

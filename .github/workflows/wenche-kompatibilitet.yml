@@ -21,7 +21,7 @@ on:
   workflow_dispatch:
 
 env:
-  WENCHE_PINNET: "1.10.0"   # må matche kompatibilitetslinjen i CHANGELOG.md
+  WENCHE_PINNET: "1.16.0"   # må matche kompatibilitetslinjen i CHANGELOG.md
 
 jobs:
   pinnet:
@@ -44,7 +44,7 @@ jobs:
         with:
           python-version: "3.12"
       - name: Installer pinnet Wenche
-        run: pip install "wenche==${WENCHE_PINNET}"
+        run: pip install "wenche==${WENCHE_PINNET}" jsonschema
       - name: Valider fixturene mot Wenche
         run: |
           for fixture in tests/fixtures/config.*.yaml; do
@@ -61,6 +61,10 @@ jobs:
             wenche send-aksjonaerregister --dry-run --config "$fixture"
             echo "::endgroup::"
           done
+      - name: Valider fixturene mot config-skjemaet
+        # `wenche skjema` (Wenche 1.16.0 og nyere) er et JSON Schema generert fra Wenches
+        # datamodell. Avviser ukjente felt, feil type og manglende påkrevde felt, med sti.
+        run: python tests/valider_mot_skjema.py
       - name: Feltnavn-lint
         run: python tests/check_field_names.py
       - name: Folio-import-tester
@@ -82,7 +86,7 @@ jobs:
         with:
           python-version: "3.12"
       - name: Installer nyeste Wenche
-        run: pip install --upgrade wenche
+        run: pip install --upgrade wenche jsonschema
       - name: Valider fixturene mot Wenche
         run: |
           for fixture in tests/fixtures/config.*.yaml; do
@@ -99,6 +103,10 @@ jobs:
             wenche send-aksjonaerregister --dry-run --config "$fixture"
             echo "::endgroup::"
           done
+      - name: Valider fixturene mot config-skjemaet
+        # `wenche skjema` (Wenche 1.16.0 og nyere) er et JSON Schema generert fra Wenches
+        # datamodell. Avviser ukjente felt, feil type og manglende påkrevde felt, med sti.
+        run: python tests/valider_mot_skjema.py
       - name: Feltnavn-lint
         run: python tests/check_field_names.py
       - name: Opprett issue ved brudd
