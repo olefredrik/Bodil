@@ -12,6 +12,12 @@ Hver oppføring som rører grensesnittet mot Wenche oppgir hvilken Wenche-versjo
 Bodil er testet mot. Den versjonen er også pinnet i CI
 ([wenche-kompatibilitet.yml](.github/workflows/wenche-kompatibilitet.yml)).
 
+## [1.4.0]
+
+- **Fixturene valideres mot Wenches config-skjema.** Wenche 1.16.0 har `wenche skjema`, et JSON Schema generert fra Wenches datamodell som avviser felt Wenche ikke kjenner, feil type, ugyldige valg og manglende påkrevde felt, med sti til feltet. CI kjører nå `tests/valider_mot_skjema.py` mot hvert fixture i tillegg til `wenche valider-aarsregnskap`, både mot den pinnede og nyeste Wenche. Dermed fanges det at et felt Bodil skriver er døpt om, fjernet eller har fått en annen type i Wenche, før verdien stille forsvinner fra innsendingen.
+
+**Testet mot Wenche ≥ 1.16.0.**
+
 ## [1.3.0]
 
 - **Forlenget første regnskapsår er fjernet, og et selskap stiftet i løpet av året får et kort første regnskapsår.** `wenche-config` kunne lage en config for et første regnskapsår på inntil 18 måneder (rskl. § 1-7 andre ledd), og Wenche sendte da én skattemelding for hele perioden. Skattemeldingen skal leveres for hvert kalenderår, så stiftelsesåret fikk ingen skattemelding. Wenche avviser derfor en periode over to kalenderår fra 1.10.0 ([Wenche#193](https://github.com/olefredrik/Wenche/issues/193)). `wenche-config` setter nå `regnskapsstart` til stiftelsesdatoen bare i et kort første regnskapsår som slutter 31.12 samme år, og stopper med en forklaring hvis brukeren ber om et forlenget år. Fixturet `config.foerste-aar.yaml` dekker nå det korte første året.
@@ -261,6 +267,7 @@ Første versjonerte utgave.
 
 **Testet mot Wenche ≥ 0.24.0.**
 
+[1.4.0]: https://github.com/olefredrik/Bodil/compare/v1.3.0...v1.4.0
 [1.3.0]: https://github.com/olefredrik/Bodil/compare/v1.2.0...v1.3.0
 [1.2.0]: https://github.com/olefredrik/Bodil/compare/v1.1.0...v1.2.0
 [1.1.0]: https://github.com/olefredrik/Bodil/compare/v1.0.0...v1.1.0
